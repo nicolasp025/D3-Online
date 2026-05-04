@@ -1,10 +1,11 @@
 import './App.css'
+import { Editor } from './components/Editor'
 
 function App() {
 
   return (
     <>
-      D3-Online project.
+      <Editor />
     </>
   )
 }
