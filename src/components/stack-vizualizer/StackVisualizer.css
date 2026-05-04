@@ -1,0 +1,16 @@
+.stack-visualizer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.steps-tables {
+  display: flex;
+  background-color: var(--color-background-secondary);
+  flex-direction: row;
+  justify-content: space-between;
+
+  > * {
+    width: 100%;
+  }
+}

@@ -1,0 +1,7 @@
+.steps-table {
+  height: 100%;
+
+  .selected {
+    background-color: var(--color-primary);
+  }
+}

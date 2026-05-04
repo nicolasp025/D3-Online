@@ -1,5 +1,19 @@
 :root {
+  --color-primary: #8f59fd;
+  --color-background: #121117;
+  --color-background-secondary: #25242b;
 
-  font-family: Roboto, sans-serif;
+  background-color: var(--color-background);
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
 
+body {
+  height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
