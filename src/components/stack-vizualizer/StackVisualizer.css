@@ -6,11 +6,13 @@
 
 .steps-tables {
   display: flex;
-  background-color: var(--color-background-secondary);
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 8px;
 
   > * {
+    background-color: var(--color-background-secondary);
     width: 100%;
   }
 }

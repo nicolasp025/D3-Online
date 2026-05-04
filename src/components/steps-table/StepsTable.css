@@ -1,7 +1,18 @@
 .steps-table {
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  gap: 4px;
 
   .selected {
     background-color: var(--color-primary);
+  }
+
+  > * {
+    user-select: none;
+    padding-left: 2px;
+    cursor: pointer;
   }
 }
