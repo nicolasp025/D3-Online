@@ -1,11 +1,11 @@
 import './App.css'
-import { Editor } from './components/Editor'
+import { MonacoEditor } from './components/Editor'
 
 function App() {
 
   return (
     <>
-      <Editor />
+      <div style={{height: "500px"}}><MonacoEditor /></div>
     </>
   )
 }
