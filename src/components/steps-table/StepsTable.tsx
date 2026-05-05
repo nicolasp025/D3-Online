@@ -4,13 +4,13 @@ import "./StepsTable.css";
 interface StepsTableProps {
   steps: ExecutionStep[];
   selectedPosition: number;
-  updateTablesPosition: (newPosition: number) => void;
+  updateTablesPositions: (newPosition: number) => void;
 }
 
 const StepsTable: React.FC<StepsTableProps> = ({
   steps,
   selectedPosition,
-  updateTablesPosition,
+  updateTablesPositions,
 }) => {
   return (
     <div className="steps-table container">
@@ -20,7 +20,7 @@ const StepsTable: React.FC<StepsTableProps> = ({
             key={`step-${step.id}`}
             className="steps-table-item-wrapper"
             onClick={() => {
-              updateTablesPosition(step.position);
+              updateTablesPositions(step.position);
             }}
           >
             <div

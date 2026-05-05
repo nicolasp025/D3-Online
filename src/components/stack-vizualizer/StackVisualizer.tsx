@@ -20,23 +20,52 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
   const [originalPosition, setOriginalPosition] = useState(0);
   const [modifiedPosition, setModifiedPosition] = useState(0);
 
-  const updateTablesPosition = (newPosition: number) => {
+  /**
+   * Sets a new position for both steps tables.
+   * @param newPosition The new position for both tables.
+   */
+  const updateTablesPositions = (newPosition: number) => {
     setOriginalPosition(newPosition);
     setModifiedPosition(newPosition);
   };
 
+  /**
+   * Increases or decreases the table position when ArrowUp or ArrownDown is pressed.
+   * @param event The keyboard event.
+   */
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    switch (event.key) {
+      case "ArrowUp":
+        if (originalPosition > 0) {
+          setOriginalPosition(originalPosition - 1);
+        }
+        if (modifiedPosition > 0) {
+          setModifiedPosition(modifiedPosition - 1);
+        }
+        break;
+      case "ArrowDown":
+        if (originalPosition < originalStack.steps.length - 1) {
+          setOriginalPosition(originalPosition + 1);
+        }
+        if (modifiedPosition < modifiedStack.steps.length - 1) {
+          setModifiedPosition(modifiedPosition + 1);
+        }
+        break;
+    }
+  };
+
   return (
     <div className="stack-visualizer">
-      <div className="steps-tables">
+      <div className="steps-tables" tabIndex={0} onKeyDown={handleKeyDown}>
         <StepsTable
           steps={originalStack.steps}
           selectedPosition={originalPosition}
-          updateTablesPosition={updateTablesPosition}
+          updateTablesPositions={updateTablesPositions}
         />
         <StepsTable
           steps={modifiedStack.steps}
           selectedPosition={modifiedPosition}
-          updateTablesPosition={updateTablesPosition}
+          updateTablesPositions={updateTablesPositions}
         />
       </div>
 
@@ -57,8 +86,8 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
             splitViewDefaultRatio: 0.515,
           }}
           beforeMount={defineMonacoTheme}
-          original={originalStack.steps[originalPosition].content}
-          modified={modifiedStack.steps[modifiedPosition].content}
+          original={originalStack.steps[originalPosition]?.content ?? ""}
+          modified={modifiedStack.steps[modifiedPosition]?.content ?? ""}
         />
       </div>
     </div>
