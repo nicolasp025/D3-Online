@@ -49,6 +49,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
           },
           diffWordWrap: "on",
           readOnly: true,
+          splitViewDefaultRatio: 0.515,
         }}
         original={originalStack.steps[originalPosition].content}
         modified={modifiedStack.steps[modifiedPosition].content}

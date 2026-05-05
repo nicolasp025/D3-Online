@@ -11,8 +11,4 @@
   margin-bottom: 8px;
   gap: 8px;
 
-  > * {
-    background-color: var(--color-background-secondary);
-    width: 100%;
-  }
 }

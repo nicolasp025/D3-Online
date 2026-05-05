@@ -13,17 +13,24 @@ const StepsTable: React.FC<StepsTableProps> = ({
   updateTablesPosition,
 }) => {
   return (
-    <div className="steps-table">
+    <div className="steps-table container">
       {steps.length > 0 &&
         steps.map((step) => (
           <div
-            key={`step-${step.id}`}
-            className={step.position == selectedPosition ? "selected" : ""}
+            className="steps-table-item-wrapper"
             onClick={() => {
               updateTablesPosition(step.position);
             }}
           >
-            {step.displayName}
+            <div
+              key={`step-${step.id}`}
+              className={
+                "steps-table-item" +
+                (step.position == selectedPosition ? " selected" : "")
+              }
+            >
+              {step.displayName}
+            </div>
           </div>
         ))}
     </div>

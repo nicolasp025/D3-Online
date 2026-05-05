@@ -1,7 +1,8 @@
 :root {
   --color-primary: #8f59fd;
-  --color-background: #121117;
-  --color-background-secondary: #25242b;
+  --color-background: #0c0c0c;
+  --color-background-secondary: #111111;
+  --color-background-selected: #2a2a2a;
 
   background-color: var(--color-background);
   color: white;
@@ -17,4 +18,11 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.container {
+  box-sizing: border-box;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: var(--color-background-secondary);
 }

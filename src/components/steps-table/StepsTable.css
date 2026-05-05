@@ -1,18 +1,27 @@
 .steps-table {
   display: flex;
+  width: 100%;
   flex-direction: column;
   height: 100%;
-  box-sizing: border-box;
-  padding: 8px;
-  gap: 4px;
 
   .selected {
-    background-color: var(--color-primary);
+    background-color: var(--color-background-selected);
   }
 
-  > * {
+  .steps-table-item {
     user-select: none;
-    padding-left: 2px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    transition: background-color 0.4s ease;
+  }
+
+  .steps-table-item-wrapper {
+    box-sizing: border-box;
     cursor: pointer;
+    padding: 6px 0;
+
+    &:not(:last-child) {
+      border-bottom: solid 1px #2b2b2b;
+    }
   }
 }
