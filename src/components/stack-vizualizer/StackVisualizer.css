@@ -12,3 +12,8 @@
   gap: 8px;
 
 }
+
+.stack-editor {
+  display: flex;
+  height: 100%;
+}
