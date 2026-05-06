@@ -83,6 +83,12 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
         increaseOriginalPosition();
         increaseModifiedPosition();
         break;
+      case "ArrowRight":
+        increaseModifiedPosition();
+        break;
+      case "ArrowLeft":
+        increaseOriginalPosition();
+        break;
     }
   };
 
@@ -115,27 +121,30 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
           Restart
         </button>
       </div>
-      <div className="stack-header container">
-        <div>
-          <span>Position</span>
-          <span>Frame</span>
+
+      <div className="container">
+        <div className="stack-header">
+          <div>
+            <span>Position</span>
+            <span>Frame</span>
+          </div>
+          <div>
+            <span>Position</span>
+            <span>Frame</span>
+          </div>
         </div>
-        <div>
-          <span>Position</span>
-          <span>Frame</span>
+        <div className="frame-tables">
+          <StepsTable
+            steps={originalStack.steps}
+            selectedPosition={originalPosition}
+            updateTablesPositions={updateTablesPositions}
+          />
+          <StepsTable
+            steps={modifiedStack.steps}
+            selectedPosition={modifiedPosition}
+            updateTablesPositions={updateTablesPositions}
+          />
         </div>
-      </div>
-      <div className="frame-tables">
-        <StepsTable
-          steps={originalStack.steps}
-          selectedPosition={originalPosition}
-          updateTablesPositions={updateTablesPositions}
-        />
-        <StepsTable
-          steps={modifiedStack.steps}
-          selectedPosition={modifiedPosition}
-          updateTablesPositions={updateTablesPositions}
-        />
       </div>
 
       <div className="stack-editor container">
