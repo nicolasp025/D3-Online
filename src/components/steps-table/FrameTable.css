@@ -1,0 +1,32 @@
+.frame-table {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 8px;
+  max-height: 270px;
+  overflow-y: auto;
+
+  .selected {
+    background-color: var(--color-background-selected);
+  }
+
+  .frame-table-item {
+    display: flex;
+    user-select: none;
+    padding: 6px 8px;
+    border-radius: 8px;
+    transition: background-color 0.4s ease;
+    gap: 56px;
+  }
+
+  .frame-table-item-wrapper {
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 6px 0;
+
+    &:not(:last-child) {
+      border-bottom: solid 1px var(--color-table-separator);
+    }
+  }
+}

@@ -1,12 +1,19 @@
-import './App.css'
+import "./App.css";
+import StackVisualizer from "./components/stack-vizualizer/StackVisualizer";
+import { modifiedStack, originalStack } from "./fakedata";
 
 function App() {
-
   return (
     <>
-      D3-Online project.
+      <div style={{ height: "65%" }}></div>
+      <div style={{ height: "100%" }}>
+        <StackVisualizer
+          originalStack={originalStack}
+          modifiedStack={modifiedStack}
+        />
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
