@@ -5,7 +5,41 @@
   gap: 8px;
 }
 
-.tables-header {
+.stack-actions {
+  display: flex;
+
+  button {
+    all: initial;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    color: var(--color-font);
+    font-family: var(--font);
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+    border-radius: 8px;
+    margin: 0 4px;
+  }
+
+  button:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -4px;
+    width: 1px;
+    height: 100%;
+    background: var(--color-table-separator);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  button:hover {
+    background-color: var(--color-background-selected);
+  }
+}
+
+.stack-header {
   display: flex;
   justify-content: space-between;
   gap: 22px;

@@ -30,33 +30,80 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
   };
 
   /**
+   * Increases the original stack selected position.
+   */
+  const increaseOriginalPosition = () => {
+    if (originalPosition < originalStack.steps.length - 1) {
+      setOriginalPosition(originalPosition + 1);
+    }
+  };
+
+  /**
+   * Increases the modified stack selected position.
+   */
+  const increaseModifiedPosition = () => {
+    if (modifiedPosition < modifiedStack.steps.length - 1) {
+      setModifiedPosition(modifiedPosition + 1);
+    }
+  };
+
+  /**
+   * Decreases the original stack selected position.
+   */
+  const decreaseOriginalPosition = () => {
+    if (originalPosition > 0) {
+      setOriginalPosition(originalPosition - 1);
+    }
+  };
+
+  /**
+   * Decreases the modified stack selected position.
+   */
+  const decreaseModifiedPosition = () => {
+    if (modifiedPosition > 0) {
+      setModifiedPosition(modifiedPosition - 1);
+    }
+  };
+
+  /**
    * Increases or decreases the table position when ArrowUp or ArrownDown is pressed.
    * @param event The keyboard event.
    */
   const handleKeyDown = (event: React.KeyboardEvent) => {
     switch (event.key) {
       case "ArrowUp":
-        if (originalPosition > 0) {
-          setOriginalPosition(originalPosition - 1);
-        }
-        if (modifiedPosition > 0) {
-          setModifiedPosition(modifiedPosition - 1);
-        }
+        decreaseOriginalPosition();
+        decreaseModifiedPosition();
         break;
       case "ArrowDown":
-        if (originalPosition < originalStack.steps.length - 1) {
-          setOriginalPosition(originalPosition + 1);
-        }
-        if (modifiedPosition < modifiedStack.steps.length - 1) {
-          setModifiedPosition(modifiedPosition + 1);
-        }
+        increaseOriginalPosition();
+        increaseModifiedPosition();
         break;
     }
   };
 
   return (
     <div className="stack-visualizer" tabIndex={0} onKeyDown={handleKeyDown}>
-      <div className="tables-header container">
+      <div className="stack-actions container">
+        <button onClick={increaseOriginalPosition}>Step left</button>
+        <button
+          onClick={() => {
+            increaseOriginalPosition();
+            increaseModifiedPosition();
+          }}
+        >
+          Step sync
+        </button>
+        <button onClick={increaseModifiedPosition}>Step right</button>
+        <button
+          onClick={() => {
+            updateTablesPositions(0);
+          }}
+        >
+          Restart
+        </button>
+      </div>
+      <div className="stack-header container">
         <div>
           <span>Position</span>
           <span>Frame</span>

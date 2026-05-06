@@ -3,10 +3,15 @@
   --color-background: #0c0c0c;
   --color-background-secondary: #151515;
   --color-background-selected: #2a2a2a;
+  --color-table-separator: #2b2b2b;
+
+  --color-font: white;
+
+  --font: "Roboto", sans-serif;
 
   background-color: var(--color-background);
-  color: white;
-  font-family: "Roboto", sans-serif;
+  color: var(--color-font);
+  font-family: var(--font);
 }
 
 body {
