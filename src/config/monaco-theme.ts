@@ -7,7 +7,7 @@ export const EDITOR_THEME = {
   inherit: true,
   rules: [],
   colors: {
-    "editor.background": "#111111",
+    "editor.background": "#151515",
   },
 };
 

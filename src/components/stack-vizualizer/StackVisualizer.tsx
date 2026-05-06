@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { ExecutionStack } from "../../model/stack";
-import StepsTable from "../steps-table/StepsTable";
+import StepsTable from "../steps-table/FrameTable";
 import "./StackVisualizer.css";
 import { DiffEditor } from "@monaco-editor/react";
 import {
@@ -55,8 +55,18 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
   };
 
   return (
-    <div className="stack-visualizer">
-      <div className="steps-tables" tabIndex={0} onKeyDown={handleKeyDown}>
+    <div className="stack-visualizer" tabIndex={0} onKeyDown={handleKeyDown}>
+      <div className="tables-header container">
+        <div>
+          <span>Position</span>
+          <span>Frame</span>
+        </div>
+        <div>
+          <span>Position</span>
+          <span>Frame</span>
+        </div>
+      </div>
+      <div className="frame-tables">
         <StepsTable
           steps={originalStack.steps}
           selectedPosition={originalPosition}
@@ -75,14 +85,14 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
           theme={EDITOR_THEME_NAME}
           language="typescript"
           options={{
+            readOnly: true,
             originalEditable: false,
-            lineNumbers: "off",
+            lineNumbers: "on",
             fontSize: 16,
             minimap: {
               enabled: false,
             },
             diffWordWrap: "on",
-            readOnly: true,
             splitViewDefaultRatio: 0.515,
           }}
           beforeMount={defineMonacoTheme}

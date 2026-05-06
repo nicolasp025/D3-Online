@@ -1,21 +1,26 @@
-.steps-table {
+.frame-table {
   display: flex;
   width: 100%;
   flex-direction: column;
   height: 100%;
+  padding: 0 8px;
+  max-height: 310px;
+  overflow-y: auto;
 
   .selected {
     background-color: var(--color-background-selected);
   }
 
-  .steps-table-item {
+  .frame-table-item {
+    display: flex;
     user-select: none;
     padding: 6px 8px;
     border-radius: 8px;
     transition: background-color 0.4s ease;
+    gap: 56px;
   }
 
-  .steps-table-item-wrapper {
+  .frame-table-item-wrapper {
     box-sizing: border-box;
     cursor: pointer;
     padding: 6px 0;

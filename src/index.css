@@ -1,7 +1,7 @@
 :root {
   --color-primary: #8f59fd;
   --color-background: #0c0c0c;
-  --color-background-secondary: #111111;
+  --color-background-secondary: #151515;
   --color-background-selected: #2a2a2a;
 
   background-color: var(--color-background);
@@ -12,6 +12,8 @@
 body {
   height: 100vh;
   margin: 0 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 #root {
