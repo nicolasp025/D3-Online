@@ -7,6 +7,10 @@ import {
   defineMonacoTheme,
   EDITOR_THEME_NAME,
 } from "../../config/monaco-theme";
+import arrow_back from "../../assets/icons/arrow_back.svg";
+import arrow_forward from "../../assets/icons/arrow_forward.svg";
+import restart from "../../assets/icons/restart.svg";
+import arrows_sync from "../../assets/icons/arrows_sync.svg";
 
 interface StackVisualizerProps {
   originalStack: ExecutionStack;
@@ -85,21 +89,29 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
   return (
     <div className="stack-visualizer" tabIndex={0} onKeyDown={handleKeyDown}>
       <div className="stack-actions container">
-        <button onClick={increaseOriginalPosition}>Step left</button>
+        <button onClick={increaseOriginalPosition}>
+          <img src={arrow_back} alt="Step left icon" />
+          Step left
+        </button>
         <button
           onClick={() => {
             increaseOriginalPosition();
             increaseModifiedPosition();
           }}
         >
+          <img src={arrows_sync} alt="Step synchronized icon" />
           Step sync
         </button>
-        <button onClick={increaseModifiedPosition}>Step right</button>
+        <button onClick={increaseModifiedPosition}>
+          <img src={arrow_forward} alt="Step right icon" />
+          Step right
+        </button>
         <button
           onClick={() => {
             updateTablesPositions(0);
           }}
         >
+          <img src={restart} alt="Restart icon" />
           Restart
         </button>
       </div>
