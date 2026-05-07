@@ -14,7 +14,7 @@
   .frame-prefix {
     display: flex;
     width: 4px;
-    height: 50%;
+    height: 65%;
     position: absolute;
     left: -8px;
   }
