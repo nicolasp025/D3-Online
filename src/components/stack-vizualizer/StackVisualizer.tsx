@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ExecutionStack } from "../../model/stack";
+import type { ExecutionStack } from "../../models/stack";
 import StepsTable from "../steps-table/FrameTable";
 import "./StackVisualizer.css";
 import { DiffEditor } from "@monaco-editor/react";

@@ -1,16 +1,9 @@
-import { useState } from "react";
-import { fakeDivergences } from "../../fakedata";
 import "./DivergenceVisualizer.css";
-import {
-  type FlowDivergence,
-  type StateDivergence,
-} from "../../model/divergence";
+import { useSelectedDivergence } from "../../contexts/DivergenceContext";
 
 const DivergenceVisualizer = () => {
-  const [selectedDivergence, setSelectedDivergence] = useState<
-    FlowDivergence | StateDivergence | null
-  >(null);
-  const [divergences, setDivergences] = useState(fakeDivergences);
+  const { divergences, selectedDivergence, setSelectedDivergence } =
+    useSelectedDivergence();
 
   return (
     <div className="divergence-table-container container">

@@ -1,5 +1,5 @@
-import type { FlowDivergence, StateDivergence } from "./model/divergence";
-import type { ExecutionStack } from "./model/stack";
+import type { FlowDivergence, StateDivergence } from "./models/divergence";
+import type { ExecutionStack } from "./models/stack";
 
 export const originalStack: ExecutionStack = {
   id: 1,

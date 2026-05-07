@@ -1,16 +1,18 @@
-export type Divergence = {
+export type Divergence = StateDivergence | FlowDivergence;
+
+type AbstractDivergence = {
   id: number;
   description: string;
 };
-
-export type StateDivergence = Divergence & {
+  
+export type StateDivergence = AbstractDivergence & {
   position: number;
   originalValue: string;
   modifiedValue: string;
   context: string;
 };
 
-export type FlowDivergence = Divergence & {
+export type FlowDivergence = AbstractDivergence & {
   originalPosition: {
     start: number;
     end: number | null;

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import type { ExecutionStep } from "../../model/stack";
+import type { ExecutionStep } from "../../models/stack";
 import "./FrameTable.css";
 
 interface FrameTableProps {
