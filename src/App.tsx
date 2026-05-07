@@ -1,17 +1,10 @@
 import "./App.css";
-import StackVisualizer from "./components/stack-vizualizer/StackVisualizer";
-import { modifiedStack, originalStack } from "./fakedata";
+import DebugLayout from "./components/layout/DebugLayout";
 
 function App() {
   return (
     <>
-      <div style={{ height: "65%" }}></div>
-      <div style={{ height: "100%" }}>
-        <StackVisualizer
-          originalStack={originalStack}
-          modifiedStack={modifiedStack}
-        />
-      </div>
+      <DebugLayout />
     </>
   );
 }

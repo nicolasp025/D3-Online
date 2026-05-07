@@ -74,6 +74,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
    * @param event The keyboard event.
    */
   const handleKeyDown = (event: React.KeyboardEvent) => {
+    event.preventDefault();
     switch (event.key) {
       case "ArrowUp":
         decreaseOriginalPosition();

@@ -1,3 +1,4 @@
+import type { FlowDivergence, StateDivergence } from "./model/divergence";
 import type { ExecutionStack } from "./model/stack";
 
 export const originalStack: ExecutionStack = {
@@ -90,3 +91,138 @@ export const modifiedStack: ExecutionStack = {
     { id: 16, position: 6, content: "console.log(42)", displayName: "Log 42" },
   ],
 };
+
+export const fakeDivergences: (FlowDivergence | StateDivergence)[] = [
+  {
+    id: 1,
+    description:
+      "[Message] <-> Divergence on Flow : reference execution send #sugar modified send #sugar1",
+    originalPosition: {
+      start: 0,
+      end: 2,
+    },
+    modifiedPosition: {
+      start: 0,
+      end: 3,
+    },
+  },
+  {
+    id: 2,
+    description:
+      "[Assignment] #sugar: a Dictionary('className'->'UndefinedObje..., a Dictionary('className'->'SmallInteger'...",
+    originalValue: "UndefinedObject",
+    modifiedValue: "SmallInteger",
+    context: "",
+    position: 3,
+  },
+  {
+    id: 3,
+    description:
+      "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
+    originalPosition: {
+      start: 5,
+      end: 6,
+    },
+    modifiedPosition: {
+      start: 5,
+      end: 7,
+    },
+  },
+  {
+    id: 4,
+    description:
+      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
+    originalValue: "SmallInteger",
+    modifiedValue: "UndefinedObject",
+    context: "",
+    position: 6,
+  },
+  {
+    id: 5,
+    description:
+      "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
+    originalPosition: {
+      start: 5,
+      end: 6,
+    },
+    modifiedPosition: {
+      start: 5,
+      end: 7,
+    },
+  },
+  {
+    id: 6,
+    description:
+      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
+    originalValue: "SmallInteger",
+    modifiedValue: "UndefinedObject",
+    context: "",
+    position: 6,
+  },
+  {
+    id: 7,
+    description:
+      "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
+    originalPosition: {
+      start: 5,
+      end: 6,
+    },
+    modifiedPosition: {
+      start: 5,
+      end: 7,
+    },
+  },
+  {
+    id: 8,
+    description:
+      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
+    originalValue: "SmallInteger",
+    modifiedValue: "UndefinedObject",
+    context: "",
+    position: 6,
+  },
+  {
+    id: 9,
+    description:
+      "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
+    originalPosition: {
+      start: 5,
+      end: 6,
+    },
+    modifiedPosition: {
+      start: 5,
+      end: 7,
+    },
+  },
+  {
+    id: 10,
+    description:
+      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
+    originalValue: "SmallInteger",
+    modifiedValue: "UndefinedObject",
+    context: "",
+    position: 6,
+  },
+  {
+    id: 11,
+    description:
+      "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
+    originalPosition: {
+      start: 5,
+      end: 6,
+    },
+    modifiedPosition: {
+      start: 5,
+      end: 7,
+    },
+  },
+  {
+    id: 12,
+    description:
+      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
+    originalValue: "SmallInteger",
+    modifiedValue: "UndefinedObject",
+    context: "",
+    position: 6,
+  },
+];
