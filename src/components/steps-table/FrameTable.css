@@ -11,8 +11,17 @@
     background-color: var(--color-background-selected);
   }
 
+  .frame-prefix {
+    display: flex;
+    width: 4px;
+    height: 50%;
+    position: absolute;
+    left: -8px;
+  }
+
   .frame-table-item {
     display: flex;
+    width: 100%;
     padding: 6px 8px;
     border-radius: 8px;
     transition: background-color 0.4s ease;
@@ -20,8 +29,12 @@
   }
 
   .frame-table-item-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
     box-sizing: border-box;
     cursor: pointer;
+    position: relative;
     padding: 6px 0;
 
     &:not(:last-child) {

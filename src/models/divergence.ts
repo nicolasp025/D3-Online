@@ -4,7 +4,7 @@ type AbstractDivergence = {
   id: number;
   description: string;
 };
-  
+
 export type StateDivergence = AbstractDivergence & {
   position: number;
   originalValue: string;
@@ -21,4 +21,9 @@ export type FlowDivergence = AbstractDivergence & {
     start: number;
     end: number | null;
   };
+};
+
+export type DivergencePosition = {
+  start: number;
+  end: number | null;
 };

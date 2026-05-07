@@ -8,7 +8,7 @@ const DebugLayout = () => {
     <>
       <div className="page-header">
         <DivergenceVisualizer />
-        <DivergenceVisualizer />
+        <div style={{ display: "flex", flex: 1 }}></div>
       </div>
       <StackVisualizer
         originalStack={originalStack}

@@ -4,6 +4,9 @@
   --color-background-selected: #2a2a2a;
   --color-table-separator: #2b2b2b;
 
+  --color-deletion: red;
+  --color-addition: #17d155;
+
   --color-font: white;
 
   --font: "Roboto", sans-serif;

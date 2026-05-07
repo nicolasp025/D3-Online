@@ -11,6 +11,7 @@ import arrow_back from "../../assets/icons/arrow_back.svg";
 import arrow_forward from "../../assets/icons/arrow_forward.svg";
 import restart from "../../assets/icons/restart.svg";
 import arrows_sync from "../../assets/icons/arrows_sync.svg";
+import type { FlowDivergence } from "../../models/divergence";
 
 interface StackVisualizerProps {
   originalStack: ExecutionStack;
@@ -139,11 +140,19 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
             steps={originalStack.steps}
             selectedPosition={originalPosition}
             updateTablesPositions={updateTablesPositions}
+            getFlowDivergencePosition={(d: FlowDivergence) =>
+              d.originalPosition
+            }
+            prefixColor="var(--color-deletion)"
           />
           <StepsTable
             steps={modifiedStack.steps}
             selectedPosition={modifiedPosition}
             updateTablesPositions={updateTablesPositions}
+            getFlowDivergencePosition={(d: FlowDivergence) =>
+              d.modifiedPosition
+            }
+            prefixColor="var(--color-addition)"
           />
         </div>
       </div>

@@ -1,9 +1,9 @@
 import "./DivergenceVisualizer.css";
-import { useSelectedDivergence } from "../../contexts/DivergenceContext";
+import { useDivergence } from "../../contexts/DivergenceContext";
 
 const DivergenceVisualizer = () => {
   const { divergences, selectedDivergence, setSelectedDivergence } =
-    useSelectedDivergence();
+    useDivergence();
 
   return (
     <div className="divergence-table-container container">
