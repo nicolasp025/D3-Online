@@ -7,9 +7,7 @@ const DivergenceVisualizer = () => {
 
   return (
     <div className="divergence-table-container container">
-      <div className="divergence-header">
-        <span>Divergence</span>
-      </div>
+      <div className="divergence-header">Divergence</div>
       <div className="divergence-table">
         {divergences.length > 0 &&
           divergences.map((d) => (

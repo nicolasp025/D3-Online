@@ -45,6 +45,6 @@
 
   .divergence-context {
     animation: fadeInUp 0.1s ease-in-out;
-    padding: 6px 0;
+    padding: 6px 64px;
   }
 }
