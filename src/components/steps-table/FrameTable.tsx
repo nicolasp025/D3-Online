@@ -28,7 +28,7 @@ const FrameTable: React.FC<FrameTableProps> = ({
 
   useEffect(() => {
     selectedRef.current?.scrollIntoView({
-      block: "nearest",
+      block: "start",
       behavior: "smooth",
     });
   }, [selectedPosition]);
