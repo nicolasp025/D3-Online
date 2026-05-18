@@ -5,7 +5,8 @@ import { DiffEditor } from "@monaco-editor/react";
 import {
   defineMonacoTheme,
   EDITOR_THEME_NAME,
-} from "../../config/monaco-theme";
+  MONACO_OPTIONS,
+} from "../../config/monaco";
 import arrow_back from "../../assets/icons/arrow_back.svg";
 import arrow_forward from "../../assets/icons/arrow_forward.svg";
 import restart from "../../assets/icons/restart.svg";
@@ -122,17 +123,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
           height="100%"
           theme={EDITOR_THEME_NAME}
           language="typescript"
-          options={{
-            readOnly: true,
-            originalEditable: false,
-            lineNumbers: "on",
-            fontSize: 16,
-            minimap: {
-              enabled: false,
-            },
-            diffWordWrap: "on",
-            splitViewDefaultRatio: 0.515,
-          }}
+          options={MONACO_OPTIONS}
           beforeMount={defineMonacoTheme}
           original={originalStack.steps[originalPosition]?.content ?? ""}
           modified={modifiedStack.steps[modifiedPosition]?.content ?? ""}
