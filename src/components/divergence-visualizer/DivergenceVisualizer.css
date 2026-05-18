@@ -14,9 +14,12 @@
   padding: 0 8px;
 
   .divergence-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     box-sizing: border-box;
     cursor: pointer;
-    padding: 6px 0;
+    padding: 8px;
 
     &:not(:last-child) {
       border-bottom: solid 1px var(--color-table-separator);
@@ -25,8 +28,10 @@
 
   .divergence-item {
     display: flex;
-    padding: 6px 8px;
+    gap: 4px;
+    padding: 6px 0;
     border-radius: 8px;
+    align-items: center;
     transition: background-color 0.4s ease;
     text-overflow: ellipsis;
     text-wrap: nowrap;
@@ -34,5 +39,14 @@
     &.selected {
       background-color: var(--color-background-selected);
     }
+
+    &:not(.expandable) {
+      padding-left: 28px;
+    }
+  }
+
+  .divergence-context {
+    animation: fadeInUp 0.1s ease-in-out;
+    padding: 6px 0;
   }
 }

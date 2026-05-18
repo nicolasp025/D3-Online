@@ -112,7 +112,7 @@ export const fakeDivergences: (FlowDivergence | StateDivergence)[] = [
       "[Assignment] #sugar: a Dictionary('className'->'UndefinedObje..., a Dictionary('className'->'SmallInteger'...",
     originalValue: "UndefinedObject",
     modifiedValue: "SmallInteger",
-    context: "",
+    context: "here is some context",
     position: 3,
   },
   {
@@ -134,7 +134,7 @@ export const fakeDivergences: (FlowDivergence | StateDivergence)[] = [
       "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
     originalValue: "SmallInteger",
     modifiedValue: "UndefinedObject",
-    context: "",
+    context: "here is some context",
     position: 6,
   },
   {
@@ -156,7 +156,7 @@ export const fakeDivergences: (FlowDivergence | StateDivergence)[] = [
       "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
     originalValue: "SmallInteger",
     modifiedValue: "UndefinedObject",
-    context: "",
+    context: "here is some context",
     position: 6,
   },
   {
@@ -178,7 +178,7 @@ export const fakeDivergences: (FlowDivergence | StateDivergence)[] = [
       "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
     originalValue: "SmallInteger",
     modifiedValue: "UndefinedObject",
-    context: "",
+    context: "here is some context",
     position: 6,
   },
   {
@@ -200,7 +200,7 @@ export const fakeDivergences: (FlowDivergence | StateDivergence)[] = [
       "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
     originalValue: "SmallInteger",
     modifiedValue: "UndefinedObject",
-    context: "",
+    context: "here is some context",
     position: 6,
   },
   {
@@ -222,7 +222,7 @@ export const fakeDivergences: (FlowDivergence | StateDivergence)[] = [
       "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
     originalValue: "SmallInteger",
     modifiedValue: "UndefinedObject",
-    context: "",
+    context: "here is some context",
     position: 6,
   },
 ];
