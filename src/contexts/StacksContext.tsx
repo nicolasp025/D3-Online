@@ -14,6 +14,7 @@ type StacksContextType = {
   increaseModifiedPosition: () => void;
   decreaseOriginalPosition: () => void;
   decreaseModifiedPosition: () => void;
+  handleFrameMoving: (e : React.KeyboardEvent) => void;
 };
 
 const StacksContext = createContext<StacksContextType | null>(null);
@@ -67,6 +68,30 @@ export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  /**
+   * Increases or decreases the table position when any arrow is pressed.
+   * @param event The keyboard event.
+   */
+  const handleFrameMoving = (event: React.KeyboardEvent) => {
+    event.preventDefault();
+    switch (event.key) {
+      case "ArrowUp":
+        decreaseOriginalPosition();
+        decreaseModifiedPosition();
+        break;
+      case "ArrowDown":
+        increaseOriginalPosition();
+        increaseModifiedPosition();
+        break;
+      case "ArrowRight":
+        increaseModifiedPosition();
+        break;
+      case "ArrowLeft":
+        increaseOriginalPosition();
+        break;
+    }
+  };
+
   return (
     <StacksContext.Provider
       value={{
@@ -81,6 +106,7 @@ export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
         increaseModifiedPosition,
         decreaseOriginalPosition,
         decreaseModifiedPosition,
+        handleFrameMoving
       }}
     >
       {children}

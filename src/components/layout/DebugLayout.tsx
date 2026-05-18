@@ -6,10 +6,7 @@ import "./DebugLayout.css";
 const DebugLayout = () => {
   return (
     <>
-      <div className="page-header">
-        <DivergenceVisualizer />
-        <div style={{ display: "flex", flex: 1 }}></div>
-      </div>
+      <DivergenceVisualizer />
       <StackVisualizer
         originalStack={originalStack}
         modifiedStack={modifiedStack}

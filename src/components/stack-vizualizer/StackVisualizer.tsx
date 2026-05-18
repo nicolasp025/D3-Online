@@ -29,37 +29,16 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
     updateTablesPositions,
     increaseOriginalPosition,
     increaseModifiedPosition,
-    decreaseOriginalPosition,
-    decreaseModifiedPosition,
+    handleFrameMoving,
   } = useStacks();
 
-  /**
-   * Increases or decreases the table position when ArrowUp or ArrownDown is pressed.
-   * @param event The keyboard event.
-   */
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    event.preventDefault();
-    switch (event.key) {
-      case "ArrowUp":
-        decreaseOriginalPosition();
-        decreaseModifiedPosition();
-        break;
-      case "ArrowDown":
-        increaseOriginalPosition();
-        increaseModifiedPosition();
-        break;
-      case "ArrowRight":
-        increaseModifiedPosition();
-        break;
-      case "ArrowLeft":
-        increaseOriginalPosition();
-        break;
-    }
-  };
-
   return (
-    <div className="stack-visualizer" tabIndex={0} onKeyDown={handleKeyDown}>
-      <div className="stack-actions container">
+    <>
+      <div
+        className="stack-actions container"
+        tabIndex={0}
+        onKeyDown={handleFrameMoving}
+      >
         <button onClick={increaseOriginalPosition}>
           <img src={arrow_back} alt="Step left icon" />
           Step left
@@ -87,7 +66,11 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
         </button>
       </div>
 
-      <div className="container">
+      <div
+        className="stack-table container"
+        tabIndex={0}
+        onKeyDown={handleFrameMoving}
+      >
         <div className="stack-header">
           <div>
             <span>Position</span>
@@ -129,7 +112,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
           modified={modifiedStack.steps[modifiedPosition]?.content ?? ""}
         />
       </div>
-    </div>
+    </>
   );
 };
 
