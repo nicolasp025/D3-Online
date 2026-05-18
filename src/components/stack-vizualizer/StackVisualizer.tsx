@@ -1,6 +1,5 @@
-import { useState } from "react";
 import type { ExecutionStack } from "../../models/stack";
-import StepsTable from "../steps-table/FrameTable";
+import FrameTable from "../steps-table/FrameTable";
 import "./StackVisualizer.css";
 import { DiffEditor } from "@monaco-editor/react";
 import {
@@ -12,6 +11,7 @@ import arrow_forward from "../../assets/icons/arrow_forward.svg";
 import restart from "../../assets/icons/restart.svg";
 import arrows_sync from "../../assets/icons/arrows_sync.svg";
 import type { FlowDivergence } from "../../models/divergence";
+import { useStacks } from "../../contexts/StacksContext";
 
 interface StackVisualizerProps {
   originalStack: ExecutionStack;
@@ -22,53 +22,15 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
   originalStack,
   modifiedStack,
 }) => {
-  const [originalPosition, setOriginalPosition] = useState(0);
-  const [modifiedPosition, setModifiedPosition] = useState(0);
-
-  /**
-   * Sets a new position for both steps tables.
-   * @param newPosition The new position for both tables.
-   */
-  const updateTablesPositions = (newPosition: number) => {
-    setOriginalPosition(newPosition);
-    setModifiedPosition(newPosition);
-  };
-
-  /**
-   * Increases the original stack selected position.
-   */
-  const increaseOriginalPosition = () => {
-    if (originalPosition < originalStack.steps.length - 1) {
-      setOriginalPosition(originalPosition + 1);
-    }
-  };
-
-  /**
-   * Increases the modified stack selected position.
-   */
-  const increaseModifiedPosition = () => {
-    if (modifiedPosition < modifiedStack.steps.length - 1) {
-      setModifiedPosition(modifiedPosition + 1);
-    }
-  };
-
-  /**
-   * Decreases the original stack selected position.
-   */
-  const decreaseOriginalPosition = () => {
-    if (originalPosition > 0) {
-      setOriginalPosition(originalPosition - 1);
-    }
-  };
-
-  /**
-   * Decreases the modified stack selected position.
-   */
-  const decreaseModifiedPosition = () => {
-    if (modifiedPosition > 0) {
-      setModifiedPosition(modifiedPosition - 1);
-    }
-  };
+  const {
+    originalPosition,
+    modifiedPosition,
+    updateTablesPositions,
+    increaseOriginalPosition,
+    increaseModifiedPosition,
+    decreaseOriginalPosition,
+    decreaseModifiedPosition,
+  } = useStacks();
 
   /**
    * Increases or decreases the table position when ArrowUp or ArrownDown is pressed.
@@ -136,19 +98,17 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
           </div>
         </div>
         <div className="frame-tables">
-          <StepsTable
+          <FrameTable
             steps={originalStack.steps}
             selectedPosition={originalPosition}
-            updateTablesPositions={updateTablesPositions}
             getFlowDivergencePosition={(d: FlowDivergence) =>
               d.originalPosition
             }
             prefixColor="var(--color-deletion)"
           />
-          <StepsTable
+          <FrameTable
             steps={modifiedStack.steps}
             selectedPosition={modifiedPosition}
-            updateTablesPositions={updateTablesPositions}
             getFlowDivergencePosition={(d: FlowDivergence) =>
               d.modifiedPosition
             }

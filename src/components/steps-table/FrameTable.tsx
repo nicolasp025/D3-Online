@@ -7,11 +7,11 @@ import type {
   FlowDivergence,
   StateDivergence,
 } from "../../models/divergence";
+import { useStacks } from "../../contexts/StacksContext";
 
 interface FrameTableProps {
   steps: ExecutionStep[];
   selectedPosition: number;
-  updateTablesPositions: (newPosition: number) => void;
   getFlowDivergencePosition: (divergence: FlowDivergence) => DivergencePosition;
   prefixColor: string;
 }
@@ -19,12 +19,12 @@ interface FrameTableProps {
 const FrameTable: React.FC<FrameTableProps> = ({
   steps,
   selectedPosition,
-  updateTablesPositions,
   getFlowDivergencePosition,
   prefixColor,
 }) => {
   const selectedRef = useRef<HTMLDivElement>(null);
   const { selectedDivergence, isFlowDivergence } = useDivergence();
+  const { updateTablesPositions } = useStacks();
 
   useEffect(() => {
     selectedRef.current?.scrollIntoView({
@@ -57,33 +57,41 @@ const FrameTable: React.FC<FrameTableProps> = ({
     }
   };
 
+  /**
+   * Render the specified step.
+   * @param step The specified step to render.
+   * @returns The specified step rendering.
+   */
+  const renderStep = (step: ExecutionStep) => {
+    const hasPrefix = hasDivergencePrefix(step);
+
+    return (
+      <div
+        key={`frame-${step.id}`}
+        className="frame-table-item-wrapper"
+        onClick={() => updateTablesPositions(step.position)}
+      >
+        <div
+          className={hasPrefix ? "frame-prefix" : ""}
+          style={{ backgroundColor: hasPrefix ? prefixColor : "" }}
+        />
+        <div
+          ref={step.position === selectedPosition ? selectedRef : null}
+          className={
+            "frame-table-item" +
+            (step.position === selectedPosition ? " selected" : "")
+          }
+        >
+          <span>{step.position}</span>
+          <span>{step.displayName}</span>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="frame-table container">
-      {steps.length > 0 &&
-        steps.map((step) => (
-          <div
-            key={`frame-${step.id}`}
-            className="frame-table-item-wrapper"
-            onClick={() => updateTablesPositions(step.position)}
-          >
-            <div
-              className={hasDivergencePrefix(step) ? "frame-prefix" : ""}
-              style={{
-                backgroundColor: hasDivergencePrefix(step) ? prefixColor : "",
-              }}
-            ></div>
-            <div
-              ref={step.position === selectedPosition ? selectedRef : null}
-              className={
-                "frame-table-item" +
-                (step.position === selectedPosition ? " selected" : "")
-              }
-            >
-              <span>{step.position}</span>
-              <span>{step.displayName}</span>
-            </div>
-          </div>
-        ))}
+      {steps.length > 0 && steps.map(renderStep)}
     </div>
   );
 };
