@@ -49,9 +49,11 @@ const FrameTable: React.FC<FrameTableProps> = ({
       const position = getFlowDivergencePosition(
         selectedDivergence as FlowDivergence,
       );
-      return position.start <= frame.position && position.end
-        ? frame.position <= position.end
-        : true;
+
+      return (
+        position.start <= frame.position &&
+        (position.end ? frame.position <= position.end : true)
+      );
     } else {
       return (selectedDivergence as StateDivergence).position == frame.position;
     }
