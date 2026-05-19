@@ -1,25 +1,17 @@
 import { useEffect, useRef } from "react";
-import type { ExecutionStep } from "../../models/stack";
+import type { D3StackFrame } from "../../models/stack";
 import "./FrameTable.css";
-import type {
-  DivergencePosition,
-  FlowDivergence,
-} from "../../models/divergence";
+import type { DivergencePosition, D3FlowDivergence } from "../../models/divergence";
 import FrameTableItem from "./FrameTableItem";
 
 interface FrameTableProps {
-  steps: ExecutionStep[];
+  frames: D3StackFrame[];
   selectedPosition: number;
-  getFlowDivergencePosition: (divergence: FlowDivergence) => DivergencePosition;
+  getDivergencePosition: (divergence: D3FlowDivergence) => DivergencePosition | number;
   prefixColor: string;
 }
 
-const FrameTable: React.FC<FrameTableProps> = ({
-  steps,
-  selectedPosition,
-  getFlowDivergencePosition,
-  prefixColor,
-}) => {
+const FrameTable: React.FC<FrameTableProps> = ({ frames, selectedPosition, getDivergencePosition, prefixColor }) => {
   const selectedRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,14 +23,16 @@ const FrameTable: React.FC<FrameTableProps> = ({
 
   return (
     <div className="frame-table container">
-      {steps.length > 0 &&
-        steps.map((step: ExecutionStep) => (
+      {frames.length > 0 &&
+        frames.map((frame: D3StackFrame, index: number) => (
           <FrameTableItem
-            ref={selectedPosition == step.position ? selectedRef : null}
-            step={step}
+            key={`frame-${frame.id}`}
+            ref={selectedPosition == index ? selectedRef : null}
+            frame={frame}
             prefixColor={prefixColor}
-            getFlowDivergencePosition={getFlowDivergencePosition}
-            selected={step.position == selectedPosition}
+            getDivergencePosition={getDivergencePosition}
+            selected={index == selectedPosition}
+            index={index}
           />
         ))}
     </div>

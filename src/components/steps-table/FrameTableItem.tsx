@@ -1,22 +1,19 @@
 import { forwardRef } from "react";
 import { useDivergence } from "../../contexts/DivergenceContext";
 import { useStacks } from "../../contexts/StacksContext";
-import type {
-  DivergencePosition,
-  FlowDivergence,
-  StateDivergence,
-} from "../../models/divergence";
-import type { ExecutionStep } from "../../models/stack";
+import type { DivergencePosition, D3FlowDivergence } from "../../models/divergence";
+import type { D3StackFrame } from "../../models/stack";
 
 interface FrameTableItemProps {
-  step: ExecutionStep;
+  frame: D3StackFrame;
   prefixColor: string;
-  getFlowDivergencePosition: (d: FlowDivergence) => DivergencePosition;
+  getDivergencePosition: (d: D3FlowDivergence) => DivergencePosition | number;
   selected: boolean;
+  index: number;
 }
 
 const FrameTableItem = forwardRef<HTMLDivElement, FrameTableItemProps>(
-  ({ step, prefixColor, getFlowDivergencePosition, selected }, ref) => {
+  ({ frame, prefixColor, getDivergencePosition, selected, index }, ref) => {
     const { selectedDivergence, isFlowDivergence } = useDivergence();
     const { updateTablesPositions } = useStacks();
 
@@ -28,42 +25,27 @@ const FrameTableItem = forwardRef<HTMLDivElement, FrameTableItemProps>(
      * @param frame The specified frame
      * @returns True if the frame should have a divergence prefix.
      */
-    const hasDivergencePrefix = (frame: ExecutionStep) => {
+    const hasDivergencePrefix = () => {
       if (!selectedDivergence) {
         return false;
       }
+      const position = getDivergencePosition(selectedDivergence as D3FlowDivergence);
       if (isFlowDivergence(selectedDivergence)) {
-        const position = getFlowDivergencePosition(
-          selectedDivergence as FlowDivergence,
-        );
-
-        return (
-          position.start <= frame.position &&
-          (position.end ? frame.position <= position.end : true)
-        );
+        const divergencePosition = position as DivergencePosition;
+        return divergencePosition.start <= index && (divergencePosition.stop ? index <= divergencePosition.stop : true);
       } else {
-        return (
-          (selectedDivergence as StateDivergence).position == frame.position
-        );
+        return position == index;
       }
     };
 
-    const hasPrefix = hasDivergencePrefix(step);
+    const hasPrefix = hasDivergencePrefix();
 
     return (
-      <div
-        ref={ref}
-        key={`frame-${step.id}`}
-        className="frame-table-item-wrapper"
-        onClick={() => updateTablesPositions(step.position)}
-      >
-        <div
-          className={hasPrefix ? "frame-prefix" : ""}
-          style={{ backgroundColor: hasPrefix ? prefixColor : "" }}
-        />
+      <div ref={ref} className="frame-table-item-wrapper" onClick={() => updateTablesPositions(index)}>
+        <div className={hasPrefix ? "frame-prefix" : ""} style={{ backgroundColor: hasPrefix ? prefixColor : "" }} />
         <div className={"frame-table-item" + (selected ? " selected" : "")}>
-          <span>{step.position}</span>
-          <span>{step.displayName}</span>
+          <span>{index}</span>
+          <span>{frame.displayName}</span>
         </div>
       </div>
     );

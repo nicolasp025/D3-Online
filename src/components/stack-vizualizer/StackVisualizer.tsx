@@ -1,28 +1,21 @@
-import type { ExecutionStack } from "../../models/stack";
+import type { D3CallStack } from "../../models/stack";
 import FrameTable from "../steps-table/FrameTable";
 import "./StackVisualizer.css";
 import { DiffEditor } from "@monaco-editor/react";
-import {
-  defineMonacoTheme,
-  EDITOR_THEME_NAME,
-  MONACO_OPTIONS,
-} from "../../config/monaco";
+import { defineMonacoTheme, EDITOR_THEME_NAME, MONACO_OPTIONS } from "../../config/monaco";
 import arrow_back from "../../assets/icons/arrow_back.svg";
 import arrow_forward from "../../assets/icons/arrow_forward.svg";
 import restart from "../../assets/icons/restart.svg";
 import arrows_sync from "../../assets/icons/arrows_sync.svg";
-import type { FlowDivergence } from "../../models/divergence";
+import type { D3FlowDivergence } from "../../models/divergence";
 import { useStacks } from "../../contexts/StacksContext";
 
 interface StackVisualizerProps {
-  originalStack: ExecutionStack;
-  modifiedStack: ExecutionStack;
+  originalStack: D3CallStack;
+  modifiedStack: D3CallStack;
 }
 
-const StackVisualizer: React.FC<StackVisualizerProps> = ({
-  originalStack,
-  modifiedStack,
-}) => {
+const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifiedStack }) => {
   const {
     originalPosition,
     modifiedPosition,
@@ -34,11 +27,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
 
   return (
     <>
-      <div
-        className="stack-actions container"
-        tabIndex={0}
-        onKeyDown={handleFrameMoving}
-      >
+      <div className="stack-actions container" tabIndex={0} onKeyDown={handleFrameMoving}>
         <button onClick={increaseOriginalPosition}>
           <img src={arrow_back} alt="Step left icon" />
           Step left
@@ -66,11 +55,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
         </button>
       </div>
 
-      <div
-        className="stack-table container"
-        tabIndex={0}
-        onKeyDown={handleFrameMoving}
-      >
+      <div className="stack-table container" tabIndex={0} onKeyDown={handleFrameMoving}>
         <div className="stack-header">
           <div>
             <span>Position</span>
@@ -83,19 +68,15 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
         </div>
         <div className="frame-tables">
           <FrameTable
-            steps={originalStack.steps}
+            frames={originalStack.frames}
             selectedPosition={originalPosition}
-            getFlowDivergencePosition={(d: FlowDivergence) =>
-              d.originalPosition
-            }
+            getDivergencePosition={(d: D3FlowDivergence) => d.originalPosition}
             prefixColor="var(--color-deletion)"
           />
           <FrameTable
-            steps={modifiedStack.steps}
+            frames={modifiedStack.frames}
             selectedPosition={modifiedPosition}
-            getFlowDivergencePosition={(d: FlowDivergence) =>
-              d.modifiedPosition
-            }
+            getDivergencePosition={(d: D3FlowDivergence) => d.modifiedPosition}
             prefixColor="var(--color-addition)"
           />
         </div>
@@ -108,8 +89,8 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
           language="typescript"
           options={MONACO_OPTIONS}
           beforeMount={defineMonacoTheme}
-          original={originalStack.steps[originalPosition]?.content ?? ""}
-          modified={modifiedStack.steps[modifiedPosition]?.content ?? ""}
+          original={originalStack.frames[originalPosition]?.sourceCode ?? ""}
+          modified={modifiedStack.frames[modifiedPosition]?.sourceCode ?? ""}
         />
       </div>
     </>

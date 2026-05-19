@@ -1,13 +1,13 @@
 import { createContext, useContext, useState } from "react";
-import type { Divergence, FlowDivergence } from "../models/divergence";
+import type { D3Divergence, D3FlowDivergence } from "../models/divergence";
 import { fakeDivergences } from "../fakedata";
 
 type DivergenceContextType = {
-  divergences: Divergence[];
-  setDivergences: (divergences: Divergence[]) => void;
-  selectedDivergence: Divergence | null;
-  setSelectedDivergence: (d: Divergence) => void;
-  isFlowDivergence: (d: Divergence) => boolean;
+  divergences: D3Divergence[];
+  setDivergences: (divergences: D3Divergence[]) => void;
+  selectedDivergence: D3Divergence | null;
+  setSelectedDivergence: (d: D3Divergence) => void;
+  isFlowDivergence: (d: D3Divergence) => boolean;
 };
 
 const DivergenceContext = createContext<DivergenceContextType | null>(null);
@@ -17,9 +17,9 @@ export const DivergenceProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [divergences, setDivergences] = useState<Divergence[]>(fakeDivergences);
+  const [divergences, setDivergences] = useState<D3Divergence[]>(fakeDivergences);
   const [selectedDivergence, setSelectedDivergence] =
-    useState<Divergence | null>(null);
+    useState<D3Divergence | null>(null);
 
   /**
    * Returns true if the specified divergence is a FlowDivergence, false otherwise.
@@ -27,8 +27,8 @@ export const DivergenceProvider = ({
    * @param d The specified divergence.
    * @returns A boolean.
    */
-  const isFlowDivergence = (d: Divergence): d is FlowDivergence => {
-    return !("position" in d);
+  const isFlowDivergence = (d: D3Divergence): d is D3FlowDivergence => {
+    return !("context" in d);
   };
 
   return (

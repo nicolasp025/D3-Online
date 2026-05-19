@@ -1,29 +1,32 @@
-export type Divergence = StateDivergence | FlowDivergence;
+import type { D3CallStack } from "./stack";
 
-type AbstractDivergence = {
+export type D3Divergence = D3StateDivergence | D3FlowDivergence;
+
+type D3AbstractDivergence = {
   id: number;
-  description: string;
+  displayName: string;
 };
 
-export type StateDivergence = AbstractDivergence & {
-  position: number;
-  originalValue: string;
-  modifiedValue: string;
+export type D3StateDivergence = D3AbstractDivergence & {
+  originalPosition: number;
+  modifiedPosition: number;
   context: string;
 };
 
-export type FlowDivergence = AbstractDivergence & {
-  originalPosition: {
-    start: number;
-    end: number | null;
-  };
-  modifiedPosition: {
-    start: number;
-    end: number | null;
-  };
+export type D3FlowDivergence = D3AbstractDivergence & {
+  originalPosition: DivergencePosition;
+  modifiedPosition: DivergencePosition;
 };
 
 export type DivergencePosition = {
   start: number;
-  end: number | null;
+  stop: number | null;
+};
+
+export type D3DebugResponse = {
+  metadata: { language: string };
+  //queries: string[][];
+  divergences: D3Divergence[];
+  v1: D3CallStack;
+  v2: D3CallStack;
 };

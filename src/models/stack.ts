@@ -1,11 +1,10 @@
-export type ExecutionStack = {
+export type D3CallStack = {
   id: number;
-  steps: ExecutionStep[];
+  frames: D3StackFrame[];
 };
 
-export type ExecutionStep = {
+export type D3StackFrame = {
   id: number;
-  content: string;
-  position: number;
   displayName: string;
+  sourceCode: string;
 };

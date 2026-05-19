@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from "react";
 import { modifiedStack, originalStack } from "../fakedata";
-import type { ExecutionStack } from "../models/stack";
+import type { D3CallStack } from "../models/stack";
 
 type StacksContextType = {
-  originalStack: ExecutionStack | null;
-  modifiedStack: ExecutionStack | null;
+  originalStack: D3CallStack | null;
+  modifiedStack: D3CallStack | null;
   originalPosition: number;
   setOriginalPosition: (newPosition: number) => void;
   modifiedPosition: number;
@@ -14,7 +14,7 @@ type StacksContextType = {
   increaseModifiedPosition: () => void;
   decreaseOriginalPosition: () => void;
   decreaseModifiedPosition: () => void;
-  handleFrameMoving: (e : React.KeyboardEvent) => void;
+  handleFrameMoving: (e: React.KeyboardEvent) => void;
 };
 
 const StacksContext = createContext<StacksContextType | null>(null);
@@ -24,7 +24,7 @@ export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
   const [modifiedPosition, setModifiedPosition] = useState(0);
 
   /**
-   * Sets a new position for both steps tables.
+   * Sets a new position for both frames tables.
    * @param newPosition The new position for both tables.
    */
   const updateTablesPositions = (newPosition: number) => {
@@ -36,7 +36,7 @@ export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
    * Increases the original stack selected position.
    */
   const increaseOriginalPosition = () => {
-    if (originalPosition < originalStack.steps.length - 1) {
+    if (originalPosition < originalStack.frames.length - 1) {
       setOriginalPosition(originalPosition + 1);
     }
   };
@@ -45,7 +45,7 @@ export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
    * Increases the modified stack selected position.
    */
   const increaseModifiedPosition = () => {
-    if (modifiedPosition < modifiedStack.steps.length - 1) {
+    if (modifiedPosition < modifiedStack.frames.length - 1) {
       setModifiedPosition(modifiedPosition + 1);
     }
   };
@@ -106,7 +106,7 @@ export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
         increaseModifiedPosition,
         decreaseOriginalPosition,
         decreaseModifiedPosition,
-        handleFrameMoving
+        handleFrameMoving,
       }}
     >
       {children}
@@ -117,7 +117,6 @@ export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
 // eslint-disable-next-line react-refresh/only-export-components
 export const useStacks = () => {
   const context = useContext(StacksContext);
-  if (!context)
-    throw new Error("useStacks must be used within a StacksProvider");
+  if (!context) throw new Error("useStacks must be used within a StacksProvider");
   return context;
 };
