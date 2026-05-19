@@ -6,59 +6,60 @@ import type {
   StateDivergence,
 } from "../../models/divergence";
 import expand_arrow from "../../assets/icons/arrow_drop_down.svg";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
 interface DivergenceItemProps {
   divergence: Divergence;
 }
+const DivergenceItem = forwardRef<HTMLDivElement, DivergenceItemProps>(
+  ({ divergence }, ref) => {
+    const { selectedDivergence, setSelectedDivergence, isFlowDivergence } =
+      useDivergence();
+    const { setOriginalPosition, setModifiedPosition, updateTablesPositions } =
+      useStacks();
 
-const DivergenceItem: React.FC<DivergenceItemProps> = ({ divergence }) => {
-  const { selectedDivergence, setSelectedDivergence, isFlowDivergence } =
-    useDivergence();
+    const isExpandable = !isFlowDivergence(divergence);
+    const [isExpanded, setExpanded] = useState(false);
 
-  const { setOriginalPosition, setModifiedPosition, updateTablesPositions } =
-    useStacks();
+    /**
+     * Select the specified divergence and sets the original and modified positions according to the divergence.
+     * @param d The specified divergence to select.
+     */
+    const selectDivergenceInTables = (d: Divergence) => {
+      setSelectedDivergence(d);
+      if (isFlowDivergence(d)) {
+        setOriginalPosition((d as FlowDivergence).originalPosition.start);
+        setModifiedPosition((d as FlowDivergence).modifiedPosition.start);
+      } else {
+        updateTablesPositions((d as StateDivergence).position);
+      }
+    };
 
-  const isExpandable = !isFlowDivergence(divergence);
-  const [isExpanded, setExpanded] = useState(false);
-
-  /**
-   * Select the specified divergence and sets the original and modified positions according to the divergence.
-   * @param d The specified divergence to select.
-   */
-  const selectDivergenceInTables = (d: Divergence) => {
-    setSelectedDivergence(d);
-    if (isFlowDivergence(d)) {
-      setOriginalPosition((d as FlowDivergence).originalPosition.start);
-      setModifiedPosition((d as FlowDivergence).modifiedPosition.start);
-    } else {
-      updateTablesPositions((d as StateDivergence).position);
-    }
-  };
-
-  return (
-    <div
-      className={`divergence-wrapper`}
-      onClick={() => {
-        selectDivergenceInTables(divergence);
-      }}
-    >
+    return (
       <div
-        className={`divergence-item ${selectedDivergence == divergence ? " selected" : ""} ${isExpandable ? " expandable" : ""}`}
-        onClick={() => setExpanded(!isExpanded)}
+        ref={ref}
+        className={`divergence-wrapper`}
+        onClick={() => {
+          selectDivergenceInTables(divergence);
+        }}
       >
-        {isExpandable && (
-          <img src={expand_arrow} alt="Expand state divergence arrow" />
-        )}
-        {divergence.description}
-      </div>
-      {isExpandable && isExpanded && (
-        <div className="divergence-context">
-          {(divergence as StateDivergence).context}
+        <div
+          className={`divergence-item ${selectedDivergence == divergence ? " selected" : ""} ${isExpandable ? " expandable" : ""}`}
+          onClick={() => setExpanded(!isExpanded)}
+        >
+          {isExpandable && (
+            <img src={expand_arrow} alt="Expand state divergence arrow" />
+          )}
+          {divergence.description}
         </div>
-      )}
-    </div>
-  );
-};
+        {isExpandable && selectedDivergence == divergence && (
+          <div className="divergence-context">
+            {(divergence as StateDivergence).context}
+          </div>
+        )}
+      </div>
+    );
+  },
+);
 
 export default DivergenceItem;

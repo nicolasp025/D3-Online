@@ -1,6 +1,5 @@
 .divergence-table-container {
   flex-direction: column;
-  overflow-y: auto;
 }
 
 .divergence-header {
@@ -10,6 +9,7 @@
 
 .divergence-table {
   padding: 0 8px;
+  overflow-y: scroll;
 
   .divergence-wrapper {
     display: flex;
@@ -44,7 +44,7 @@
   }
 
   .divergence-context {
-    animation: fadeInUp 0.1s ease-in-out;
+    animation: fadeInUp 0.2s ease-in-out;
     padding: 6px 64px;
   }
 }
