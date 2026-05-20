@@ -3,11 +3,11 @@ import type { editor } from "monaco-editor";
 
 export const EDITOR_THEME_NAME = "D3-theme";
 export const EDITOR_THEME = {
-  base: "vs-dark",
+  base: "vs",
   inherit: true,
   rules: [],
   colors: {
-    "editor.background": "#151515",
+    "editor.background": "#ffffff",
   },
 };
 

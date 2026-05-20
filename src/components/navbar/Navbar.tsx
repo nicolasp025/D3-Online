@@ -1,6 +1,6 @@
 import "./Navbar.css";
-import debug from "../../assets/icons/bug.svg";
-import settings from "../../assets/icons/settings.svg";
+import DebugIcon from "../../assets/icons/bug.svg?react";
+import SettingsIcon from "../../assets/icons/settings.svg?react";
 import { useLocation, useNavigate } from "react-router";
 
 const Navbar = () => {
@@ -17,7 +17,7 @@ const Navbar = () => {
           navigate("");
         }}
       >
-        <img src={debug} alt="Debugger page." />
+        <DebugIcon aria-label="Debugger page icon" />
       </div>
       <div
         className={`navbar-item${isActive("/settings") ? " active" : ""}`}
@@ -25,7 +25,7 @@ const Navbar = () => {
           navigate("settings");
         }}
       >
-        <img src={settings} alt="Settings image." />
+        <SettingsIcon aria-label="Settings page icon" />
       </div>
     </div>
   );
