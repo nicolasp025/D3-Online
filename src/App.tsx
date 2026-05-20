@@ -1,18 +1,15 @@
 import "./App.css";
-import StackVisualizer from "./components/stack-vizualizer/StackVisualizer";
-import { modifiedStack, originalStack } from "./fakedata";
+import DebugLayout from "./components/layout/DebugLayout";
+import { DivergenceProvider } from "./contexts/DivergenceContext";
+import { StacksProvider } from "./contexts/StacksContext";
 
 function App() {
   return (
-    <>
-      <div style={{ height: "65%" }}></div>
-      <div style={{ height: "100%" }}>
-        <StackVisualizer
-          originalStack={originalStack}
-          modifiedStack={modifiedStack}
-        />
-      </div>
-    </>
+    <StacksProvider>
+      <DivergenceProvider>
+        <DebugLayout />
+      </DivergenceProvider>
+    </StacksProvider>
   );
 }
 

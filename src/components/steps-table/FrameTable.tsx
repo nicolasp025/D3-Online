@@ -1,47 +1,39 @@
 import { useEffect, useRef } from "react";
-import type { ExecutionStep } from "../../model/stack";
+import type { D3StackFrame } from "../../models/stack";
 import "./FrameTable.css";
+import type { DivergencePosition, D3FlowDivergence } from "../../models/divergence";
+import FrameTableItem from "./FrameTableItem";
 
 interface FrameTableProps {
-  steps: ExecutionStep[];
+  frames: D3StackFrame[];
   selectedPosition: number;
-  updateTablesPositions: (newPosition: number) => void;
+  getDivergencePosition: (divergence: D3FlowDivergence) => DivergencePosition | number;
+  prefixColor: string;
 }
 
-const FrameTable: React.FC<FrameTableProps> = ({
-  steps,
-  selectedPosition,
-  updateTablesPositions,
-}) => {
+const FrameTable: React.FC<FrameTableProps> = ({ frames, selectedPosition, getDivergencePosition, prefixColor }) => {
   const selectedRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     selectedRef.current?.scrollIntoView({
-      block: "nearest",
+      block: "start",
       behavior: "smooth",
     });
   }, [selectedPosition]);
 
   return (
     <div className="frame-table container">
-      {steps.length > 0 &&
-        steps.map((step) => (
-          <div
-            key={`frame-${step.id}`}
-            className="frame-table-item-wrapper"
-            onClick={() => updateTablesPositions(step.position)}
-          >
-            <div
-              ref={step.position === selectedPosition ? selectedRef : null}
-              className={
-                "frame-table-item" +
-                (step.position === selectedPosition ? " selected" : "")
-              }
-            >
-              <span>{step.position}</span>
-              <span>{step.displayName}</span>
-            </div>
-          </div>
+      {frames.length > 0 &&
+        frames.map((frame: D3StackFrame, index: number) => (
+          <FrameTableItem
+            key={`frame-${frame.id}`}
+            ref={selectedPosition == index ? selectedRef : null}
+            frame={frame}
+            prefixColor={prefixColor}
+            getDivergencePosition={getDivergencePosition}
+            selected={index == selectedPosition}
+            index={index}
+          />
         ))}
     </div>
   );

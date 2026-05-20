@@ -1,92 +1,201 @@
-import type { ExecutionStack } from "./model/stack";
+import type { D3Divergence } from "./models/divergence";
+import type { D3CallStack } from "./models/stack";
 
-export const originalStack: ExecutionStack = {
+export const originalStack: D3CallStack = {
   id: 1,
-  steps: [
+  frames: [
     {
       id: 1,
-      position: 0,
-      content: "console.log('test')",
+      sourceCode: "console.log('test')",
       displayName: "Log 'test'",
     },
     {
       id: 2,
-      position: 1,
-      content: "console.log('bonjour')",
+      sourceCode: "console.log('bonjour')",
       displayName: "Log",
     },
-    { id: 3, position: 2, content: "console.log(42)", displayName: "Log 42" },
+    { id: 3, sourceCode: "console.log(42)", displayName: "Log 42" },
     {
       id: 4,
-      position: 3,
-      content:
-        "document.addEventListener('click',() => {console.log('click')});",
+      sourceCode: "document.addEventListener('click',() => {console.log('click')});",
       displayName: "Add event listener",
     },
     {
       id: 5,
-      position: 4,
-      content: "console.log(document.getElementById('test-element'))",
+      sourceCode: "console.log(document.getElementById('test-element'))",
       displayName: "Log test-element",
     },
     {
       id: 6,
-      position: 5,
-      content: "console.log('bonjour')",
+      sourceCode: "console.log('bonjour')",
       displayName: "Log",
     },
-    { id: 7, position: 6, content: "console.log(42)", displayName: "Log 42" },
+    { id: 7, sourceCode: "console.log(42)", displayName: "Log 42" },
     {
       id: 8,
-      position: 7,
-      content:
-        "document.addEventListener('click',() => {console.log('click')});",
+      sourceCode: "document.addEventListener('click',() => {console.log('click')});",
       displayName: "Add event listener",
     },
     {
       id: 9,
-      position: 8,
-      content: "console.log(document.getElementById('test-element'))",
+      sourceCode: "console.log(document.getElementById('test-element'))",
       displayName: "Log test-element",
     },
   ],
 };
 
-export const modifiedStack: ExecutionStack = {
+export const modifiedStack: D3CallStack = {
   id: 1,
-  steps: [
+  frames: [
     {
       id: 10,
-      position: 0,
-      content: "console.log('bonjour')",
+      sourceCode: "console.log('bonjour')",
       displayName: "Log 'bonjour'",
     },
     {
       id: 11,
-      position: 1,
-      content: "console.log('test')",
+      sourceCode: "console.log('test')",
       displayName: "Log 'test'",
     },
-    { id: 12, position: 2, content: "console.log(42)", displayName: "Log 42" },
+    { id: 12, sourceCode: "console.log(42)", displayName: "Log 42" },
     {
       id: 13,
-      position: 3,
-      content:
-        "document.addEventListener('click',() => {console.log('click')});",
+      sourceCode: "document.addEventListener('click',() => {console.log('click')});",
       displayName: "Add event listener",
     },
     {
       id: 14,
-      position: 4,
-      content: "console.log(document.getElementById('a-test-element'))",
+      sourceCode: "console.log(document.getElementById('a-test-element'))",
       displayName: "Log a-test-element",
     },
     {
       id: 15,
-      position: 5,
-      content: "console.log('test')",
+      sourceCode: "console.log('test')",
       displayName: "Log 'test'",
     },
-    { id: 16, position: 6, content: "console.log(42)", displayName: "Log 42" },
+    { id: 16, sourceCode: "console.log(42)", displayName: "Log 42" },
   ],
 };
+
+export const fakeDivergences: D3Divergence[] = [
+  {
+    id: 1,
+    displayName: "[Message] <-> Divergence on Flow : reference execution send #sugar modified send #sugar1",
+    originalPosition: {
+      start: 0,
+      stop: 2,
+    },
+    modifiedPosition: {
+      start: 0,
+      stop: 3,
+    },
+  },
+  {
+    id: 2,
+    displayName:
+      "[Assignment] #sugar: a Dictionary('className'->'UndefinedObje..., a Dictionary('className'->'SmallInteger'...",
+    originalPosition: 0,
+    modifiedPosition: 0,
+    context: "here is some context",
+  },
+  {
+    id: 3,
+    displayName: "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
+    originalPosition: {
+      start: 5,
+      stop: 6,
+    },
+    modifiedPosition: {
+      start: 5,
+      stop: 7,
+    },
+  },
+  {
+    id: 4,
+    displayName:
+      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
+    originalPosition: 0,
+    modifiedPosition: 0,
+    context: "here is some context",
+  },
+  {
+    id: 5,
+    displayName: "[Message] <-> Divergence on Flow : reference execution stop #log modified send #print",
+    originalPosition: {
+      start: 5,
+      stop: 6,
+    },
+    modifiedPosition: {
+      start: 5,
+      stop: 7,
+    },
+  },
+  {
+    id: 6,
+    displayName:
+      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
+    originalPosition: 1,
+    modifiedPosition: 1,
+    context: "here is some context",
+  },
+  {
+    id: 7,
+    displayName: "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
+    originalPosition: {
+      start: 5,
+      stop: 6,
+    },
+    modifiedPosition: {
+      start: 5,
+      stop: 7,
+    },
+  },
+  {
+    id: 8,
+    displayName:
+      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
+    originalPosition: 2,
+    modifiedPosition: 2,
+    context: "here is some context",
+  },
+  {
+    id: 9,
+    displayName: "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
+    originalPosition: {
+      start: 5,
+      stop: 6,
+    },
+    modifiedPosition: {
+      start: 5,
+      stop: 7,
+    },
+  },
+  {
+    id: 10,
+    displayName:
+      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
+    originalPosition: 3,
+    modifiedPosition: 3,
+    context: "here is some context",
+  },
+  {
+    id: 11,
+    displayName: "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
+    originalPosition: {
+      start: 5,
+      stop: 6,
+    },
+    modifiedPosition: {
+      start: 5,
+      stop: 7,
+    },
+  },
+  {
+    id: 12,
+    displayName:
+      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
+    originalPosition: 4,
+    modifiedPosition: 4,
+    context: "here is some context",
+  },
+];

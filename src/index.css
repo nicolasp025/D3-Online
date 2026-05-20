@@ -4,6 +4,12 @@
   --color-background-selected: #2a2a2a;
   --color-table-separator: #2b2b2b;
 
+  --color-deletion: red;
+  --color-addition: #17d155;
+
+  --color-flow-divergence: #f9a703;
+  --color-state-divergence: #0658fc;
+
   --color-font: white;
 
   --font: "Roboto", sans-serif;
@@ -15,18 +21,25 @@
 
 body {
   height: 100vh;
-  margin: 0 8px;
+  width: 100vw;
   display: flex;
+  margin: 0;
   flex-direction: column;
 }
 
 #root {
   display: flex;
-  flex-direction: column;
   height: 100%;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px;
 }
 
 .container {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
   box-sizing: border-box;
   padding: 8px;
   border-radius: 10px;

@@ -1,19 +1,22 @@
 .frame-table {
-  display: flex;
-  width: 100%;
   flex-direction: column;
-  height: 100%;
   padding: 0 8px;
-  max-height: 270px;
-  overflow-y: auto;
 
   .selected {
     background-color: var(--color-background-selected);
   }
 
+  .frame-prefix {
+    display: flex;
+    width: 6px;
+    height: 65%;
+    position: absolute;
+    left: -10px;
+  }
+
   .frame-table-item {
     display: flex;
-    user-select: none;
+    width: 100%;
     padding: 6px 8px;
     border-radius: 8px;
     transition: background-color 0.4s ease;
@@ -21,12 +24,13 @@
   }
 
   .frame-table-item-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
     box-sizing: border-box;
     cursor: pointer;
+    position: relative;
     padding: 6px 0;
-
-    &:not(:last-child) {
-      border-bottom: solid 1px var(--color-table-separator);
-    }
+    border-bottom: solid 1px var(--color-table-separator);
   }
 }

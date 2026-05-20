@@ -1,0 +1,66 @@
+.divergence-table-container {
+  flex-direction: column;
+}
+
+.divergence-header {
+  padding: 8px;
+  border-bottom: solid 1px var(--color-table-separator);
+}
+
+.divergence-table {
+  padding: 0 8px;
+  overflow-y: scroll;
+
+  .divergence-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 8px;
+
+    &:not(:last-child) {
+      border-bottom: solid 1px var(--color-table-separator);
+    }
+  }
+
+  .divergence-item {
+    display: flex;
+    gap: 4px;
+    padding: 6px 0;
+    border-radius: 8px;
+    align-items: center;
+    transition: background-color 0.4s ease;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    position: relative;
+
+    &.selected {
+      background-color: var(--color-background-selected);
+    }
+
+    &:not(.expandable) {
+      padding-left: 28px;
+    }
+
+    .divergence-prefix {
+      display: flex;
+      width: 6px;
+      height: 85%;
+      position: absolute;
+      left: -10px;
+
+      &.flow {
+        background-color: var(--color-flow-divergence);
+      }
+      &.state {
+        background-color: var(--color-state-divergence);
+      }
+    }
+  }
+
+  .divergence-context {
+    animation: fadeInUp 0.2s ease-in-out;
+    padding: 6px 64px;
+  }
+}
