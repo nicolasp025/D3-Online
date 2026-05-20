@@ -1,6 +1,6 @@
 import { useDivergence } from "../../contexts/DivergenceContext";
 import type { D3Divergence, D3StateDivergence } from "../../models/divergence";
-import expand_arrow from "../../assets/icons/arrow_drop_down.svg";
+import ExpandArrowIcon from "../../assets/icons/arrow_drop_down.svg?react";
 import { forwardRef, useState } from "react";
 
 interface DivergenceItemProps {
@@ -29,7 +29,7 @@ const DivergenceItem = forwardRef<HTMLDivElement, DivergenceItemProps>(({ diverg
           className={`divergence-prefix ${isFlowDivergence(divergence) ? "flow" : "state"}`}
           title={isFlowDivergence(divergence) ? "Flow divergence" : "State divergence"}
         />
-        {isExpandable && <img src={expand_arrow} alt="Expand state divergence arrow" />}
+        {isExpandable && <ExpandArrowIcon aria-label="Expand state divergence arrow" />}
         {divergence.displayName}
       </div>
       {isExpandable && selectedDivergence == divergence && (
