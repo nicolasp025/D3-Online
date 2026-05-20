@@ -3,7 +3,6 @@
   flex-direction: column;
   height: 100%;
   width: 64px;
-  gap: 4px;
 }
 
 .navbar-item {
@@ -14,6 +13,7 @@
   cursor: pointer;
   border-left: solid 4px;
   border-color: transparent;
+  transition: background-color 0.4s ease;
 
   svg {
     aspect-ratio: 1;

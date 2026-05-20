@@ -2,7 +2,7 @@ import type { D3CallStack } from "../../models/stack";
 import FrameTable from "../frame-table/FrameTable";
 import "./StackVisualizer.css";
 import { DiffEditor } from "@monaco-editor/react";
-import { defineMonacoTheme, EDITOR_THEME_NAME, MONACO_OPTIONS } from "../../config/monaco";
+import { defineMonacoTheme, MONACO_OPTIONS } from "../../config/monaco";
 import ArrowBackIcon from "../../assets/icons/arrow_back.svg?react";
 import ArrowForwardIcon from "../../assets/icons/arrow_forward.svg?react";
 import RestartIcon from "../../assets/icons/restart.svg?react";
@@ -24,6 +24,8 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
     increaseModifiedPosition,
     handleFrameMoving,
   } = useStacks();
+
+  const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   return (
     <>
@@ -85,7 +87,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
       <div className="stack-editor container">
         <DiffEditor
           height="100%"
-          theme={EDITOR_THEME_NAME}
+          theme={isDarkMode ? "d3-dark" : "d3-light"}
           language="typescript"
           options={MONACO_OPTIONS}
           beforeMount={defineMonacoTheme}
