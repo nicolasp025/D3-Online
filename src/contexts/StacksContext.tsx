@@ -76,8 +76,14 @@ export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
     event.preventDefault();
     switch (event.key) {
       case "ArrowUp":
-        decreaseOriginalPosition();
-        decreaseModifiedPosition();
+        if (originalPosition > modifiedPosition) {
+          decreaseOriginalPosition();
+        } else if (modifiedPosition > originalPosition) {
+          decreaseModifiedPosition();
+        } else {
+          decreaseOriginalPosition();
+          decreaseModifiedPosition();
+        }
         break;
       case "ArrowDown":
         increaseOriginalPosition();
