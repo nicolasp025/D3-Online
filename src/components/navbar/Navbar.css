@@ -1,0 +1,28 @@
+.navbar-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 64px;
+}
+
+.navbar-item {
+  display: flex;
+  aspect-ratio: 1;
+  padding: 10px;
+  user-select: none;
+  cursor: pointer;
+  border-left: solid 4px;
+  border-color: transparent;
+  transition: background-color 0.4s ease;
+
+  svg {
+    aspect-ratio: 1;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.navbar-item.active {
+  border-color: #8f59fd;
+  background-color: var(--color-background-selected);
+}

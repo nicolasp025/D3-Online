@@ -1,12 +1,12 @@
 import type { D3CallStack } from "../../models/stack";
-import FrameTable from "../steps-table/FrameTable";
+import FrameTable from "../frame-table/FrameTable";
 import "./StackVisualizer.css";
 import { DiffEditor } from "@monaco-editor/react";
-import { defineMonacoTheme, EDITOR_THEME_NAME, MONACO_OPTIONS } from "../../config/monaco";
-import arrow_back from "../../assets/icons/arrow_back.svg";
-import arrow_forward from "../../assets/icons/arrow_forward.svg";
-import restart from "../../assets/icons/restart.svg";
-import arrows_sync from "../../assets/icons/arrows_sync.svg";
+import { defineMonacoTheme, MONACO_OPTIONS } from "../../config/monaco";
+import ArrowBackIcon from "../../assets/icons/arrow_back.svg?react";
+import ArrowForwardIcon from "../../assets/icons/arrow_forward.svg?react";
+import RestartIcon from "../../assets/icons/restart.svg?react";
+import SyncIcon from "../../assets/icons/arrows_sync.svg?react";
 import type { D3FlowDivergence } from "../../models/divergence";
 import { useStacks } from "../../contexts/StacksContext";
 
@@ -25,11 +25,13 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
     handleFrameMoving,
   } = useStacks();
 
+  const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
   return (
     <>
       <div className="stack-actions container" tabIndex={0} onKeyDown={handleFrameMoving}>
         <button onClick={increaseOriginalPosition}>
-          <img src={arrow_back} alt="Step left icon" />
+          <ArrowBackIcon aria-label="Step left icon" />
           Step left
         </button>
         <button
@@ -38,11 +40,11 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
             increaseModifiedPosition();
           }}
         >
-          <img src={arrows_sync} alt="Step synchronized icon" />
+          <SyncIcon aria-label="Step synchronized icon" />
           Step sync
         </button>
         <button onClick={increaseModifiedPosition}>
-          <img src={arrow_forward} alt="Step right icon" />
+          <ArrowForwardIcon aria-label="Step right icon" />
           Step right
         </button>
         <button
@@ -50,7 +52,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
             updateTablesPositions(0);
           }}
         >
-          <img src={restart} alt="Restart icon" />
+          <RestartIcon aria-label="Restart icon" />
           Restart
         </button>
       </div>
@@ -85,7 +87,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
       <div className="stack-editor container">
         <DiffEditor
           height="100%"
-          theme={EDITOR_THEME_NAME}
+          theme={isDarkMode ? "d3-dark" : "d3-light"}
           language="typescript"
           options={MONACO_OPTIONS}
           beforeMount={defineMonacoTheme}

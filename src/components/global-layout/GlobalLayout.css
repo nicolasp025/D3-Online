@@ -1,0 +1,15 @@
+#global-layout {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+}
+
+#page-content {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  flex-direction: column;
+  gap: 8px;
+}

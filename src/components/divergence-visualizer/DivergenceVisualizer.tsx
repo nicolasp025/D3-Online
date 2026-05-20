@@ -1,19 +1,39 @@
 import "./DivergenceVisualizer.css";
 import { useDivergence } from "../../contexts/DivergenceContext";
 import DivergenceItem from "./DivergenceItem";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
+import { useStacks } from "../../contexts/StacksContext";
+import type { D3FlowDivergence, D3StateDivergence } from "../../models/divergence";
 
 const DivergenceVisualizer = () => {
-  const { divergences, selectedDivergence, setSelectedDivergence } =
-    useDivergence();
+  const { divergences, selectedDivergence, setSelectedDivergence, isFlowDivergence } = useDivergence();
+  const { setOriginalPosition, setModifiedPosition } = useStacks();
+
   const selectedRef = useRef<HTMLDivElement>(null);
 
+  /**
+   * Select the specified divergence and sets the original and modified positions according to the divergence.
+   * @param d The specified divergence to select.
+   */
+  const updateSelectedDivergenceInTables = useCallback(() => {
+    if (!selectedDivergence) return;
+
+    if (isFlowDivergence(selectedDivergence)) {
+      setOriginalPosition((selectedDivergence as D3FlowDivergence).originalPosition.start);
+      setModifiedPosition((selectedDivergence as D3FlowDivergence).modifiedPosition.start);
+    } else {
+      setOriginalPosition((selectedDivergence as D3StateDivergence).originalPosition);
+      setModifiedPosition((selectedDivergence as D3StateDivergence).modifiedPosition);
+    }
+  }, [isFlowDivergence, setOriginalPosition, setModifiedPosition, selectedDivergence]);
+
   useEffect(() => {
+    updateSelectedDivergenceInTables();
     selectedRef.current?.scrollIntoView({
       block: "start",
       behavior: "smooth",
     });
-  }, [selectedDivergence]);
+  }, [selectedDivergence, updateSelectedDivergenceInTables]);
 
   /**
    * Handles any keyboard event in the divergence visualizer.

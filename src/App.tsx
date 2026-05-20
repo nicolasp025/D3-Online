@@ -1,15 +1,18 @@
+import { BrowserRouter } from "react-router";
 import "./App.css";
-import DebugLayout from "./components/layout/DebugLayout";
 import { DivergenceProvider } from "./contexts/DivergenceContext";
 import { StacksProvider } from "./contexts/StacksContext";
+import Router from "./Router";
 
 function App() {
   return (
-    <StacksProvider>
-      <DivergenceProvider>
-        <DebugLayout />
-      </DivergenceProvider>
-    </StacksProvider>
+    <BrowserRouter>
+      <StacksProvider>
+        <DivergenceProvider>
+          <Router />
+        </DivergenceProvider>
+      </StacksProvider>
+    </BrowserRouter>
   );
 }
 
