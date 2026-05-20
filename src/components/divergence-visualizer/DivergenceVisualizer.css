@@ -33,6 +33,7 @@
     transition: background-color 0.4s ease;
     text-overflow: ellipsis;
     text-wrap: nowrap;
+    position: relative;
 
     &.selected {
       background-color: var(--color-background-selected);
@@ -40,6 +41,21 @@
 
     &:not(.expandable) {
       padding-left: 28px;
+    }
+
+    .divergence-prefix {
+      display: flex;
+      width: 6px;
+      height: 85%;
+      position: absolute;
+      left: -10px;
+
+      &.flow {
+        background-color: var(--color-flow-divergence);
+      }
+      &.state {
+        background-color: var(--color-state-divergence);
+      }
     }
   }
 

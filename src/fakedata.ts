@@ -120,7 +120,7 @@ export const fakeDivergences: D3Divergence[] = [
   },
   {
     id: 5,
-    displayName: "[Message] <-> Divergence on Flow : reference execution sstop #log modified send #print",
+    displayName: "[Message] <-> Divergence on Flow : reference execution stop #log modified send #print",
     originalPosition: {
       start: 5,
       stop: 6,

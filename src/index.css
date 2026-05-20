@@ -7,6 +7,9 @@
   --color-deletion: red;
   --color-addition: #17d155;
 
+  --color-flow-divergence: #f9a703;
+  --color-state-divergence: #0658fc;
+
   --color-font: white;
 
   --font: "Roboto", sans-serif;

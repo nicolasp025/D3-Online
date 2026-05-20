@@ -8,10 +8,10 @@
 
   .frame-prefix {
     display: flex;
-    width: 4px;
+    width: 6px;
     height: 65%;
     position: absolute;
-    left: -8px;
+    left: -10px;
   }
 
   .frame-table-item {

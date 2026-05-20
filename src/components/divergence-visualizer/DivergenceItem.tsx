@@ -39,9 +39,13 @@ const DivergenceItem = forwardRef<HTMLDivElement, DivergenceItemProps>(({ diverg
       }}
     >
       <div
-        className={`divergence-item ${selectedDivergence == divergence ? " selected" : ""} ${isExpandable ? " expandable" : ""}`}
+        className={`divergence-item${selectedDivergence == divergence ? " selected" : ""}${isExpandable ? " expandable" : ""}`}
         onClick={() => setExpanded(!isExpanded)}
       >
+        <div
+          className={`divergence-prefix ${isFlowDivergence(divergence) ? "flow" : "state"}`}
+          title={isFlowDivergence(divergence) ? "Flow divergence" : "State divergence"}
+        />
         {isExpandable && <img src={expand_arrow} alt="Expand state divergence arrow" />}
         {divergence.displayName}
       </div>

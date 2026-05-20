@@ -42,7 +42,7 @@ const FrameTableItem = forwardRef<HTMLDivElement, FrameTableItemProps>(
 
     return (
       <div ref={ref} className="frame-table-item-wrapper" onClick={() => updateTablesPositions(index)}>
-        <div className={hasPrefix ? "frame-prefix" : ""} style={{ backgroundColor: hasPrefix ? prefixColor : "" }} />
+        {hasPrefix && <div className="frame-prefix" style={{ backgroundColor: prefixColor }} />}
         <div className={"frame-table-item" + (selected ? " selected" : "")}>
           <span>{index}</span>
           <span>{frame.displayName}</span>
