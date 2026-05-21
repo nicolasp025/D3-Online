@@ -54,14 +54,19 @@
 .stack-header {
   display: flex;
   justify-content: space-between;
-  gap: 22px;
-  padding: 8px;
+  gap: 8px;
   border-bottom: solid 1px var(--color-table-separator);
 
   > * {
-    display: flex;
+    display: grid;
     width: 100%;
-    gap: 14px;
+    padding: 6px;
+    grid-template-columns: 100px 1fr 1fr;
+
+    > * {
+      display: flex;
+      min-width: 100px;
+    }
   }
 }
 
@@ -71,5 +76,5 @@
   flex-direction: row;
   justify-content: space-between;
   gap: 8px;
-  overflow-y: scroll;
+  overflow: hidden;
 }
