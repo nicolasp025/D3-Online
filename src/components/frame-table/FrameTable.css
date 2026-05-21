@@ -1,6 +1,7 @@
 .frame-table {
   flex-direction: column;
   padding: 0;
+  overflow-y: scroll;
 
   .selected {
     background-color: var(--color-background-selected);
