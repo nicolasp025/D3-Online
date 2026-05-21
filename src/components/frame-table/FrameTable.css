@@ -1,6 +1,6 @@
 .frame-table {
   flex-direction: column;
-  padding: 0 8px;
+  padding: 0;
 
   .selected {
     background-color: var(--color-background-selected);
@@ -15,12 +15,12 @@
   }
 
   .frame-table-item {
-    display: flex;
+    display: grid;
     width: 100%;
-    padding: 6px 8px;
+    padding: 6px;
     border-radius: 8px;
     transition: background-color 0.4s ease;
-    gap: 56px;
+    grid-template-columns: 100px 1fr 1fr;
   }
 
   .frame-table-item-wrapper {
