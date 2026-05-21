@@ -22,7 +22,7 @@ const FrameTable: React.FC<FrameTableProps> = ({ frames, selectedPosition, getDi
   }, [selectedPosition]);
 
   return (
-    <div className="frame-table container">
+    <div className="frame-table">
       {frames.length > 0 &&
         frames.map((frame: D3StackFrame, index: number) => (
           <FrameTableItem
