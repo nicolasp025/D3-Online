@@ -1,9 +1,9 @@
 import { Outlet } from "react-router";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
 import ExpConsentLayout from "../exp-consent-layout/ExpConsentLayout";
+import { useConsent } from "../../contexts/ConsentContext";
 
 const PrivateRoute = () => {
-  const [consent] = useLocalStorage<boolean>("exp-consent", false);
+  const { consent } = useConsent();
 
   if (consent) {
     return <Outlet />;

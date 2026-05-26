@@ -3,13 +3,16 @@ import "./App.css";
 import { DivergenceProvider } from "./contexts/DivergenceContext";
 import { StacksProvider } from "./contexts/StacksContext";
 import Router from "./Router";
+import { ConsentProvider } from "./contexts/ConsentContext";
 
 function App() {
   return (
     <BrowserRouter>
       <StacksProvider>
         <DivergenceProvider>
-          <Router />
+          <ConsentProvider>
+            <Router />
+          </ConsentProvider>
         </DivergenceProvider>
       </StacksProvider>
     </BrowserRouter>

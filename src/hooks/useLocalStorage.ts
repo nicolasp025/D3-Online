@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * Returns a pair of getter/setter that permits to store info in local storage.
@@ -20,6 +20,16 @@ export const useLocalStorage = <T>(key: string, defaultValue: T) => {
     setValue(newValue);
     localStorage.setItem(key, JSON.stringify(newValue));
   };
+
+  useEffect(() => {
+    const listener = (e: StorageEvent) => {
+      if (e.key === key) {
+        setValue(e.newValue ? JSON.parse(e.newValue) : defaultValue);
+      }
+    };
+    window.addEventListener("storage", listener);
+    return () => window.removeEventListener("storage", listener);
+  }, [key, defaultValue]);
 
   return [value, setStoredValue] as const;
 };

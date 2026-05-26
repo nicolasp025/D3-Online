@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "./ExpConsentLayout.css";
+import { useConsent } from "../../contexts/ConsentContext";
 
 const ExpConsentLayout = () => {
-  const [expConsent, setExpConsent] = useState<boolean>(false);
+  const [acceptConditions, setAcceptConditions] = useState<boolean>(false);
+  const { setConsent } = useConsent();
 
   return (
     <div className="exp-consent-page">
@@ -35,14 +37,16 @@ const ExpConsentLayout = () => {
             the contact persons.
           </p>
 
+          <p>Contact person : steven.costiou %at% inria.fr</p>
+
           <p className="user-consent">
-            <input type="checkbox" checked={expConsent} onChange={() => setExpConsent(!expConsent)} />
+            <input type="checkbox" checked={acceptConditions} onChange={() => setAcceptConditions(!acceptConditions)} />
             <span>I understood the conditions of the experiment and I accept them</span>
           </p>
 
           <div className="exp-consent-actions">
             <button className="btn-consent-no">I do not consent</button>
-            <button className="btn-consent-yes" disabled={!expConsent}>
+            <button className="btn-consent-yes" disabled={!acceptConditions} onClick={() => setConsent(true)}>
               I consent
             </button>
           </div>
