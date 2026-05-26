@@ -1,0 +1,9 @@
+#notepad {
+  all: initial;
+  margin: 8px;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  color: var(--color-font);
+  font-family: var(--font);
+}
