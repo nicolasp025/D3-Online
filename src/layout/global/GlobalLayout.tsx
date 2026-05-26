@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import Navbar from "../navbar/Navbar";
+import Navbar from "../../components/navbar/Navbar";
 import "./GlobalLayout.css";
 
 const GlobalLayout = () => {
