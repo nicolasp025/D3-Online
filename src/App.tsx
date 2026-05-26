@@ -4,16 +4,19 @@ import { DivergenceProvider } from "./contexts/DivergenceContext";
 import { StacksProvider } from "./contexts/StacksContext";
 import Router from "./Router";
 import { ConsentProvider } from "./contexts/ConsentContext";
+import { NotepadProvider } from "./contexts/NotepadContext";
 
 function App() {
   return (
     <BrowserRouter>
       <StacksProvider>
-        <DivergenceProvider>
-          <ConsentProvider>
-            <Router />
-          </ConsentProvider>
-        </DivergenceProvider>
+        <ConsentProvider>
+          <NotepadProvider>
+            <DivergenceProvider>
+              <Router />
+            </DivergenceProvider>
+          </NotepadProvider>
+        </ConsentProvider>
       </StacksProvider>
     </BrowserRouter>
   );

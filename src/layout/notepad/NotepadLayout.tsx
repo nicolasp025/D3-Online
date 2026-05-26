@@ -1,8 +1,9 @@
-import { useState } from "react";
 import "./NotepadLayout.css";
+import { useNotepad } from "../../contexts/NotepadContext";
 
 const NotepadLayout = () => {
-  const [content, setContent] = useState<string>("");
+  const { content, setContent } = useNotepad();
+
   return (
     <div className="container">
       <textarea
