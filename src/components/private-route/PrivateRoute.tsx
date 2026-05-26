@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import ExpConsentLayout from "../exp-consent-layout/ExpConsentLayout";
+import ExpConsentLayout from "../../layout/exp-consent/ExpConsentLayout";
 import { useConsent } from "../../contexts/ConsentContext";
 
 const PrivateRoute = () => {
