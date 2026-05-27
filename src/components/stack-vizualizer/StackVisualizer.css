@@ -14,25 +14,13 @@
   flex: initial;
 
   button {
-    all: initial;
-    display: flex;
     position: relative;
-    cursor: pointer;
-    user-select: none;
-    color: var(--color-font);
-    font-family: var(--font);
     width: 100%;
-    gap: 4px;
-    justify-content: center;
-    padding: 8px;
-    border-radius: 8px;
     margin: 0 4px;
-    align-items: center;
 
-    img {
-      aspect-ratio: 1;
-      width: 20px;
-      pointer-events: none;
+    &:hover {
+      opacity: 100%;
+      background-color: var(--color-background-selected);
     }
   }
 
@@ -44,10 +32,6 @@
     width: 1px;
     height: 100%;
     background: var(--color-table-separator);
-  }
-
-  button:hover {
-    background-color: var(--color-background-selected);
   }
 }
 

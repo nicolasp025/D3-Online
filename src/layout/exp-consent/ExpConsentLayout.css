@@ -38,19 +38,6 @@
   justify-content: space-between;
   flex-direction: row;
 
-  button {
-    all: initial;
-    color: var(--color-font);
-    font-family: var(--font);
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 80%;
-    }
-  }
-
   .btn-consent-no {
     background-color: #0658fc;
   }
@@ -58,10 +45,5 @@
   .btn-consent-yes {
     background-color: transparent;
     border: solid 2px var(--color-font);
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
   }
 }
