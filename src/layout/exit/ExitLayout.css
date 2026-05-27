@@ -1,0 +1,30 @@
+.exit-page-wrapper {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.exit-page {
+  max-width: 50vw;
+  text-align: center;
+  padding: 16px;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.exit-actions {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 12px;
+
+  .exit-btn-cancel {
+    background-color: rgb(23, 163, 32);
+  }
+
+  .exit-btn-confirm {
+    background-color: #a6190f;
+  }
+}
