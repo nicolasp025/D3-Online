@@ -18,16 +18,18 @@ const ExpStartLayout = () => {
   return (
     <div className="exp-start-wrapper">
       <div className="exp-start container">
-        <form>
+
+        <form onSubmit={handleStartDebug}>
+          <label>Please insert the required informations to continue : </label>
           <input value={url1Input} onChange={(e) => setUrl1Input(e.target.value)} placeholder="First URL" />
           <input value={url2Input} onChange={(e) => setUrl2Input(e.target.value)} placeholder="Second URL" />
           <input value={userIDInput} onChange={(e) => setUserIDInput(e.target.value)} placeholder="Your user ID" />
+          <div className="exp-start-actions">
+            <button type="submit" className="exp-btn-start" onClick={handleStartDebug}>
+              Debug
+            </button>
+          </div>
         </form>
-        <div className="exp-start-actions">
-          <button type="submit" className="exp-btn-start" onClick={handleStartDebug}>
-            Debug
-          </button>
-        </div>
       </div>
     </div>
   );

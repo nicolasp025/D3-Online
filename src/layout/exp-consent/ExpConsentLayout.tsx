@@ -4,7 +4,7 @@ import { useExperimentContext } from "../../contexts/ExperimentContext";
 
 const ExpConsentLayout = () => {
   const [acceptConditions, setAcceptConditions] = useState<boolean>(false);
-  const { setConsent } = useExperimentContext();
+  const { setConsent, clearAll } = useExperimentContext();
 
   return (
     <div className="exp-consent-page">
@@ -45,7 +45,9 @@ const ExpConsentLayout = () => {
           </p>
 
           <div className="exp-consent-actions">
-            <button className="btn-consent-no">I do not consent</button>
+            <button className="btn-consent-no" onClick={clearAll}>
+              I do not consent
+            </button>
             <button className="btn-consent-yes" disabled={!acceptConditions} onClick={() => setConsent(true)}>
               I consent
             </button>

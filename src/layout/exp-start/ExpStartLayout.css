@@ -8,7 +8,7 @@
 .exp-start {
   display: flex;
   flex-direction: column;
-  max-width: 40%;
+  max-width: 60%;
   justify-content: space-between;
   gap: 16px;
   padding: 16px;
@@ -27,15 +27,15 @@
     border-radius: 8px;
     border: solid 1px var(--color-font);
   }
-}
 
-.exp-start-actions {
-  display: flex;
-  justify-content: end;
-}
+  .exp-start-actions {
+    display: flex;
+    justify-content: end;
+  }
 
-.exp-btn-start {
-  background-color: #0658fc;
-  box-sizing: border-box;
-  width: 20%;
+  .exp-btn-start {
+    background-color: var(--color-primary);
+    box-sizing: border-box;
+    width: 20%;
+  }
 }
