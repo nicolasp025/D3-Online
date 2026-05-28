@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "./ExpConsentLayout.css";
-import { useConsent } from "../../contexts/ConsentContext";
+import { useExperimentContext } from "../../contexts/ExperimentContext";
 
 const ExpConsentLayout = () => {
   const [acceptConditions, setAcceptConditions] = useState<boolean>(false);
-  const { setConsent } = useConsent();
+  const { setConsent } = useExperimentContext();
 
   return (
     <div className="exp-consent-page">

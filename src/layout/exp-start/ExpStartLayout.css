@@ -1,0 +1,41 @@
+.exp-start-wrapper {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.exp-start {
+  display: flex;
+  flex-direction: column;
+  max-width: 40%;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+}
+
+.exp-start > form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  input {
+    all: initial;
+    color: var(--color-font);
+    font-family: var(--font);
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: solid 1px var(--color-font);
+  }
+}
+
+.exp-start-actions {
+  display: flex;
+  justify-content: end;
+}
+
+.exp-btn-start {
+  background-color: #0658fc;
+  box-sizing: border-box;
+  width: 20%;
+}
