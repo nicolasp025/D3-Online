@@ -37,7 +37,7 @@ const ExpConsentLayout = () => {
             the contact persons.
           </p>
 
-          <p>Contact person : steven.costiou %at% inria.fr</p>
+          <p>Contact person : steven.costiou@inria.fr</p>
 
           <p className="user-consent">
             <input type="checkbox" checked={acceptConditions} onChange={() => setAcceptConditions(!acceptConditions)} />
@@ -48,7 +48,7 @@ const ExpConsentLayout = () => {
             <button className="btn-consent-no" onClick={clearAll}>
               I do not consent
             </button>
-            <button className="btn-consent-yes" disabled={!acceptConditions} onClick={() => setConsent(true)}>
+            <button className="btn-consent-yes outlined" disabled={!acceptConditions} onClick={() => setConsent(true)}>
               I consent
             </button>
           </div>

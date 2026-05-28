@@ -15,11 +15,16 @@ button {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 8px;
+  padding: 8px 16px;
   border-radius: 8px;
   font-family: var(--font);
   font-size: 1em;
-  color: var(--color-font);
+  color: white;
+
+  &.outlined {
+    border: solid 2px var(--color-font);
+    color: var(--color-font);
+  }
 
   &:hover {
     opacity: 80%;

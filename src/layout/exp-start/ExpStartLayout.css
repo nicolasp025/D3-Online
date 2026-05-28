@@ -30,12 +30,12 @@
 
   .exp-start-actions {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
   }
 
   .exp-btn-start {
     background-color: var(--color-primary);
     box-sizing: border-box;
-    width: 20%;
+    padding: 8px 16px;
   }
 }

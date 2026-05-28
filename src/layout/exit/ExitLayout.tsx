@@ -8,6 +8,14 @@ const ExitLayout = () => {
   const navigate = useNavigate();
   const { clearAll } = useExperimentContext();
 
+  /**
+   * Handle the disconnection of the user, by clearing all the data and navigating to the start page.
+   */
+  const handleDisconnect = () => {
+    navigate("/");
+    clearAll();
+  }
+
   return (
     <div className="exit-page-wrapper">
       <div className="exit-page container">
@@ -17,7 +25,7 @@ const ExitLayout = () => {
           <button className="exit-btn-cancel" onClick={() => navigate("/")}>
             <ArrowBack /> Back to debug
           </button>
-          <button className="exit-btn-confirm" onClick={clearAll}>
+          <button className="exit-btn-confirm" onClick={handleDisconnect}>
             <Exit />
             Complete
           </button>

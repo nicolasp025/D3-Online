@@ -25,6 +25,6 @@
 }
 
 .navbar-item.active {
-  border-color: #8f59fd;
+  border-color: var(--color-primary);
   background-color: var(--color-background-selected);
 }
