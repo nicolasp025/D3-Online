@@ -40,6 +40,7 @@ const ExpStartLayout = () => {
   return (
     <div className="exp-start-wrapper">
       <div className="exp-start container">
+        <h1>Experiment Start</h1>
         <form onSubmit={handleStartDebug} className="exp-form">
           <label>Please insert the required informations to continue : </label>
           <div className="exp-form-input">

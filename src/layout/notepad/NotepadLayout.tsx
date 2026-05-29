@@ -5,7 +5,8 @@ const NotepadLayout = () => {
   const { content, setContent } = useNotepad();
 
   return (
-    <div className="container">
+    <div className="notepad-wrapper container">
+      <h1>Notepad</h1>
       <textarea
         id="notepad"
         value={content}

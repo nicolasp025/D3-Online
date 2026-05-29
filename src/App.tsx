@@ -5,6 +5,7 @@ import { StacksProvider } from "./contexts/StacksContext";
 import Router from "./Router";
 import { ConsentProvider } from "./contexts/ExperimentContext";
 import { NotepadProvider } from "./contexts/NotepadContext";
+import { SettingsProvider } from "./contexts/SettingsContext";
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
         <ConsentProvider>
           <NotepadProvider>
             <DivergenceProvider>
-              <Router />
+              <SettingsProvider>
+                <Router />
+              </SettingsProvider>
             </DivergenceProvider>
           </NotepadProvider>
         </ConsentProvider>

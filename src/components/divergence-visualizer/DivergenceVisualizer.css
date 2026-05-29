@@ -1,10 +1,10 @@
 .divergence-table-container {
   flex-direction: column;
-}
 
-.divergence-header {
-  padding: 8px;
-  border-bottom: solid 1px var(--color-table-separator);
+  h1 {
+    padding: 8px;
+    border-bottom: solid 1px var(--color-table-separator);
+  }
 }
 
 .divergence-table {
