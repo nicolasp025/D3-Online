@@ -9,6 +9,7 @@ const ExpConsentLayout = () => {
   return (
     <div className="exp-consent-page">
       <div className="exp-consent container">
+        <h1>Experiment Consent Form</h1>
         <div className="exp-consent-content">
           <p>
             <u>Voluntary participation in the project:</u>

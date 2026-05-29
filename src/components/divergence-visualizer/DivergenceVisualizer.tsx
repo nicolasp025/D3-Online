@@ -61,7 +61,7 @@ const DivergenceVisualizer = () => {
 
   return (
     <div className="divergence-table-container container">
-      <div className="divergence-header">Divergence</div>
+      <h1>Divergences</h1>
       <div className="divergence-table" tabIndex={0} onKeyDown={handleKeyDown}>
         {divergences.length > 0 &&
           divergences.map((d) => (

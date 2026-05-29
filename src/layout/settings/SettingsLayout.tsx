@@ -1,9 +1,9 @@
-import { useState } from "react";
 import "./SettingsLayout.css";
 import Toggle from "../../components/toggle/Toggle";
+import { useSettings } from "../../contexts/SettingsContext";
 
 const SettingsLayout = () => {
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+    const { darkMode, setDarkMode } = useSettings();
 
     return (
         <div className="settings-wrapper">
@@ -11,7 +11,7 @@ const SettingsLayout = () => {
                 <h1>Settings</h1>
                 <div className="settings-element">
                     Dark mode
-                    <Toggle value={isDarkMode} onChange={setIsDarkMode} />
+                    <Toggle value={darkMode} onChange={setDarkMode} />
                 </div>
             </div>
         </div>

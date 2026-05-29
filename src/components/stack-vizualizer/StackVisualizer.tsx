@@ -9,13 +9,17 @@ import RestartIcon from "../../assets/icons/restart.svg?react";
 import SyncIcon from "../../assets/icons/arrows_sync.svg?react";
 import type { D3FlowDivergence } from "../../models/divergence";
 import { useStacks } from "../../contexts/StacksContext";
+import { useSettings } from "../../contexts/SettingsContext";
 
 interface StackVisualizerProps {
   originalStack: D3CallStack;
   modifiedStack: D3CallStack;
 }
 
-const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifiedStack }) => {
+const StackVisualizer: React.FC<StackVisualizerProps> = ({
+  originalStack,
+  modifiedStack,
+}) => {
   const {
     originalPosition,
     modifiedPosition,
@@ -25,11 +29,15 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
     handleFrameMoving,
   } = useStacks();
 
-  const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const { darkMode } = useSettings();
 
   return (
     <>
-      <div className="stack-actions container" tabIndex={0} onKeyDown={handleFrameMoving}>
+      <div
+        className="stack-actions container"
+        tabIndex={0}
+        onKeyDown={handleFrameMoving}
+      >
         <button onClick={increaseOriginalPosition}>
           <ArrowBackIcon aria-label="Step left icon" />
           Step left
@@ -57,7 +65,11 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
         </button>
       </div>
 
-      <div className="stack-table container" tabIndex={0} onKeyDown={handleFrameMoving}>
+      <div
+        className="stack-table container"
+        tabIndex={0}
+        onKeyDown={handleFrameMoving}
+      >
         <div className="stack-header">
           <div>
             <span>Position</span>
@@ -87,7 +99,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
       <div className="stack-editor container">
         <DiffEditor
           height="100%"
-          theme={isDarkMode ? "d3-dark" : "d3-light"}
+          theme={darkMode ? "d3-dark" : "d3-light"}
           language="typescript"
           options={MONACO_OPTIONS}
           beforeMount={defineMonacoTheme}

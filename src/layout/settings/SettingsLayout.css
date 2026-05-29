@@ -9,7 +9,7 @@
 .settings {
   flex-direction: column;
   padding: 16px;
-  max-width: 50%;
+  max-width: 500px;
   gap: 16px;
 }
 
