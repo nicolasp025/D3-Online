@@ -23,6 +23,7 @@ button {
 
   &.outlined {
     border: solid 2px var(--color-font);
+    background-color: transparent;
     color: var(--color-font);
   }
 
