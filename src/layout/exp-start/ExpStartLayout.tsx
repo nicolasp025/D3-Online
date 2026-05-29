@@ -84,6 +84,11 @@ const ExpStartLayout = () => {
             <button
               type="submit"
               className="exp-btn-start"
+              disabled={
+                !isValidUrl(url1Input) ||
+                !isValidUrl(url2Input) ||
+                !isValidID(userIDInput)
+              }
               onClick={handleStartDebug}
             >
               <DebugIcon />
