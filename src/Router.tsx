@@ -5,6 +5,7 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 import NotepadLayout from "./layout/notepad/NotepadLayout";
 import ExitLayout from "./layout/exit/ExitLayout";
 import QueryLayout from "./layout/query/QueryLayout";
+import SettingsLayout from "./layout/settings/SettingsLayout";
 
 const Router = () => {
   return (
@@ -14,7 +15,7 @@ const Router = () => {
           <Route index element={<DebugLayout />} />
           <Route path="query" element={<QueryLayout />} />
           <Route path="notepad" element={<NotepadLayout />} />
-          <Route path="settings" element={<>Settings page</>} />
+          <Route path="settings" element={<SettingsLayout />} />
           <Route path="exit" element={<ExitLayout />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />

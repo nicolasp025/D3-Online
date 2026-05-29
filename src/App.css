@@ -9,6 +9,22 @@
   }
 }
 
+.container {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
+  box-sizing: border-box;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: var(--color-background-secondary);
+}
+
+h1 {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 8px 0;
+}
+
 button {
   all: initial;
   display: flex;
