@@ -3,7 +3,7 @@ import "./App.css";
 import { DivergenceProvider } from "./contexts/DivergenceContext";
 import { StacksProvider } from "./contexts/StacksContext";
 import Router from "./Router";
-import { ConsentProvider } from "./contexts/ConsentContext";
+import { ConsentProvider } from "./contexts/ExperimentContext";
 import { NotepadProvider } from "./contexts/NotepadContext";
 
 function App() {

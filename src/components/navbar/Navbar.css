@@ -17,6 +17,10 @@
   align-items: center;
   justify-content: center;
 
+  &:hover:not(.active) {
+    color: var(--color-primary);
+  }
+
   svg {
     aspect-ratio: 1;
     height: 85%;
@@ -25,6 +29,6 @@
 }
 
 .navbar-item.active {
-  border-color: #8f59fd;
+  border-color: var(--color-primary);
   background-color: var(--color-background-selected);
 }

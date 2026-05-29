@@ -1,0 +1,20 @@
+.settings-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.settings {
+  flex-direction: column;
+  padding: 16px;
+  max-width: 50%;
+  gap: 16px;
+}
+
+.settings-element {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}

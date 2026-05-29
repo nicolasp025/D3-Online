@@ -16,6 +16,10 @@ export const useLocalStorage = <T>(key: string, defaultValue: T) => {
     }
   });
 
+  /**
+   * Store a specified value in the local storage.
+   * @param newValue The value to be stored in the local storage.
+   */
   const setStoredValue = (newValue: T) => {
     setValue(newValue);
     localStorage.setItem(key, JSON.stringify(newValue));
@@ -31,5 +35,13 @@ export const useLocalStorage = <T>(key: string, defaultValue: T) => {
     return () => window.removeEventListener("storage", listener);
   }, [key, defaultValue]);
 
-  return [value, setStoredValue] as const;
+  /**
+   * Clear the value from the local storage.
+   */
+  const removeKey = () => {
+    setValue(defaultValue);
+    localStorage.removeItem(key);
+  }
+
+  return [value, setStoredValue, removeKey] as const;
 };

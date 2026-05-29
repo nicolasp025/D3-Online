@@ -21,10 +21,12 @@
   margin-top: 12px;
 
   .exit-btn-cancel {
+    color: white;
     background-color: rgb(23, 163, 32);
   }
 
   .exit-btn-confirm {
+    color: white;
     background-color: #a6190f;
   }
 }

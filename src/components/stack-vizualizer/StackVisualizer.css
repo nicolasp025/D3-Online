@@ -16,6 +16,7 @@
   button {
     position: relative;
     width: 100%;
+    color: var(--color-font);
     margin: 0 4px;
 
     &:hover {

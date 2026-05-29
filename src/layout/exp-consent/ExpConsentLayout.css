@@ -44,6 +44,5 @@
 
   .btn-consent-yes {
     background-color: transparent;
-    border: solid 2px var(--color-font);
   }
 }

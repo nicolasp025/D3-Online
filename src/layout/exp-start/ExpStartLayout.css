@@ -1,0 +1,76 @@
+.exp-start-wrapper {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.exp-start {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+}
+
+.exp-start > form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .exp-form-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+
+    input {
+      all: initial;
+      width: 100%;
+      color: var(--color-font);
+      font-family: var(--font);
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: solid 1px var(--color-font);
+    }
+
+    span {
+      position: absolute;
+      right: 0;
+      aspect-ratio: 3 / 4;
+      height: 100%;
+      border-radius: 0 8px 8px 0;
+      overflow: hidden;
+      box-sizing: border-box;
+      border: solid 1px var(--color-font);
+      border-left: none;
+      transition: background-color 0.3s ease;
+
+      &.valid {
+        background-color: var(--color-addition);
+      }
+      &.invalid {
+        background-color: var(--color-deletion);
+      }
+
+      svg {
+        color: white;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 5px;
+        animation: fadeInUp 0.3s ease;
+      }
+    }
+  }
+
+  .exp-start-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .exp-btn-start {
+    background-color: var(--color-primary);
+  }
+}
