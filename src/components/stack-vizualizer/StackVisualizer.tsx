@@ -10,16 +10,14 @@ import SyncIcon from "../../assets/icons/arrows_sync.svg?react";
 import type { D3FlowDivergence } from "../../models/divergence";
 import { useStacks } from "../../contexts/StacksContext";
 import { useSettings } from "../../contexts/SettingsContext";
+import { ResizableContainer } from "../resizable-container/ResizableContainer";
 
 interface StackVisualizerProps {
   originalStack: D3CallStack;
   modifiedStack: D3CallStack;
 }
 
-const StackVisualizer: React.FC<StackVisualizerProps> = ({
-  originalStack,
-  modifiedStack,
-}) => {
+const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifiedStack }) => {
   const {
     originalPosition,
     modifiedPosition,
@@ -33,11 +31,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
 
   return (
     <>
-      <div
-        className="stack-actions container"
-        tabIndex={0}
-        onKeyDown={handleFrameMoving}
-      >
+      <div className="stack-actions container" tabIndex={0} onKeyDown={handleFrameMoving}>
         <button onClick={increaseOriginalPosition}>
           <ArrowBackIcon aria-label="Step left icon" />
           Step left
@@ -65,48 +59,48 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
         </button>
       </div>
 
-      <div
-        className="stack-table container"
-        tabIndex={0}
-        onKeyDown={handleFrameMoving}
-      >
-        <div className="stack-header">
-          <div>
-            <span>Position</span>
-            <span>Frame</span>
+      <ResizableContainer initialHeight={200}>
+        <div className="stack-table container" tabIndex={0} onKeyDown={handleFrameMoving}>
+          <div className="stack-header">
+            <div>
+              <span>Position</span>
+              <span>Frame</span>
+            </div>
+            <div>
+              <span>Position</span>
+              <span>Frame</span>
+            </div>
           </div>
-          <div>
-            <span>Position</span>
-            <span>Frame</span>
+          <div className="frame-tables">
+            <FrameTable
+              frames={originalStack.frames}
+              selectedPosition={originalPosition}
+              getDivergencePosition={(d: D3FlowDivergence) => d.originalPosition}
+              prefixColor="var(--color-deletion)"
+            />
+            <FrameTable
+              frames={modifiedStack.frames}
+              selectedPosition={modifiedPosition}
+              getDivergencePosition={(d: D3FlowDivergence) => d.modifiedPosition}
+              prefixColor="var(--color-addition)"
+            />
           </div>
         </div>
-        <div className="frame-tables">
-          <FrameTable
-            frames={originalStack.frames}
-            selectedPosition={originalPosition}
-            getDivergencePosition={(d: D3FlowDivergence) => d.originalPosition}
-            prefixColor="var(--color-deletion)"
-          />
-          <FrameTable
-            frames={modifiedStack.frames}
-            selectedPosition={modifiedPosition}
-            getDivergencePosition={(d: D3FlowDivergence) => d.modifiedPosition}
-            prefixColor="var(--color-addition)"
-          />
-        </div>
-      </div>
+      </ResizableContainer>
 
-      <div className="stack-editor container">
-        <DiffEditor
-          height="100%"
-          theme={darkMode ? "d3-dark" : "d3-light"}
-          language="typescript"
-          options={MONACO_OPTIONS}
-          beforeMount={defineMonacoTheme}
-          original={originalStack.frames[originalPosition]?.sourceCode ?? ""}
-          modified={modifiedStack.frames[modifiedPosition]?.sourceCode ?? ""}
-        />
-      </div>
+      <ResizableContainer initialHeight={200}>
+        <div className="stack-editor container">
+          <DiffEditor
+            height="100%"
+            theme={darkMode ? "d3-dark" : "d3-light"}
+            language="typescript"
+            options={MONACO_OPTIONS}
+            beforeMount={defineMonacoTheme}
+            original={originalStack.frames[originalPosition]?.sourceCode ?? ""}
+            modified={modifiedStack.frames[modifiedPosition]?.sourceCode ?? ""}
+          />
+        </div>
+      </ResizableContainer>
     </>
   );
 };

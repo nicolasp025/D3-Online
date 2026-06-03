@@ -4,6 +4,7 @@ import DivergenceItem from "./DivergenceItem";
 import { useCallback, useEffect, useRef } from "react";
 import { useStacks } from "../../contexts/StacksContext";
 import type { D3FlowDivergence, D3StateDivergence } from "../../models/divergence";
+import { ResizableContainer } from "../resizable-container/ResizableContainer";
 
 const DivergenceVisualizer = () => {
   const { divergences, selectedDivergence, setSelectedDivergence, isFlowDivergence } = useDivergence();
@@ -60,19 +61,21 @@ const DivergenceVisualizer = () => {
   };
 
   return (
-    <div className="divergence-table-container container">
-      <h1>Divergences</h1>
-      <div className="divergence-table" tabIndex={0} onKeyDown={handleKeyDown}>
-        {divergences.length > 0 &&
-          divergences.map((d) => (
-            <DivergenceItem
-              key={`divergence-${d.id}`}
-              ref={d == selectedDivergence ? selectedRef : null}
-              divergence={d}
-            />
-          ))}
+    <ResizableContainer initialHeight={250}>
+      <div className="divergence-table-container container">
+        <h1>Divergences</h1>
+        <div className="divergence-table" tabIndex={0} onKeyDown={handleKeyDown}>
+          {divergences.length > 0 &&
+            divergences.map((d) => (
+              <DivergenceItem
+                key={`divergence-${d.id}`}
+                ref={d == selectedDivergence ? selectedRef : null}
+                divergence={d}
+              />
+            ))}
+        </div>
       </div>
-    </div>
+    </ResizableContainer>
   );
 };
 
