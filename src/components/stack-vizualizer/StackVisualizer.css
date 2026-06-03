@@ -1,5 +1,6 @@
 .stack-table {
   flex-direction: column;
+  height: 100%;
   gap: 6px;
 }
 
@@ -12,6 +13,8 @@
 
 .stack-actions {
   flex: initial;
+  height: initial;
+  flex-shrink: 0;
 
   button {
     position: relative;
@@ -63,4 +66,8 @@
   justify-content: space-between;
   gap: 16px;
   overflow: hidden;
+}
+
+.stack-editor {
+  height: 100%;
 }

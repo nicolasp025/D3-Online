@@ -1,5 +1,6 @@
 .divergence-table-container {
   flex-direction: column;
+  height: 100%;
 
   h1 {
     padding: 8px;
