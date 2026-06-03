@@ -61,7 +61,7 @@ const DivergenceVisualizer = () => {
   };
 
   return (
-    <ResizableContainer initialHeight={250}>
+    <ResizableContainer>
       <div className="divergence-table-container container">
         <h1>Divergences</h1>
         <div className="divergence-table" tabIndex={0} onKeyDown={handleKeyDown}>

@@ -59,7 +59,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
         </button>
       </div>
 
-      <ResizableContainer initialHeight={200}>
+      <ResizableContainer>
         <div className="stack-table container" tabIndex={0} onKeyDown={handleFrameMoving}>
           <div className="stack-header">
             <div>
@@ -88,7 +88,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
         </div>
       </ResizableContainer>
 
-      <ResizableContainer initialHeight={200}>
+      <ResizableContainer>
         <div className="stack-editor container">
           <DiffEditor
             height="100%"

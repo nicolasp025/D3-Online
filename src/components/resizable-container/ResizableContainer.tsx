@@ -2,10 +2,10 @@ import { Resizable } from "re-resizable";
 
 interface ResizableContainerProps {
   children: React.ReactNode;
-  initialHeight: number;
+  initialHeight?: number | string;
 }
 
-export function ResizableContainer({ children, initialHeight }: ResizableContainerProps) {
+export function ResizableContainer({ children, initialHeight = "29vh" }: ResizableContainerProps) {
   return (
     <Resizable
       defaultSize={{ height: initialHeight }}
