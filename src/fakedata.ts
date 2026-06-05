@@ -41,6 +41,96 @@ export const originalStack: D3CallStack = {
       sourceCode: "console.log(document.getElementById('test-element'))",
       displayName: "Log test-element",
     },
+    {
+      id: 10,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 11,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 12,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 13,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 14,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 15,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 16,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 17,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 18,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 19,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 20,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 21,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 22,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 23,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 24,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 25,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 26,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
+    {
+      id: 27,
+      sourceCode: "console.log('test')",
+      displayName: "Log 'test'",
+    },
   ],
 };
 
