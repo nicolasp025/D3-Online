@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { D3StackFrame } from "../../models/stack";
 
 const TreeLayout = () => {
-    const ROW_HEIGHT = 40;
+    const CIRCLE_POSITION = 20;
     const DOT_RADIUS = 8;
     const LINE_X = 20;
 
@@ -17,31 +17,25 @@ const TreeLayout = () => {
         <div className="tree-wrapper">
             {originalStack.frames.map((frame, i) => (
                 <>
-                    <div className="tree-row" key={i}>
+                    <div
+                        key={`tree-row-${i}`}
+                        className={
+                            selectedFrame === frame ? "tree-row selected" : "tree-row"
+                        }
+                    >
                         <div className="tree-svg-wrapper">
-                            <svg className="line">
+                            <svg>
                                 <line
                                     x1={LINE_X}
-                                    y1={i == 0 ? ROW_HEIGHT / 2 : 0}
+                                    y1={i == 0 ? CIRCLE_POSITION : 0}
                                     x2={LINE_X}
                                     y2={
                                         i == originalStack.frames.length - 1
-                                            ? ROW_HEIGHT / 2
+                                            ? CIRCLE_POSITION
                                             : "100%"
                                     }
-                                    stroke="var(--color-font)"
-                                    strokeWidth={3}
                                 />
-                            </svg>
-                            <svg className="circle">
-                                <circle
-                                    cx={LINE_X}
-                                    cy={ROW_HEIGHT / 2}
-                                    r={DOT_RADIUS}
-                                    fill="var(--color-primary)"
-                                    stroke="var(--color-background)"
-                                    strokeWidth={2}
-                                />
+                                <circle cx={LINE_X} cy={CIRCLE_POSITION} r={DOT_RADIUS} />
                             </svg>
                         </div>
 
