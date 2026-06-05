@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import type { D3Divergence, D3FlowDivergence } from "../models/divergence";
-import { fakeDivergences } from "../fakedata";
+import { fakeFlowDivergences } from "../fakedata";
 
 type DivergenceContextType = {
   divergences: D3Divergence[];
@@ -17,7 +17,7 @@ export const DivergenceProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [divergences, setDivergences] = useState<D3Divergence[]>(fakeDivergences);
+  const [divergences, setDivergences] = useState<D3Divergence[]>(fakeFlowDivergences);
   const [selectedDivergence, setSelectedDivergence] =
     useState<D3Divergence | null>(null);
 
