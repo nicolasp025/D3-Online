@@ -3,17 +3,11 @@ import type { D3CallStack } from "./models/stack";
 
 export const originalStack: D3CallStack = {
   id: 1,
-  frames: Array.from({ length: 100 }, (_, index) => ({
-    id: index + 1,
-    sourceCode: `console.log('original frame ${index + 1}')`,
-    displayName: `Original Frame ${index + 1}`,
-  })),
-
-  ...Array.from({ length: 100 }, (_, index) => {
-    const frameNum = index + 1;
+  frames: Array.from({ length: 100 }, (_, index) => {
+    const frameNum = index + 10;
     const codeSnippets = [
       `const value${frameNum} = ${frameNum};`,
-      `console.log('Frame ${frameNum}');`,
+      `console.log('Original frame ${frameNum}');`,
       `const result = Math.pow(${frameNum}, 2);`,
       `if (${frameNum} % 2 === 0) { return true; }`,
       `const arr = Array.from({ length: ${frameNum} });`,
@@ -27,7 +21,7 @@ export const originalStack: D3CallStack = {
     return {
       id: frameNum,
       sourceCode: codeSnippets[frameNum % codeSnippets.length],
-      displayName: `Frame ${frameNum}`,
+      displayName: `Original Frame ${frameNum}`,
     };
   }),
 };
