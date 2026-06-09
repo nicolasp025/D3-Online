@@ -4,4 +4,5 @@ export const TREE_CONFIG = {
   LINE_X: 20,
   SPACE_BETWEEN: 40,
   ANGLE_CORRECTOR: 2,
+  OFFSET: 15,
 };

@@ -22,6 +22,11 @@ export const treeNode = (
     );
 };
 
+/**
+ * Returns the divergence node to be displayed in the table.
+ * @param isStateDiv True if the divergence node is also a state divergence.
+ * @returns A jsx element.
+ */
 export const divergenceNode = (isStateDiv: boolean) => {
     return treeNode(
         isStateDiv,
@@ -43,7 +48,7 @@ export const endDivergenceDiagonal = () => {
             y2={
                 TREE_CONFIG.CIRCLE_POSITION +
                 TREE_CONFIG.SPACE_BETWEEN +
-                TREE_CONFIG.ANGLE_CORRECTOR
+                TREE_CONFIG.ANGLE_CORRECTOR - TREE_CONFIG.OFFSET
             }
         />
     );
@@ -60,7 +65,7 @@ export const startDivergenceDiagonal = () => {
             y1={
                 TREE_CONFIG.CIRCLE_POSITION -
                 TREE_CONFIG.SPACE_BETWEEN -
-                TREE_CONFIG.ANGLE_CORRECTOR
+                TREE_CONFIG.ANGLE_CORRECTOR + TREE_CONFIG.OFFSET
             }
             x2={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
             y2={TREE_CONFIG.CIRCLE_POSITION}
@@ -76,7 +81,7 @@ export const verticalDivergenceTop = () => {
     return (
         <line
             x1={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
-            y1="0%"
+            y1="-2%" // for better connection with previous node
             x2={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
             y2={TREE_CONFIG.CIRCLE_POSITION}
         />

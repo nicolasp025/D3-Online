@@ -71,7 +71,7 @@
     justify-content: center;
     height: fit-content;
     width: 100%;
-    padding-left: 80px;
+    padding-left: 90px;
     z-index: 20;
   }
 
@@ -101,6 +101,5 @@
     width: 80px;
     height: 100%;
     overflow: visible;
-    position: relative;
   }
 }
