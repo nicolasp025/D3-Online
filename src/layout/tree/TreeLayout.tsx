@@ -6,6 +6,9 @@ const TreeLayout = () => {
     const CIRCLE_POSITION = 20;
     const DOT_RADIUS = 8;
     const LINE_X = 20;
+    const SPACE_BETWEEN = 40;
+
+    const ANGLE_CORRECTOR = 2;
 
     // const { divergences, isFlowDivergence } = useDivergence();
     const { originalStack } = useStacks();
@@ -39,6 +42,10 @@ const TreeLayout = () => {
 
     return (
         <div className="tree-wrapper" tabIndex={0} onKeyDown={handleKeyDown}>
+            <svg>
+                <line x1={LINE_X} y1={CIRCLE_POSITION} x2={LINE_X} y2={"100%"} />
+            </svg>
+
             {originalStack.frames.map((frame, i) => (
                 <div
                     key={`tree-row-${i}`}
@@ -49,17 +56,47 @@ const TreeLayout = () => {
                 >
                     <div className="tree-svg-wrapper">
                         <svg>
-                            <line
-                                x1={LINE_X}
-                                y1={i == 0 ? CIRCLE_POSITION : 0}
-                                x2={LINE_X}
-                                y2={
-                                    i == originalStack.frames.length - 1
-                                        ? CIRCLE_POSITION
-                                        : "100%"
-                                }
-                            />
                             <circle cx={LINE_X} cy={CIRCLE_POSITION} r={DOT_RADIUS} />
+
+                            {/** Diagonale \ 
+                                <line
+                                    x1={LINE_X}
+                                    y1={CIRCLE_POSITION - SPACE_BETWEEN - ANGLE_CORRECTOR}
+                                    x2={LINE_X + SPACE_BETWEEN}
+                                    y2={CIRCLE_POSITION}
+                                />
+                             */}
+
+                            {/** Verticale droite
+                                <line
+                                    x1={LINE_X + SPACE_BETWEEN}
+                                    y1="0%"
+                                    x2={LINE_X + SPACE_BETWEEN}
+                                    y2={CIRCLE_POSITION}
+                                />
+                                <line
+                                    x1={LINE_X + SPACE_BETWEEN}
+                                    y1={CIRCLE_POSITION}
+                                    x2={LINE_X + SPACE_BETWEEN} 
+                                    y2="100%"
+                                />
+                             */}
+
+                            {/** Diagonale / 
+                                <line
+                                x1={LINE_X + SPACE_BETWEEN}
+                                y1={CIRCLE_POSITION}
+                                x2={LINE_X}
+                                y2={CIRCLE_POSITION + SPACE_BETWEEN + ANGLE_CORRECTOR}
+                                />
+                            */}
+
+                            <circle
+                                className="state-div"
+                                cx={LINE_X + SPACE_BETWEEN}
+                                cy={CIRCLE_POSITION}
+                                r={DOT_RADIUS}
+                            />
                         </svg>
                     </div>
 
