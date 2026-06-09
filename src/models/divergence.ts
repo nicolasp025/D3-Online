@@ -26,7 +26,8 @@ export type DivergencePosition = {
 export type D3DebugResponse = {
   metadata: { language: string };
   //queries: string[][];
-  divergences: D3Divergence[];
+  flowDivergences: D3FlowDivergence[];
+  stateDivergences: D3StateDivergence[];
   v1: D3CallStack;
   v2: D3CallStack;
 };

@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  isolation: isolate;
 
   > svg {
     position: absolute;
     width: 40px;
     height: 100%;
-    z-index: 10;
   }
 
   line {
@@ -40,30 +40,28 @@
   height: fit-content;
   align-items: stretch;
   flex-direction: row;
-  border-radius: 8px;
   flex-shrink: 0;
   gap: 8px;
   position: relative;
-  transition: background-color 0.4s ease;
+  cursor: pointer;
+  user-select: none;
 
   &::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: 8px;
-    z-index: 0;
+    z-index: -1;
     background-color: transparent;
     transition: background-color 0.4s ease;
     pointer-events: none;
   }
 
   &:hover:not(.selected)::before {
-    z-index: inherit;
     background-color: var(--color-background-secondary);
   }
 
   &.selected::before {
-    z-index: inherit;
     background-color: var(--color-background-selected);
   }
 
@@ -82,8 +80,6 @@
     align-items: center;
     width: 100%;
     height: 40px;
-    cursor: pointer;
-    user-select: none;
   }
 
   .tree-row-code {

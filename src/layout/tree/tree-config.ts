@@ -1,0 +1,7 @@
+export const TREE_CONFIG = {
+  CIRCLE_POSITION: 20,
+  DOT_RADIUS: 8,
+  LINE_X: 20,
+  SPACE_BETWEEN: 40,
+  ANGLE_CORRECTOR: 2,
+};

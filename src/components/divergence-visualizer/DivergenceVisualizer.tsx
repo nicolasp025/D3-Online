@@ -7,7 +7,7 @@ import type { D3FlowDivergence, D3StateDivergence } from "../../models/divergenc
 import { ResizableContainer } from "../resizable-container/ResizableContainer";
 
 const DivergenceVisualizer = () => {
-  const { divergences, selectedDivergence, setSelectedDivergence, isFlowDivergence } = useDivergence();
+  const { flowDivergences, selectedDivergence, setSelectedDivergence, isFlowDivergence } = useDivergence();
   const { setOriginalPosition, setModifiedPosition } = useStacks();
 
   const selectedRef = useRef<HTMLDivElement>(null);
@@ -43,17 +43,17 @@ const DivergenceVisualizer = () => {
   const handleKeyDown = (event: React.KeyboardEvent) => {
     event.preventDefault();
     if (selectedDivergence) {
-      const index = divergences.indexOf(selectedDivergence);
+      const index = flowDivergences.indexOf(selectedDivergence as D3FlowDivergence /** TODO */);
 
       switch (event.key) {
         case "ArrowUp":
           if (index > 0) {
-            setSelectedDivergence(divergences[index - 1]);
+            setSelectedDivergence(flowDivergences[index - 1]);
           }
           break;
         case "ArrowDown":
-          if (index < divergences.length - 1) {
-            setSelectedDivergence(divergences[index + 1]);
+          if (index < flowDivergences.length - 1) {
+            setSelectedDivergence(flowDivergences[index + 1]);
           }
           break;
       }
@@ -65,8 +65,8 @@ const DivergenceVisualizer = () => {
       <div className="divergence-table-container container">
         <h1>Divergences</h1>
         <div className="divergence-table" tabIndex={0} onKeyDown={handleKeyDown}>
-          {divergences.length > 0 &&
-            divergences.map((d) => (
+          {flowDivergences.length > 0 &&
+            flowDivergences.map((d) => (
               <DivergenceItem
                 key={`divergence-${d.id}`}
                 ref={d == selectedDivergence ? selectedRef : null}

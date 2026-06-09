@@ -1,16 +1,20 @@
 import "./TreeLayout.css";
 import { useStacks } from "../../contexts/StacksContext";
 import { useEffect, useRef, useState } from "react";
+import { TREE_CONFIG } from "./tree-config";
+import React from "react";
+import { useDivergence } from "../../contexts/DivergenceContext";
+import {
+    divergenceNode,
+    endDivergenceDiagonal,
+    startDivergenceDiagonal,
+    treeNode,
+    verticalDivergenceBottom,
+    verticalDivergenceTop,
+} from "./tree-util";
 
-const TreeLayout = () => {
-    const CIRCLE_POSITION = 20;
-    const DOT_RADIUS = 8;
-    const LINE_X = 20;
-    const SPACE_BETWEEN = 40;
-
-    const ANGLE_CORRECTOR = 2;
-
-    // const { divergences, isFlowDivergence } = useDivergence();
+const TreeLayout = React.memo(() => {
+    const { flowDivergences, stateDivergences } = useDivergence();
     const { originalStack } = useStacks();
 
     const [selectedFrameIndex, setSelectedFrameIndex] = useState<number | null>(
@@ -25,12 +29,12 @@ const TreeLayout = () => {
         });
     }, [selectedFrameIndex]);
 
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === "ArrowUp") {
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === "ArrowUp") {
             if (selectedFrameIndex && selectedFrameIndex > 0) {
                 setSelectedFrameIndex(selectedFrameIndex - 1);
             }
-        } else if (e.key === "ArrowDown") {
+        } else if (event.key === "ArrowDown") {
             if (
                 selectedFrameIndex !== null &&
                 selectedFrameIndex < originalStack.frames.length - 1
@@ -40,77 +44,69 @@ const TreeLayout = () => {
         }
     };
 
+    const isStateDiv = (position: number) => {
+        return stateDivergences.some((div) => div.modifiedPosition == position);
+    };
+
+    const getFlowDiv = (position: number) => {
+        return (
+            flowDivergences.find(
+                (div) =>
+                    div.modifiedPosition.start <= position &&
+                    div.modifiedPosition.stop >= position,
+            ) ?? null
+        );
+    };
+
     return (
         <div className="tree-wrapper" tabIndex={0} onKeyDown={handleKeyDown}>
             <svg>
-                <line x1={LINE_X} y1={CIRCLE_POSITION} x2={LINE_X} y2={"100%"} />
+                <line
+                    x1={TREE_CONFIG.LINE_X}
+                    y1={TREE_CONFIG.CIRCLE_POSITION}
+                    x2={TREE_CONFIG.LINE_X}
+                    y2={"100%"}
+                />
             </svg>
 
-            {originalStack.frames.map((frame, i) => (
+            {originalStack.frames.map((frame, index) => (
                 <div
-                    key={`tree-row-${i}`}
-                    ref={selectedFrameIndex === i ? selectedRef : null}
+                    key={`tree-row-${index}`}
+                    ref={selectedFrameIndex === index ? selectedRef : null}
                     className={
-                        selectedFrameIndex === i ? "tree-row selected" : "tree-row"
+                        selectedFrameIndex === index ? "tree-row selected" : "tree-row"
                     }
+                    onClick={() => {
+                        if (selectedFrameIndex === index) setSelectedFrameIndex(null);
+                        else setSelectedFrameIndex(index);
+                    }}
                 >
                     <div className="tree-svg-wrapper">
                         <svg>
-                            <circle cx={LINE_X} cy={CIRCLE_POSITION} r={DOT_RADIUS} />
+                            {(() => {
+                                const flowDiv = getFlowDiv(index);
+                                if (flowDiv == null) return null;
 
-                            {/** Diagonale \ 
-                                <line
-                                    x1={LINE_X}
-                                    y1={CIRCLE_POSITION - SPACE_BETWEEN - ANGLE_CORRECTOR}
-                                    x2={LINE_X + SPACE_BETWEEN}
-                                    y2={CIRCLE_POSITION}
-                                />
-                             */}
+                                const isStart = index === flowDiv.modifiedPosition.start;
+                                const isEnd = index === flowDiv.modifiedPosition.stop;
 
-                            {/** Verticale droite
-                                <line
-                                    x1={LINE_X + SPACE_BETWEEN}
-                                    y1="0%"
-                                    x2={LINE_X + SPACE_BETWEEN}
-                                    y2={CIRCLE_POSITION}
-                                />
-                                <line
-                                    x1={LINE_X + SPACE_BETWEEN}
-                                    y1={CIRCLE_POSITION}
-                                    x2={LINE_X + SPACE_BETWEEN} 
-                                    y2="100%"
-                                />
-                             */}
-
-                            {/** Diagonale / 
-                                <line
-                                x1={LINE_X + SPACE_BETWEEN}
-                                y1={CIRCLE_POSITION}
-                                x2={LINE_X}
-                                y2={CIRCLE_POSITION + SPACE_BETWEEN + ANGLE_CORRECTOR}
-                                />
-                            */}
-
-                            <circle
-                                className="state-div"
-                                cx={LINE_X + SPACE_BETWEEN}
-                                cy={CIRCLE_POSITION}
-                                r={DOT_RADIUS}
-                            />
+                                return (
+                                    <>
+                                        {isStart && startDivergenceDiagonal()}
+                                        {isEnd && endDivergenceDiagonal()}
+                                        {!isStart && verticalDivergenceTop()}
+                                        {!isEnd && verticalDivergenceBottom()}
+                                        {divergenceNode(isStateDiv(index))}
+                                    </>
+                                );
+                            })()}
+                            {treeNode(isStateDiv(index))}
                         </svg>
                     </div>
 
                     <div className="tree-row-content">
-                        <div
-                            className="tree-row-label"
-                            onClick={() => {
-                                if (selectedFrameIndex === i) setSelectedFrameIndex(null);
-                                else setSelectedFrameIndex(i);
-                            }}
-                        >
-                            {frame.displayName}
-                        </div>
-                        {selectedFrameIndex === i && (
+                        <div className="tree-row-label">{frame.displayName}</div>
+                        {selectedFrameIndex === index && (
                             <span className="tree-row-code">{frame.sourceCode}</span>
                         )}
                     </div>
@@ -118,5 +114,5 @@ const TreeLayout = () => {
             ))}
         </div>
     );
-};
+});
 export default TreeLayout;
