@@ -12,8 +12,6 @@
 
   line {
     position: relative;
-    stroke: var(--color-font);
-    stroke-width: 3;
     z-index: 10;
   }
 
@@ -23,14 +21,6 @@
     stroke-width: 2;
     fill: var(--color-font);
     z-index: 20;
-
-    &.state-div {
-      fill: var(--color-state-divergence);
-    }
-
-    &.flow-div {
-      fill: var(--color-flow-divergence);
-    }
   }
 }
 
