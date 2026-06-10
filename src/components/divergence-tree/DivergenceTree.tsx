@@ -13,14 +13,19 @@ import {
     verticalDivergenceTop,
 } from "./tree-util";
 import { useDivergenceTree } from "../../contexts/DivergenceTreeContext";
+import { DiffEditor } from "@monaco-editor/react";
+import { useSettings } from "../../contexts/SettingsContext";
+import { defineMonacoTheme, MONACO_OPTIONS } from "../../config/monaco";
 
 const DivergenceTree = React.memo(() => {
     const { flowDivergences, stateDivergences } = useDivergence();
-    const { originalStack } = useStacks();
+    const { originalStack, modifiedStack } = useStacks();
 
     const { selectedRow, setSelectedRow } = useDivergenceTree();
 
     const selectedRef = useRef<HTMLDivElement>(null);
+
+    const { darkMode } = useSettings();
 
     useEffect(() => {
         selectedRef.current?.scrollIntoView({
@@ -74,12 +79,14 @@ const DivergenceTree = React.memo(() => {
                     key={`tree-row-${index}`}
                     ref={selectedRow === index ? selectedRef : null}
                     className={selectedRow === index ? "tree-row selected" : "tree-row"}
-                    onClick={() => {
-                        if (selectedRow === index) setSelectedRow(null);
-                        else setSelectedRow(index);
-                    }}
                 >
-                    <div className="tree-svg-wrapper">
+                    <div
+                        className="tree-svg-wrapper"
+                        onClick={() => {
+                            if (selectedRow === index) setSelectedRow(null);
+                            else setSelectedRow(index);
+                        }}
+                    >
                         <svg>
                             {(() => {
                                 const flowDiv = getFlowDiv(index);
@@ -103,9 +110,25 @@ const DivergenceTree = React.memo(() => {
                     </div>
 
                     <div className="tree-row-content">
-                        <div className="tree-row-label">{frame.displayName}</div>
+                        <div
+                            className="tree-row-label"
+                            onClick={() => {
+                                if (selectedRow === index) setSelectedRow(null);
+                                else setSelectedRow(index);
+                            }}
+                        >
+                            {frame.displayName}
+                        </div>
                         {selectedRow === index && (
-                            <span className="tree-row-code">{frame.sourceCode}</span>
+                            <DiffEditor
+                                height="300px"
+                                theme={darkMode ? "d3-dark" : "d3-light"}
+                                language="typescript"
+                                options={MONACO_OPTIONS}
+                                beforeMount={defineMonacoTheme}
+                                original={originalStack.frames[index]?.sourceCode ?? ""}
+                                modified={modifiedStack.frames[index]?.sourceCode ?? ""}
+                            />
                         )}
                     </div>
                 </div>
