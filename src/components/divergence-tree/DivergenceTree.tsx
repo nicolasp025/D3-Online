@@ -1,17 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import "./DivergenceTree.css";
+import { useEffect, useRef } from "react";
 import { useDivergence } from "../../contexts/DivergenceContext";
 import { useStacks } from "../../contexts/StacksContext";
 import { TREE_CONFIG } from "./tree-config";
 import React from "react";
-import { divergenceNode, endDivergenceDiagonal, startDivergenceDiagonal, treeNode, verticalDivergenceBottom, verticalDivergenceTop } from "./tree-util";
+import {
+    divergenceNode,
+    endDivergenceDiagonal,
+    startDivergenceDiagonal,
+    treeNode,
+    verticalDivergenceBottom,
+    verticalDivergenceTop,
+} from "./tree-util";
+import { useDivergenceTree } from "../../contexts/DivergenceTreeContext";
 
 const DivergenceTree = React.memo(() => {
     const { flowDivergences, stateDivergences } = useDivergence();
     const { originalStack } = useStacks();
 
-    const [selectedFrameIndex, setSelectedFrameIndex] = useState<number | null>(
-        null,
-    );
+    const { selectedRow, setSelectedRow } = useDivergenceTree();
+
     const selectedRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -19,19 +27,19 @@ const DivergenceTree = React.memo(() => {
             block: "center",
             behavior: "smooth",
         });
-    }, [selectedFrameIndex]);
+    }, [selectedRow]);
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === "ArrowUp") {
-            if (selectedFrameIndex && selectedFrameIndex > 0) {
-                setSelectedFrameIndex(selectedFrameIndex - 1);
+            if (selectedRow && selectedRow > 0) {
+                setSelectedRow(selectedRow - 1);
             }
         } else if (event.key === "ArrowDown") {
             if (
-                selectedFrameIndex !== null &&
-                selectedFrameIndex < originalStack.frames.length - 1
+                selectedRow !== null &&
+                selectedRow < originalStack.frames.length - 1
             ) {
-                setSelectedFrameIndex(selectedFrameIndex + 1);
+                setSelectedRow(selectedRow + 1);
             }
         }
     };
@@ -64,13 +72,11 @@ const DivergenceTree = React.memo(() => {
             {originalStack.frames.map((frame, index) => (
                 <div
                     key={`tree-row-${index}`}
-                    ref={selectedFrameIndex === index ? selectedRef : null}
-                    className={
-                        selectedFrameIndex === index ? "tree-row selected" : "tree-row"
-                    }
+                    ref={selectedRow === index ? selectedRef : null}
+                    className={selectedRow === index ? "tree-row selected" : "tree-row"}
                     onClick={() => {
-                        if (selectedFrameIndex === index) setSelectedFrameIndex(null);
-                        else setSelectedFrameIndex(index);
+                        if (selectedRow === index) setSelectedRow(null);
+                        else setSelectedRow(index);
                     }}
                 >
                     <div className="tree-svg-wrapper">
@@ -98,7 +104,7 @@ const DivergenceTree = React.memo(() => {
 
                     <div className="tree-row-content">
                         <div className="tree-row-label">{frame.displayName}</div>
-                        {selectedFrameIndex === index && (
+                        {selectedRow === index && (
                             <span className="tree-row-code">{frame.sourceCode}</span>
                         )}
                     </div>
