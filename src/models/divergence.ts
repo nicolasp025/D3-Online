@@ -1,7 +1,5 @@
 import type { D3CallStack } from "./stack";
 
-export type D3Divergence = D3StateDivergence | D3FlowDivergence;
-
 type D3AbstractDivergence = {
   id: number;
   displayName: string;
@@ -25,7 +23,6 @@ export type DivergencePosition = {
 
 export type D3DebugResponse = {
   metadata: { language: string };
-  //queries: string[][];
   flowDivergences: D3FlowDivergence[];
   stateDivergences: D3StateDivergence[];
   v1: D3CallStack;
