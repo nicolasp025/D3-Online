@@ -1,23 +1,30 @@
 import { useDivergence } from "../../../contexts/DivergenceContext";
+import type { D3StackFrame } from "../../../models/stack";
 import { TREE_CONFIG } from "../tree-config";
-import { getFlowDiv } from "../tree-util";
+import { hasNextInDivergence, hasPreviousInDivergence } from "../tree-util";
 
 interface NodeRelationProps {
     index: number;
+    rows: (D3StackFrame | null)[];
 }
 
-const NodeRelation: React.FC<NodeRelationProps> = ({ index }) => {
+const NodeRelation: React.FC<NodeRelationProps> = ({ index, rows }) => {
     const { flowDivergences } = useDivergence();
-
-    const hasPrevious = getFlowDiv(index - 1, flowDivergences) != null;
-    const hasNext = getFlowDiv(index + 1, flowDivergences) != null;
 
     return (
         <line
             x1={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
-            y1={hasPrevious ? "-2%" : TREE_CONFIG.CIRCLE_POSITION}
+            y1={
+                hasPreviousInDivergence(index, rows, flowDivergences)
+                    ? "-2%"
+                    : TREE_CONFIG.CIRCLE_POSITION
+            }
             x2={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
-            y2={hasNext ? "100%" : TREE_CONFIG.CIRCLE_POSITION}
+            y2={
+                hasNextInDivergence(index, rows, flowDivergences)
+                    ? "100%"
+                    : TREE_CONFIG.CIRCLE_POSITION
+            }
         />
     );
 };

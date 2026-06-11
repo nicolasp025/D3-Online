@@ -48,8 +48,8 @@ export const getFlowDiv = (
 export const buildRows = (
     frames: D3StackFrame[],
     flowDivergences: D3FlowDivergence[],
-) =>
-    frames.flatMap((frame) => {
+) => {
+    return frames.flatMap((frame) => {
         if (frame.position === 0) return [frame];
 
         const lastDiv = getFlowDiv(frame.position - 1, flowDivergences);
@@ -63,3 +63,38 @@ export const buildRows = (
 
         return [...emptyRows, frame];
     });
+};
+
+/**
+ * Return true if the specified position's previous element is in a divergence.
+ *
+ * @param index The position in the rows.
+ * @param rows The tree rows.
+ * @param flowDivergences The flow divergences.
+ * @returns True if the specified position's next element is in a divergence.
+ */
+export const hasPreviousInDivergence = (
+    index: number,
+    rows: (D3StackFrame | null)[],
+    flowDivergences: D3FlowDivergence[],
+) => {
+    return rows[index] == null || getFlowDiv(index - 1, flowDivergences) != null;
+};
+
+/**
+ * Return true if the specified position's next element is in a divergence.
+ *
+ * @param index The position in the rows.
+ * @param rows The tree rows.
+ * @param flowDivergences The flow divergences.
+ * @returns True if the specified position's next element is in a divergence.
+ */
+export const hasNextInDivergence = (
+    index: number,
+    rows: (D3StackFrame | null)[],
+    flowDivergences: D3FlowDivergence[],
+) => {
+    return (
+        getFlowDiv(index + 1, flowDivergences) != null || rows[index + 1] == null
+    );
+};
