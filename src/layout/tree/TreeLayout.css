@@ -1,7 +1,6 @@
 .tree-layout {
   line {
     stroke: var(--color-font);
-    stroke-width: 3;
   }
 
   circle {

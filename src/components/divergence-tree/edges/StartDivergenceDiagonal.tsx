@@ -16,6 +16,7 @@ const StartDivergenceDiagonal = () => {
             }
             x2={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
             y2={TREE_CONFIG.CIRCLE_POSITION}
+            strokeWidth={TREE_CONFIG.LINE_WIDTH}
         />
     );
 };

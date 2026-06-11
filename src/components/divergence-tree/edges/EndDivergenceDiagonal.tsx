@@ -16,6 +16,7 @@ const EndDivergenceDiagonal = () => {
                 TREE_CONFIG.ANGLE_CORRECTOR -
                 TREE_CONFIG.OFFSET
             }
+            strokeWidth={TREE_CONFIG.LINE_WIDTH}
         />
     );
 };

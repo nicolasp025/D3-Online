@@ -56,6 +56,7 @@ const DivergenceTree = React.memo(() => {
                     y1={TREE_CONFIG.CIRCLE_POSITION}
                     x2={TREE_CONFIG.LINE_X}
                     y2={"100%"}
+                    strokeWidth={TREE_CONFIG.LINE_WIDTH}
                 />
             </svg>
 

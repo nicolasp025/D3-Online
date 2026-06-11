@@ -36,7 +36,7 @@ const TreeLayout = () => {
         <div className="legend-item">
           <dt>
             <svg className="legend-color">
-              <line x1={0} y1={12} x2={20} y2={12} />
+              <line x1={0} y1={12} x2={20} y2={12} strokeWidth={3} />
             </svg>
           </dt>
           <dd className="legend-label">Divergence / convergence</dd>
