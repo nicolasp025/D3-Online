@@ -1,4 +1,3 @@
-import { DiffEditor } from "@monaco-editor/react";
 import { useDivergenceTree } from "../../contexts/DivergenceTreeContext";
 import type { D3StackFrame } from "../../models/stack";
 import EndDivergenceDiagonal from "./edges/EndDivergenceDiagonal";
@@ -6,8 +5,7 @@ import NodeRelation from "./edges/NodeRelation";
 import StartDivergenceDiagonal from "./edges/StartDivergenceDiagonal";
 import DivergenceNode from "./nodes/DivergenceNode";
 import TreeNode from "./nodes/TreeNode";
-import { useSettings } from "../../contexts/SettingsContext";
-import { defineMonacoTheme, MONACO_OPTIONS } from "../../config/monaco";
+import MonacoDiffEditor from "../monaco/MonacoDiffEditor";
 
 interface DivergenceTreeRowProps {
     index: number;
@@ -27,7 +25,6 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
     isInDivergence,
 }) => {
     const { selectedRow, setSelectedRow, selectedRef } = useDivergenceTree();
-    const { darkMode } = useSettings();
 
     /**
      * Returns the svg for the row.
@@ -83,12 +80,7 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
                     {frame == null ? "null" : frame.position}
                 </div>
                 {selectedRow === index && (
-                    <DiffEditor
-                        height="300px"
-                        theme={darkMode ? "d3-dark" : "d3-light"}
-                        language="typescript"
-                        options={MONACO_OPTIONS}
-                        beforeMount={defineMonacoTheme}
+                    <MonacoDiffEditor
                         original={frame?.sourceCode ?? ""}
                         modified={modifiedFrame?.sourceCode ?? ""}
                     />

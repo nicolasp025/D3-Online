@@ -26,14 +26,27 @@ const getLengthDifference = (flowDiv: D3FlowDivergence) => {
 export const getFlowDiv = (
     position: number,
     flowDivergences: D3FlowDivergence[],
-) => {
-    return (
-        flowDivergences.find(
-            (div) =>
-                position >= div.modifiedPosition.start &&
-                position <= div.modifiedPosition.stop + getLengthDifference(div),
-        ) ?? null
-    );
+): D3FlowDivergence | null => {
+    let left = 0;
+    let right = flowDivergences.length - 1;
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+        const div = flowDivergences[mid];
+        const stop = div.modifiedPosition.stop + getLengthDifference(div);
+
+        if (position >= div.modifiedPosition.start && position <= stop) {
+            return div;
+        }
+
+        if (position < div.modifiedPosition.start) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+
+    return null;
 };
 
 /**

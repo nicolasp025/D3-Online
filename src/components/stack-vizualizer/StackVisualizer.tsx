@@ -1,23 +1,24 @@
 import type { D3CallStack } from "../../models/stack";
 import FrameTable from "../frame-table/FrameTable";
 import "./StackVisualizer.css";
-import { DiffEditor } from "@monaco-editor/react";
-import { defineMonacoTheme, MONACO_OPTIONS } from "../../config/monaco";
 import ArrowBackIcon from "../../assets/icons/arrow_back.svg?react";
 import ArrowForwardIcon from "../../assets/icons/arrow_forward.svg?react";
 import RestartIcon from "../../assets/icons/restart.svg?react";
 import SyncIcon from "../../assets/icons/arrows_sync.svg?react";
 import type { D3FlowDivergence } from "../../models/divergence";
 import { useStacks } from "../../contexts/StacksContext";
-import { useSettings } from "../../contexts/SettingsContext";
 import { ResizableContainer } from "../resizable-container/ResizableContainer";
+import MonacoDiffEditor from "../monaco/MonacoDiffEditor";
 
 interface StackVisualizerProps {
   originalStack: D3CallStack;
   modifiedStack: D3CallStack;
 }
 
-const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifiedStack }) => {
+const StackVisualizer: React.FC<StackVisualizerProps> = ({
+  originalStack,
+  modifiedStack,
+}) => {
   const {
     originalPosition,
     modifiedPosition,
@@ -27,11 +28,13 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
     handleFrameMoving,
   } = useStacks();
 
-  const { darkMode } = useSettings();
-
   return (
     <>
-      <div className="stack-actions container" tabIndex={0} onKeyDown={handleFrameMoving}>
+      <div
+        className="stack-actions container"
+        tabIndex={0}
+        onKeyDown={handleFrameMoving}
+      >
         <button onClick={increaseOriginalPosition}>
           <ArrowBackIcon aria-label="Step left icon" />
           Step left
@@ -60,7 +63,11 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
       </div>
 
       <ResizableContainer>
-        <div className="stack-table container" tabIndex={0} onKeyDown={handleFrameMoving}>
+        <div
+          className="stack-table container"
+          tabIndex={0}
+          onKeyDown={handleFrameMoving}
+        >
           <div className="stack-header">
             <div>
               <span>Position</span>
@@ -75,13 +82,17 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
             <FrameTable
               frames={originalStack.frames}
               selectedPosition={originalPosition}
-              getDivergencePosition={(d: D3FlowDivergence) => d.originalPosition}
+              getDivergencePosition={(d: D3FlowDivergence) =>
+                d.originalPosition
+              }
               prefixColor="var(--color-deletion)"
             />
             <FrameTable
               frames={modifiedStack.frames}
               selectedPosition={modifiedPosition}
-              getDivergencePosition={(d: D3FlowDivergence) => d.modifiedPosition}
+              getDivergencePosition={(d: D3FlowDivergence) =>
+                d.modifiedPosition
+              }
               prefixColor="var(--color-addition)"
             />
           </div>
@@ -90,12 +101,7 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({ originalStack, modifi
 
       <ResizableContainer>
         <div className="stack-editor container">
-          <DiffEditor
-            height="100%"
-            theme={darkMode ? "d3-dark" : "d3-light"}
-            language="typescript"
-            options={MONACO_OPTIONS}
-            beforeMount={defineMonacoTheme}
+          <MonacoDiffEditor
             original={originalStack.frames[originalPosition]?.sourceCode ?? ""}
             modified={modifiedStack.frames[modifiedPosition]?.sourceCode ?? ""}
           />
