@@ -4,7 +4,7 @@ import type { D3CallStack } from "./models/stack";
 export const originalStack: D3CallStack = {
   id: 1,
   frames: Array.from({ length: 100 }, (_, index) => {
-    const frameNum = index + 10;
+    const frameNum = index;
     const codeSnippets = [
       `const value${frameNum} = ${frameNum};`,
       `console.log('Original frame ${frameNum}');`,
@@ -22,6 +22,7 @@ export const originalStack: D3CallStack = {
       id: frameNum,
       sourceCode: codeSnippets[frameNum % codeSnippets.length],
       displayName: `Original Frame ${frameNum}`,
+      position: index,
     };
   }),
 };
@@ -47,6 +48,7 @@ export const modifiedStack: D3CallStack = {
       id: frameNum,
       sourceCode: codeSnippets[frameNum % codeSnippets.length],
       displayName: `Modified Frame ${frameNum}`,
+      position: index,
     };
   }),
 };
@@ -72,19 +74,19 @@ export const fakeFlowDivergences: D3FlowDivergence[] = [
   {
     id: 1,
     displayName: "Flow Divergence 1",
-    originalPosition: { start: 1, stop: 10 },
+    originalPosition: { start: 1, stop: 5 },
     modifiedPosition: { start: 1, stop: 5 },
   },
   {
     id: 2,
     displayName: "Flow Divergence 2",
     originalPosition: { start: 7, stop: 8 },
-    modifiedPosition: { start: 7, stop: 7 },
+    modifiedPosition: { start: 7, stop: 8 },
   },
   {
     id: 3,
     displayName: "Flow Divergence 3",
-    originalPosition: { start: 9, stop: 10 },
-    modifiedPosition: { start: 9, stop: 11 },
+    originalPosition: { start: 10, stop: 20 },
+    modifiedPosition: { start: 10, stop: 24 },
   },
 ];

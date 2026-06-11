@@ -1,14 +1,12 @@
 import "./DivergenceTree.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useDivergence } from "../../contexts/DivergenceContext";
 import { useStacks } from "../../contexts/StacksContext";
 import { TREE_CONFIG } from "./tree-config";
 import React from "react";
 import {
-    divergenceNode,
-    endDivergenceDiagonal,
-    startDivergenceDiagonal,
-    treeNode,
+    buildRows,
+    getFlowDiv,
     verticalDivergenceBottom,
     verticalDivergenceTop,
 } from "./tree-util";
@@ -16,9 +14,14 @@ import { useDivergenceTree } from "../../contexts/DivergenceTreeContext";
 import { DiffEditor } from "@monaco-editor/react";
 import { useSettings } from "../../contexts/SettingsContext";
 import { defineMonacoTheme, MONACO_OPTIONS } from "../../config/monaco";
+import type { D3StackFrame } from "../../models/stack";
+import TreeNode from "./nodes/TreeNode";
+import DivergenceNode from "./nodes/DivergenceNode";
+import StartDivergenceDiagonal from "./edges/StartDivergenceDiagonal";
+import EndDivergenceDiagonal from "./edges/EndDivergenceDiagonal";
 
 const DivergenceTree = React.memo(() => {
-    const { flowDivergences, stateDivergences } = useDivergence();
+    const { flowDivergences } = useDivergence();
     const { originalStack, modifiedStack } = useStacks();
 
     const { selectedRow, setSelectedRow } = useDivergenceTree();
@@ -26,6 +29,11 @@ const DivergenceTree = React.memo(() => {
     const selectedRef = useRef<HTMLDivElement>(null);
 
     const { darkMode } = useSettings();
+
+    const rows = useMemo(
+        () => buildRows(originalStack.frames, flowDivergences),
+        [originalStack, flowDivergences],
+    );
 
     useEffect(() => {
         selectedRef.current?.scrollIntoView({
@@ -49,17 +57,32 @@ const DivergenceTree = React.memo(() => {
         }
     };
 
-    const isStateDiv = (position: number) => {
-        return stateDivergences.some((div) => div.modifiedPosition == position);
-    };
+    const buildTreeRow = (frame: D3StackFrame | null, index: number) => {
+        if (frame == null) {
+            return (
+                <>
+                    {verticalDivergenceTop()}
+                    {!rows[index + 1] && verticalDivergenceBottom()}
+                    {rows[index + 1] && <EndDivergenceDiagonal />}
+                    <DivergenceNode frame={modifiedStack.frames[index]} />
+                </>
+            );
+        }
 
-    const getFlowDiv = (position: number) => {
+        const flowDiv = getFlowDiv(index, flowDivergences);
+        if (flowDiv == null) return;
+
+        const isStart = index === flowDiv.modifiedPosition.start;
+        const isEnd = index === flowDiv.modifiedPosition.stop;
+
         return (
-            flowDivergences.find(
-                (div) =>
-                    div.modifiedPosition.start <= position &&
-                    div.modifiedPosition.stop >= position,
-            ) ?? null
+            <>
+                {isStart && <StartDivergenceDiagonal />}
+                {isEnd && <EndDivergenceDiagonal />}
+                {!isStart && verticalDivergenceTop()}
+                {!isEnd && verticalDivergenceBottom()}
+                <DivergenceNode frame={frame} />
+            </>
         );
     };
 
@@ -74,7 +97,7 @@ const DivergenceTree = React.memo(() => {
                 />
             </svg>
 
-            {originalStack.frames.map((frame, index) => (
+            {rows.map((frame, index) => (
                 <div
                     key={`tree-row-${index}`}
                     ref={selectedRow === index ? selectedRef : null}
@@ -88,24 +111,8 @@ const DivergenceTree = React.memo(() => {
                         }}
                     >
                         <svg>
-                            {(() => {
-                                const flowDiv = getFlowDiv(index);
-                                if (flowDiv == null) return null;
-
-                                const isStart = index === flowDiv.modifiedPosition.start;
-                                const isEnd = index === flowDiv.modifiedPosition.stop;
-
-                                return (
-                                    <>
-                                        {isStart && startDivergenceDiagonal()}
-                                        {isEnd && endDivergenceDiagonal()}
-                                        {!isStart && verticalDivergenceTop()}
-                                        {!isEnd && verticalDivergenceBottom()}
-                                        {divergenceNode(isStateDiv(index))}
-                                    </>
-                                );
-                            })()}
-                            {treeNode(isStateDiv(index))}
+                            {buildTreeRow(frame, index)}
+                            <TreeNode frame={frame} />
                         </svg>
                     </div>
 
@@ -117,7 +124,7 @@ const DivergenceTree = React.memo(() => {
                                 else setSelectedRow(index);
                             }}
                         >
-                            {frame.displayName}
+                            {frame == null ? "null" : frame.position}
                         </div>
                         {selectedRow === index && (
                             <DiffEditor

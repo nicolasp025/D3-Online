@@ -1,77 +1,6 @@
+import type { D3FlowDivergence } from "../../models/divergence";
+import type { D3StackFrame } from "../../models/stack";
 import { TREE_CONFIG } from "./tree-config";
-
-/**
- * Returns a tree node with the specified params.
- * @param isStateDiv If true, the node will have the classname state-div.
- * @param defaultClassName If isStateDiv if false, uses that classname.
- * @param cx The X coordinate to display the node at.
- * @returns The tree node with specified params.
- */
-export const treeNode = (
-    isStateDiv: boolean,
-    defaultClassName: string = "",
-    cx: number = TREE_CONFIG.LINE_X,
-) => {
-    return (
-        <circle
-            className={isStateDiv ? "state-div" : defaultClassName}
-            cx={cx}
-            cy={TREE_CONFIG.CIRCLE_POSITION}
-            r={TREE_CONFIG.DOT_RADIUS}
-        />
-    );
-};
-
-/**
- * Returns the divergence node to be displayed in the table.
- * @param isStateDiv True if the divergence node is also a state divergence.
- * @returns A jsx element.
- */
-export const divergenceNode = (isStateDiv: boolean) => {
-    return treeNode(
-        isStateDiv,
-        "flow-div",
-        TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN,
-    );
-};
-
-/**
- * Returns the template for the / diagonal (starting from the point on right top).
- * @returns A jsx element.
- */
-export const endDivergenceDiagonal = () => {
-    return (
-        <line
-            x1={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
-            y1={TREE_CONFIG.CIRCLE_POSITION}
-            x2={TREE_CONFIG.LINE_X}
-            y2={
-                TREE_CONFIG.CIRCLE_POSITION +
-                TREE_CONFIG.SPACE_BETWEEN +
-                TREE_CONFIG.ANGLE_CORRECTOR - TREE_CONFIG.OFFSET
-            }
-        />
-    );
-};
-
-/**
- * Returns the template for the \ diagonal (starting from the point on right bottom).
- * @returns A jsx element.
- */
-export const startDivergenceDiagonal = () => {
-    return (
-        <line
-            x1={TREE_CONFIG.LINE_X}
-            y1={
-                TREE_CONFIG.CIRCLE_POSITION -
-                TREE_CONFIG.SPACE_BETWEEN -
-                TREE_CONFIG.ANGLE_CORRECTOR + TREE_CONFIG.OFFSET
-            }
-            x2={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
-            y2={TREE_CONFIG.CIRCLE_POSITION}
-        />
-    );
-};
 
 /**
  * Returns the template for the vertical relation (used when previous frame was already in a flow divegence).
@@ -102,3 +31,66 @@ export const verticalDivergenceBottom = () => {
         />
     );
 };
+
+/**
+ * Returns the divergence length difference between original and modified stacks.
+ * Negative result = modified stack is longer.
+ * 0 = both stack have the same size.
+ * Positive result = original stack is longer.
+ * @param flowDiv A flow divergence.
+ * @returns A number.
+ */
+const getLengthDifference = (flowDiv: D3FlowDivergence) => {
+    const originalLength =
+        flowDiv.originalPosition.stop - flowDiv.originalPosition.start;
+    const modifiedLength =
+        flowDiv.modifiedPosition.stop - flowDiv.modifiedPosition.start;
+    return originalLength - modifiedLength;
+};
+
+/**
+ * Returns the divergence if the specified position is in any flow divergence range, null otherrwise.
+ * @param position The considered position in the frames.
+ * @param flowDivergences The flow divergence.
+ * @returns A D3FlowDivergence if found, null otherwise.
+ */
+export const getFlowDiv = (
+    position: number,
+    flowDivergences: D3FlowDivergence[],
+) => {
+    return (
+        flowDivergences.find(
+            (div) =>
+                position >= div.modifiedPosition.start &&
+                position <= div.modifiedPosition.stop + getLengthDifference(div),
+        ) ?? null
+    );
+};
+
+/**
+ * Builds the list of (D3StackFrame | null) elements.
+ * An element in the list is null if the considered position is in a flow divergence
+ * that is longer than the actual path in original stack.
+ *
+ * @param frames            The original stack frames.
+ * @param flowDivergences   The flow divergences.
+ * @returns                 A list of (D3StackFrame | null) elements.
+ */
+export const buildRows = (
+    frames: D3StackFrame[],
+    flowDivergences: D3FlowDivergence[],
+) =>
+    frames.flatMap((frame) => {
+        if (frame.position === 0) return [frame];
+
+        const lastDiv = getFlowDiv(frame.position - 1, flowDivergences);
+        const emptyRows =
+            lastDiv && getFlowDiv(frame.position, flowDivergences) == null
+                ? Array.from(
+                    { length: Math.max(0, -getLengthDifference(lastDiv)) },
+                    () => null,
+                )
+                : [];
+
+        return [...emptyRows, frame];
+    });
