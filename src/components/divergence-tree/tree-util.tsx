@@ -1,36 +1,5 @@
 import type { D3FlowDivergence } from "../../models/divergence";
 import type { D3StackFrame } from "../../models/stack";
-import { TREE_CONFIG } from "./tree-config";
-
-/**
- * Returns the template for the vertical relation (used when previous frame was already in a flow divegence).
- * @returns A jsx element.
- */
-export const verticalDivergenceTop = () => {
-    return (
-        <line
-            x1={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
-            y1="-2%" // for better connection with previous node
-            x2={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
-            y2={TREE_CONFIG.CIRCLE_POSITION}
-        />
-    );
-};
-
-/**
- * Returns the template for the vertical relation (used when next frame is also in the flow divergence).
- * @returns A jsx element.
- */
-export const verticalDivergenceBottom = () => {
-    return (
-        <line
-            x1={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
-            y1={TREE_CONFIG.CIRCLE_POSITION}
-            x2={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
-            y2="100%"
-        />
-    );
-};
 
 /**
  * Returns the divergence length difference between original and modified stacks.

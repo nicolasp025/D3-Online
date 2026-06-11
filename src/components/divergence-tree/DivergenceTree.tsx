@@ -4,12 +4,7 @@ import { useDivergence } from "../../contexts/DivergenceContext";
 import { useStacks } from "../../contexts/StacksContext";
 import { TREE_CONFIG } from "./tree-config";
 import React from "react";
-import {
-    buildRows,
-    getFlowDiv,
-    verticalDivergenceBottom,
-    verticalDivergenceTop,
-} from "./tree-util";
+import { buildRows, getFlowDiv } from "./tree-util";
 import { useDivergenceTree } from "../../contexts/DivergenceTreeContext";
 import { DiffEditor } from "@monaco-editor/react";
 import { useSettings } from "../../contexts/SettingsContext";
@@ -19,6 +14,7 @@ import TreeNode from "./nodes/TreeNode";
 import DivergenceNode from "./nodes/DivergenceNode";
 import StartDivergenceDiagonal from "./edges/StartDivergenceDiagonal";
 import EndDivergenceDiagonal from "./edges/EndDivergenceDiagonal";
+import NodeRelation from "./edges/NodeRelation";
 
 const DivergenceTree = React.memo(() => {
     const { flowDivergences } = useDivergence();
@@ -61,8 +57,7 @@ const DivergenceTree = React.memo(() => {
         if (frame == null) {
             return (
                 <>
-                    {verticalDivergenceTop()}
-                    {!rows[index + 1] && verticalDivergenceBottom()}
+                    <NodeRelation index={index} />
                     {rows[index + 1] && <EndDivergenceDiagonal />}
                     <DivergenceNode frame={modifiedStack.frames[index]} />
                 </>
@@ -79,8 +74,7 @@ const DivergenceTree = React.memo(() => {
             <>
                 {isStart && <StartDivergenceDiagonal />}
                 {isEnd && <EndDivergenceDiagonal />}
-                {!isStart && verticalDivergenceTop()}
-                {!isEnd && verticalDivergenceBottom()}
+                <NodeRelation index={index} />
                 <DivergenceNode frame={frame} />
             </>
         );
