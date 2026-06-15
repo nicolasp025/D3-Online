@@ -49,15 +49,13 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
             );
         }
 
-        const lengthDiff = getLengthDifference(flowDivergence);
-
         /*
          * In the case where the divergence is shorter than
          * the original path, we need to verify we don't excess the number of nodes in the divergence.
          */
-        const hasDivergenceNode =
-            lengthDiff <= 0 ||
-            index - flowDivergence.modifiedPosition.start <
+        const noDivergenceNode =
+            getLengthDifference(flowDivergence) > 0 &&
+            index - flowDivergence.modifiedPosition.start >
             flowDivergence.modifiedPosition.stop -
             flowDivergence.modifiedPosition.start;
 
@@ -66,7 +64,7 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
                 {!hasPrevious && <StartDivergenceDiagonal />}
                 {!hasNext && <EndDivergenceDiagonal />}
                 <NodeRelation hasPrevious={hasPrevious} hasNext={hasNext} />
-                {hasDivergenceNode && <DivergenceNode frame={frame} />}
+                {!noDivergenceNode && <DivergenceNode frame={frame} />}
             </>
         );
     };
@@ -76,18 +74,16 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
             ref={selectedRow === index ? selectedRef : null}
             className={selectedRow === index ? "tree-row selected" : "tree-row"}
         >
-            <div
+            <svg
                 className="tree-svg-wrapper"
                 onClick={() => {
                     if (selectedRow === index) setSelectedRow(null);
                     else setSelectedRow(index);
                 }}
             >
-                <svg>
-                    {frame != null && <TreeNode frame={frame} />}
-                    {isInDivergence && buildRowSvg()}
-                </svg>
-            </div>
+                {frame != null && <TreeNode frame={frame} />}
+                {isInDivergence && buildRowSvg()}
+            </svg>
 
             <div className="tree-row-content">
                 <div
@@ -97,7 +93,7 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
                         else setSelectedRow(index);
                     }}
                 >
-                    {frame == null ? "null" : index /* TODO */}
+                    {isInDivergence && !hasPrevious && flowDivergence.displayName}
                 </div>
                 {selectedRow === index && (
                     <MonacoDiffEditor

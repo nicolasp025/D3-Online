@@ -68,6 +68,13 @@ export const fakeStateDivergences: D3StateDivergence[] = [
     modifiedPosition: 8,
     context: "count increment",
   },
+  {
+    id: 3,
+    displayName: "[Assignment] #count: 10, 20",
+    originalPosition: 27,
+    modifiedPosition: 27,
+    context: "count increment",
+  },
 ];
 
 export const fakeFlowDivergences: D3FlowDivergence[] = [
@@ -94,5 +101,18 @@ export const fakeFlowDivergences: D3FlowDivergence[] = [
     displayName: "Flow Divergence 4",
     originalPosition: { start: 17, stop: 22 },
     modifiedPosition: { start: 17, stop: 18 },
+  },
+  {
+    id: 5,
+    displayName: "Flow Divergence 5",
+    originalPosition: { start: 24, stop: 25 },
+    modifiedPosition: { start: 24, stop: 24 },
+  },
+
+  {
+    id: 6,
+    displayName: "Flow Divergence 6",
+    originalPosition: { start: 27, stop: 27 },
+    modifiedPosition: { start: 27, stop: 27 },
   },
 ];
