@@ -9,7 +9,7 @@ import type { D3StackFrame } from "../../models/stack";
  * @param flowDiv A flow divergence.
  * @returns A number.
  */
-const getLengthDifference = (flowDiv: D3FlowDivergence) => {
+export const getLengthDifference = (flowDiv: D3FlowDivergence) => {
     const originalLength =
         flowDiv.originalPosition.stop - flowDiv.originalPosition.start;
     const modifiedLength =
@@ -18,35 +18,22 @@ const getLengthDifference = (flowDiv: D3FlowDivergence) => {
 };
 
 /**
- * Returns the divergence if the specified position is in any flow divergence range, null otherrwise.
- * @param position The considered position in the frames.
- * @param flowDivergences The flow divergence.
- * @returns A D3FlowDivergence if found, null otherwise.
+ * Returns the divergence if the specified position is in any flow divergence range, null otehrwise.
+ * @param position
+ * @param flowDivergences
+ * @returns
  */
 export const getFlowDiv = (
     position: number,
     flowDivergences: D3FlowDivergence[],
-): D3FlowDivergence | null => {
-    let left = 0;
-    let right = flowDivergences.length - 1;
-
-    while (left <= right) {
-        const mid = Math.floor((left + right) / 2);
-        const div = flowDivergences[mid];
-        const stop = div.modifiedPosition.stop + getLengthDifference(div);
-
-        if (position >= div.modifiedPosition.start && position <= stop) {
-            return div;
-        }
-
-        if (position < div.modifiedPosition.start) {
-            right = mid - 1;
-        } else {
-            left = mid + 1;
-        }
-    }
-
-    return null;
+) => {
+    return (
+        flowDivergences.find(
+            (div) =>
+                position >= div.modifiedPosition.start &&
+                position <= div.modifiedPosition.stop + getLengthDifference(div),
+        ) ?? null
+    );
 };
 
 /**

@@ -3,7 +3,7 @@ import type { D3StackFrame } from "../../../models/stack";
 import { TREE_CONFIG } from "../tree-config";
 
 interface TreeNodeProps {
-    frame: D3StackFrame | null;
+    frame: D3StackFrame;
     defaultClassName?: string;
     cx?: number;
 }
@@ -30,10 +30,6 @@ const TreeNode: React.FC<TreeNodeProps> = ({
     const isStateDiv = (position: number) => {
         return stateDivergences.some((div) => div.originalPosition == position);
     };
-
-    if (frame == null) {
-        return <></>;
-    }
 
     return (
         <circle

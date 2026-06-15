@@ -6,6 +6,8 @@ import StartDivergenceDiagonal from "./edges/StartDivergenceDiagonal";
 import DivergenceNode from "./nodes/DivergenceNode";
 import TreeNode from "./nodes/TreeNode";
 import MonacoDiffEditor from "../monaco/MonacoDiffEditor";
+import type { D3FlowDivergence } from "../../models/divergence";
+import { getLengthDifference } from "./tree-util";
 
 interface DivergenceTreeRowProps {
     index: number;
@@ -13,18 +15,24 @@ interface DivergenceTreeRowProps {
     modifiedFrame: D3StackFrame | null;
     hasPrevious: boolean;
     hasNext: boolean;
-    isInDivergence: boolean;
+    flowDivergence: D3FlowDivergence | null;
 }
 
+/**
+ * If the frame is null, that means we are in the case where the divergence is longer than the original path,
+ * so we display a row where there is not any node on the original path, but there is a node on the divergence path.
+ */
 const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
     index,
     frame,
     modifiedFrame,
     hasPrevious,
     hasNext,
-    isInDivergence,
+    flowDivergence,
 }) => {
     const { selectedRow, setSelectedRow, selectedRef } = useDivergenceTree();
+
+    const isInDivergence = frame == null ? true : flowDivergence != null;
 
     /**
      * Returns the svg for the row.
@@ -41,12 +49,24 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
             );
         }
 
+        const lengthDiff = getLengthDifference(flowDivergence);
+
+        /*
+         * In the case where the divergence is shorter than
+         * the original path, we need to verify we don't excess the number of nodes in the divergence.
+         */
+        const hasDivergenceNode =
+            lengthDiff <= 0 ||
+            index - flowDivergence.modifiedPosition.start <
+            flowDivergence.modifiedPosition.stop -
+            flowDivergence.modifiedPosition.start;
+
         return (
             <>
                 {!hasPrevious && <StartDivergenceDiagonal />}
                 {!hasNext && <EndDivergenceDiagonal />}
                 <NodeRelation hasPrevious={hasPrevious} hasNext={hasNext} />
-                <DivergenceNode frame={frame} />
+                {hasDivergenceNode && <DivergenceNode frame={frame} />}
             </>
         );
     };
@@ -64,8 +84,8 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
                 }}
             >
                 <svg>
+                    {frame != null && <TreeNode frame={frame} />}
                     {isInDivergence && buildRowSvg()}
-                    <TreeNode frame={frame} />
                 </svg>
             </div>
 
@@ -77,7 +97,7 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
                         else setSelectedRow(index);
                     }}
                 >
-                    {frame == null ? "null" : frame.position}
+                    {frame == null ? "null" : index /* TODO */}
                 </div>
                 {selectedRow === index && (
                     <MonacoDiffEditor

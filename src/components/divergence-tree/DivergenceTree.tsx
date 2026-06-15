@@ -68,9 +68,7 @@ const DivergenceTree = React.memo(() => {
                     modifiedFrame={modifiedStack.frames[index]}
                     hasPrevious={hasPreviousInDivergence(index, rows, flowDivergences)}
                     hasNext={hasNextInDivergence(index, rows, flowDivergences)}
-                    isInDivergence={
-                        frame == null ? true : getFlowDiv(index, flowDivergences) != null
-                    }
+                    flowDivergence={getFlowDiv(index, flowDivergences)}
                 />
             ))}
         </div>
