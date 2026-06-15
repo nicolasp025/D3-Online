@@ -1,6 +1,6 @@
 import "./TreeLayout.css";
 import DivergenceTree from "../../components/divergence-tree/DivergenceTree";
-import { TREE_CONFIG } from "../../components/divergence-tree/tree-config";
+import { TREE_CONFIG } from "../../config/tree-config";
 
 const TreeLayout = () => {
   return (

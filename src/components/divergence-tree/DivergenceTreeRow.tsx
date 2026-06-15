@@ -69,30 +69,26 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
         );
     };
 
+    /**
+     * Changes the selected row when clicked.
+     */
+    const handleClickOnRow = () => {
+        if (selectedRow === index) setSelectedRow(null);
+        else setSelectedRow(index);
+    };
+
     return (
         <div
             ref={selectedRow === index ? selectedRef : null}
             className={selectedRow === index ? "tree-row selected" : "tree-row"}
         >
-            <svg
-                className="tree-svg-wrapper"
-                onClick={() => {
-                    if (selectedRow === index) setSelectedRow(null);
-                    else setSelectedRow(index);
-                }}
-            >
+            <svg className="tree-svg-wrapper" onClick={handleClickOnRow}>
                 {frame != null && <TreeNode frame={frame} />}
                 {isInDivergence && buildRowSvg()}
             </svg>
 
             <div className="tree-row-content">
-                <div
-                    className="tree-row-label"
-                    onClick={() => {
-                        if (selectedRow === index) setSelectedRow(null);
-                        else setSelectedRow(index);
-                    }}
-                >
+                <div className="tree-row-label" onClick={handleClickOnRow}>
                     {isInDivergence && !hasPrevious && flowDivergence.displayName}
                 </div>
                 {selectedRow === index && (

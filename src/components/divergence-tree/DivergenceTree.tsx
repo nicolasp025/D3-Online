@@ -2,7 +2,7 @@ import "./DivergenceTree.css";
 import { useEffect, useMemo, useRef } from "react";
 import { useDivergence } from "../../contexts/DivergenceContext";
 import { useStacks } from "../../contexts/StacksContext";
-import { TREE_CONFIG } from "./tree-config";
+import { TREE_CONFIG } from "../../config/tree-config";
 import React from "react";
 import {
     buildRows,

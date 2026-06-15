@@ -108,11 +108,16 @@ export const fakeFlowDivergences: D3FlowDivergence[] = [
     originalPosition: { start: 24, stop: 25 },
     modifiedPosition: { start: 24, stop: 24 },
   },
-
   {
     id: 6,
     displayName: "Flow Divergence 6",
-    originalPosition: { start: 27, stop: null },
-    modifiedPosition: { start: 27, stop: null },
+    originalPosition: { start: 27, stop: 27 },
+    modifiedPosition: { start: 27, stop: 27 },
+  },
+  {
+    id: 7,
+    displayName: "Flow Divergence 7",
+    originalPosition: { start: 29, stop: null },
+    modifiedPosition: { start: 29, stop: null },
   },
 ];

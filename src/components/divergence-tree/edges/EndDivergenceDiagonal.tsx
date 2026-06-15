@@ -1,4 +1,4 @@
-import { TREE_CONFIG } from "../tree-config";
+import { TREE_CONFIG } from "../../../config/tree-config";
 
 /**
  * Returns the template for the / diagonal (starting from the point on right top).

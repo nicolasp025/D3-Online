@@ -1,4 +1,4 @@
-import { TREE_CONFIG } from "../tree-config";
+import { TREE_CONFIG } from "../../../config/tree-config";
 
 interface NodeRelationProps {
   hasPrevious: boolean;

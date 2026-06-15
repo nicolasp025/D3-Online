@@ -1,6 +1,6 @@
 import { useDivergence } from "../../../contexts/DivergenceContext";
 import type { D3StackFrame } from "../../../models/stack";
-import { TREE_CONFIG } from "../tree-config";
+import { TREE_CONFIG } from "../../../config/tree-config";
 
 interface TreeNodeProps {
     frame: D3StackFrame;

@@ -1,5 +1,5 @@
 import type { D3StackFrame } from "../../../models/stack";
-import { TREE_CONFIG } from "../tree-config";
+import { TREE_CONFIG } from "../../../config/tree-config";
 import TreeNode from "./TreeNode";
 
 interface DivergenceNodeProps {
