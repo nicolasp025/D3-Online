@@ -15,14 +15,21 @@
 
   .legend {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     position: absolute;
     right: 24px;
     top: 6px;
     background-color: var(--color-background-secondary);
-    padding: 12px;
     border-radius: 8px;
     gap: 8px;
+  }
+
+  .legend-items {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    gap: 8px;
+    margin: 0;
 
     .legend-item {
       display: flex;
@@ -32,10 +39,32 @@
     .legend-color {
       width: 20px;
       height: 20px;
+
+      svg {
+        width: inherit;
+        height: inherit;
+      }
     }
 
     .legend-label {
       margin-left: 12px;
+    }
+  }
+
+  .legend-actions {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+
+    > button {
+      padding: 4px;
+      margin: 8px;
+
+      &:hover {
+        background-color: var(--color-background-selected);
+      }
     }
   }
 }
