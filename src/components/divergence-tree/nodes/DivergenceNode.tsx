@@ -1,9 +1,8 @@
-import type { D3StackFrame } from "../../../models/stack";
 import { TREE_CONFIG } from "../../../config/tree-config";
 import TreeNode from "./TreeNode";
 
 interface DivergenceNodeProps {
-    frame: D3StackFrame | null;
+    isStateDiv: boolean;
 }
 
 /**
@@ -11,10 +10,10 @@ interface DivergenceNodeProps {
  * @param isStateDiv True if the divergence node is also a state divergence.
  * @returns A jsx element.
  */
-const DivergenceNode: React.FC<DivergenceNodeProps> = ({ frame }) => {
+const DivergenceNode: React.FC<DivergenceNodeProps> = ({ isStateDiv }) => {
     return (
         <TreeNode
-            frame={frame}
+            isStateDiv={isStateDiv}
             defaultClassName="flow-div"
             cx={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
         />

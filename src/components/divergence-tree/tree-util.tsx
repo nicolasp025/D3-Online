@@ -1,4 +1,7 @@
-import type { D3FlowDivergence } from "../../models/divergence";
+import type {
+    D3FlowDivergence,
+    D3StateDivergence,
+} from "../../models/divergence";
 import type { D3StackFrame } from "../../models/stack";
 
 /**
@@ -98,4 +101,16 @@ export const hasNextInDivergence = (
     return (
         getFlowDiv(index + 1, flowDivergences) != null || rows[index + 1] == null
     );
+};
+
+/**
+ * Return true if the specified frame position corresponds to a state divergence position.
+ * @param position The frame position.
+ * @returns
+ */
+export const isStateDivergence = (
+    position: number,
+    stateDivergences: D3StateDivergence[],
+) => {
+    return stateDivergences.some((div) => div.originalPosition == position);
 };

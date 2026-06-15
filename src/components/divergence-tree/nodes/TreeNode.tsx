@@ -1,9 +1,7 @@
-import { useDivergence } from "../../../contexts/DivergenceContext";
-import type { D3StackFrame } from "../../../models/stack";
 import { TREE_CONFIG } from "../../../config/tree-config";
 
 interface TreeNodeProps {
-    frame: D3StackFrame;
+    isStateDiv: boolean;
     defaultClassName?: string;
     cx?: number;
 }
@@ -16,24 +14,13 @@ interface TreeNodeProps {
  * @returns The tree node with specified params.
  */
 const TreeNode: React.FC<TreeNodeProps> = ({
-    frame,
+    isStateDiv,
     defaultClassName = "",
     cx = TREE_CONFIG.LINE_X,
 }) => {
-    const { stateDivergences } = useDivergence();
-
-    /**
-     * Return true if the specified frame position corresponds to a state divergence position.
-     * @param position The frame position.
-     * @returns
-     */
-    const isStateDiv = (position: number) => {
-        return stateDivergences.some((div) => div.originalPosition == position);
-    };
-
     return (
         <circle
-            className={isStateDiv(frame.position) ? "state-div" : defaultClassName}
+            className={isStateDiv ? "state-div" : defaultClassName}
             cx={cx}
             cy={TREE_CONFIG.CIRCLE_POSITION}
             r={TREE_CONFIG.DOT_RADIUS}

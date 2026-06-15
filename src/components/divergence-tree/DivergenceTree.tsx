@@ -9,12 +9,13 @@ import {
     getFlowDiv,
     hasNextInDivergence,
     hasPreviousInDivergence,
+    isStateDivergence,
 } from "./tree-util";
 import { useDivergenceTree } from "../../contexts/DivergenceTreeContext";
 import DivergenceTreeRow from "./DivergenceTreeRow";
 
 const DivergenceTree = React.memo(() => {
-    const { flowDivergences } = useDivergence();
+    const { flowDivergences, stateDivergences } = useDivergence();
     const { originalStack, modifiedStack } = useStacks();
 
     const { selectedRow, setSelectedRow } = useDivergenceTree();
@@ -68,6 +69,7 @@ const DivergenceTree = React.memo(() => {
                     modifiedFrame={modifiedStack.frames[index]}
                     hasPrevious={hasPreviousInDivergence(index, rows, flowDivergences)}
                     hasNext={hasNextInDivergence(index, rows, flowDivergences)}
+                    isStateDivergence={isStateDivergence(index, stateDivergences)}
                     flowDivergence={getFlowDiv(index, flowDivergences)}
                 />
             ))}

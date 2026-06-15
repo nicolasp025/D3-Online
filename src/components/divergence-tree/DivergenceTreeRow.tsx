@@ -15,6 +15,7 @@ interface DivergenceTreeRowProps {
     modifiedFrame: D3StackFrame | null;
     hasPrevious: boolean;
     hasNext: boolean;
+    isStateDivergence: boolean;
     flowDivergence: D3FlowDivergence | null;
 }
 
@@ -28,6 +29,7 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
     modifiedFrame,
     hasPrevious,
     hasNext,
+    isStateDivergence,
     flowDivergence,
 }) => {
     const { selectedRow, setSelectedRow, selectedRef } = useDivergenceTree();
@@ -44,7 +46,7 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
                 <>
                     <NodeRelation hasPrevious={hasPrevious} hasNext={hasNext} />
                     {!hasNext && <EndDivergenceDiagonal />}
-                    <DivergenceNode frame={modifiedFrame} />
+                    <DivergenceNode isStateDiv={isStateDivergence} />
                 </>
             );
         }
@@ -64,7 +66,7 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
                 {!hasPrevious && <StartDivergenceDiagonal />}
                 {!hasNext && <EndDivergenceDiagonal />}
                 <NodeRelation hasPrevious={hasPrevious} hasNext={hasNext} />
-                {!noDivergenceNode && <DivergenceNode frame={frame} />}
+                {!noDivergenceNode && <DivergenceNode isStateDiv={isStateDivergence} />}
             </>
         );
     };
@@ -83,7 +85,7 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
             className={selectedRow === index ? "tree-row selected" : "tree-row"}
         >
             <svg className="tree-svg-wrapper" onClick={handleClickOnRow}>
-                {frame != null && <TreeNode frame={frame} />}
+                {frame != null && <TreeNode isStateDiv={isStateDivergence} />}
                 {isInDivergence && buildRowSvg()}
             </svg>
 
