@@ -102,8 +102,8 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
       <ResizableContainer>
         <div className="stack-editor container">
           <MonacoDiffEditor
-            original={originalStack.frames[originalPosition]?.sourceCode ?? ""}
-            modified={modifiedStack.frames[modifiedPosition]?.sourceCode ?? ""}
+            original={originalStack.frames[originalPosition].sourceCode}
+            modified={modifiedStack.frames[modifiedPosition].sourceCode}
           />
         </div>
       </ResizableContainer>

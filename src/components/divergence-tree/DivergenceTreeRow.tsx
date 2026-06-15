@@ -36,6 +36,21 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
 
     const isInDivergence = frame == null ? true : flowDivergence != null;
 
+    const getRowFormattedLabel = () => {
+        if (isInDivergence) {
+            if (!hasPrevious) {
+                return flowDivergence.displayName;
+            }
+        } else {
+            return (
+                <>
+                    <span>{frame.displayName}</span>
+                    <span>{modifiedFrame.displayName}</span>
+                </>
+            );
+        }
+    };
+
     /**
      * Returns the svg for the row.
      * @returns A ReactNode element.
@@ -91,12 +106,12 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({
 
             <div className="tree-row-content">
                 <div className="tree-row-label" onClick={handleClickOnRow}>
-                    {isInDivergence && !hasPrevious && flowDivergence.displayName}
+                    {getRowFormattedLabel()}
                 </div>
                 {selectedRow === index && (
                     <MonacoDiffEditor
-                        original={frame?.sourceCode ?? ""}
-                        modified={modifiedFrame?.sourceCode ?? ""}
+                        original={frame.sourceCode}
+                        modified={modifiedFrame.sourceCode}
                     />
                 )}
             </div>
