@@ -31,7 +31,8 @@ export const getFlowDiv = (
         flowDivergences.find(
             (div) =>
                 position >= div.modifiedPosition.start &&
-                position <= div.modifiedPosition.stop + getLengthDifference(div),
+                (position <= div.modifiedPosition.stop + getLengthDifference(div) ||
+                    div.originalPosition.stop == null),
         ) ?? null
     );
 };
