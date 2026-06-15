@@ -5,8 +5,8 @@ import { useStacks } from "../../contexts/StacksContext";
 import { TREE_CONFIG } from "../../config/tree-config";
 import React from "react";
 import {
-    buildRows,
     getFlowDiv,
+    getLengthDifference,
     hasNextInDivergence,
     hasPreviousInDivergence,
     isStateDivergence,
@@ -17,15 +17,35 @@ import DivergenceTreeRow from "./DivergenceTreeRow";
 const DivergenceTree = React.memo(() => {
     const { flowDivergences, stateDivergences } = useDivergence();
     const { originalStack, modifiedStack } = useStacks();
-
     const { selectedRow, setSelectedRow } = useDivergenceTree();
 
     const selectedRef = useRef<HTMLDivElement>(null);
 
-    const rows = useMemo(
-        () => buildRows(originalStack.frames, flowDivergences),
-        [originalStack, flowDivergences],
-    );
+    /**
+     * Builds the list of (D3StackFrame | null) elements.
+     * An element in the list is null if the considered position is in a flow divergence
+     * that is longer than the actual path in original stack.
+     *
+     * @param frames            The original stack frames.
+     * @param flowDivergences   The flow divergences.
+     * @returns                 A list of (D3StackFrame | null) elements.
+     */
+    const buildRows = () => {
+        return originalStack.frames.flatMap((frame) => {
+            if (frame.position === 0) return [frame];
+
+            const lastDiv = getFlowDiv(frame.position - 1, flowDivergences);
+            const emptyRows =
+                lastDiv && getFlowDiv(frame.position, flowDivergences) == null
+                    ? Array.from(
+                        { length: Math.max(0, -getLengthDifference(lastDiv)) },
+                        () => null,
+                    )
+                    : [];
+
+            return [...emptyRows, frame];
+        });
+    };
 
     useEffect(() => {
         selectedRef.current?.scrollIntoView({
@@ -34,6 +54,10 @@ const DivergenceTree = React.memo(() => {
         });
     }, [selectedRow]);
 
+    /**
+     * Handles arrow press in the tree.
+     * @param event The keyboard event.
+     */
     const handleKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === "ArrowUp") {
             if (selectedRow && selectedRow > 0) {
@@ -48,6 +72,8 @@ const DivergenceTree = React.memo(() => {
             }
         }
     };
+
+    const rows = useMemo(() => buildRows(), [originalStack, flowDivergences]);
 
     return (
         <div className="tree-wrapper" tabIndex={0} onKeyDown={handleKeyDown}>
