@@ -13,6 +13,8 @@ import {
 import { useDivergenceTree } from "../../contexts/DivergenceTreeContext";
 import DivergenceTreeRow from "./DivergenceTreeRow";
 import type { TreeRow } from "../../models/tree";
+import type { D3FlowDivergence } from "../../models/divergence";
+import type { D3StackFrame } from "../../models/stack";
 
 const DivergenceTree = React.memo(() => {
     const { flowDivergences, stateDivergences } = useDivergence();
@@ -22,13 +24,70 @@ const DivergenceTree = React.memo(() => {
     const selectedRef = useRef<HTMLDivElement>(null);
 
     /**
+     * Returns the frames and next indexes for a row.
+     * @param flowDiv The possible flow divergence.
+     * @param originalIndex The original index for the row.
+     * @param modifiedIndex The modified index for the row.
+     * @returns The frames and next indexes for a row.
+     */
+    const getFrames = (
+        flowDiv: D3FlowDivergence | null,
+        originalIndex: number,
+        modifiedIndex: number,
+    ): {
+        frame: D3StackFrame | null;
+        modifiedFrame: D3StackFrame | null;
+        nextOriginalIndex: number;
+        nextModifiedIndex: number;
+    } => {
+        if (!flowDiv) {
+            return {
+                frame: originalStack.frames[originalIndex],
+                modifiedFrame: modifiedStack.frames[modifiedIndex],
+                nextOriginalIndex: originalIndex + 1,
+                nextModifiedIndex: modifiedIndex + 1,
+            };
+        }
+
+        if (isInfiniteFlowDivergence(flowDiv)) {
+            return {
+                frame: originalStack.frames[originalIndex],
+                modifiedFrame: modifiedStack.frames[modifiedIndex],
+                nextOriginalIndex: originalIndex + 1,
+                nextModifiedIndex: modifiedIndex + 1,
+            };
+        }
+
+        const lengthDiff = getLengthDifference(flowDiv);
+        const originalInRange =
+            originalIndex - flowDiv.originalPosition.start <=
+            flowDiv.originalPosition.stop - flowDiv.originalPosition.start;
+        const modifiedInRange =
+            modifiedIndex - flowDiv.modifiedPosition.start <=
+            flowDiv.modifiedPosition.stop - flowDiv.modifiedPosition.start;
+
+        return {
+            frame:
+                lengthDiff >= 0 || originalInRange
+                    ? originalStack.frames[originalIndex]
+                    : null,
+            modifiedFrame:
+                lengthDiff <= 0 || modifiedInRange
+                    ? modifiedStack.frames[modifiedIndex]
+                    : null,
+            nextOriginalIndex:
+                lengthDiff >= 0 || originalInRange ? originalIndex + 1 : originalIndex,
+            nextModifiedIndex:
+                lengthDiff <= 0 || modifiedInRange ? modifiedIndex + 1 : modifiedIndex,
+        };
+    };
+
+    /**
      * Builds the list of TreeRow elements.
-     * An element in the list is null if the considered position is in a flow divergence
-     * that is longer than the actual path in original stack.
-     *
      * @returns A list of TreeRow elements.
      */
     const buildRows = (): TreeRow[] => {
+        console.log(modifiedStack);
         const rows: TreeRow[] = [];
         let originalIndex = 0;
         let modifiedIndex = 0;
@@ -39,70 +98,33 @@ const DivergenceTree = React.memo(() => {
             modifiedIndex < modifiedStack.frames.length
         ) {
             const flowDiv = getFlowDiv(originalIndex, modifiedIndex, flowDivergences);
-            const isStateDiv = isStateDivergence(
-                originalIndex,
-                modifiedIndex,
-                stateDivergences,
-            );
-
-            // If the previous row was in a flow divergence, then hasPreviousInDiv is true
             const hasPreviousInDiv = isNextInDivergence;
             isNextInDivergence = flowDiv != null;
 
-            // If we are in a flow divergence, then the previous row has next in divergence
             if (rows.length > 0)
                 rows[rows.length - 1].hasNextInDivergence = flowDiv != null;
 
-            const row: TreeRow = {
+            const { frame, modifiedFrame, nextOriginalIndex, nextModifiedIndex } =
+                getFrames(flowDiv, originalIndex, modifiedIndex);
+
+            originalIndex = nextOriginalIndex;
+            modifiedIndex = nextModifiedIndex;
+
+            rows.push({
                 index: rows.length,
-                frame: null,
-                modifiedFrame: null,
+                frame,
+                modifiedFrame,
                 hasPreviousInDivergence: hasPreviousInDiv,
-                hasNextInDivergence: false,
-                isStateDivergence: isStateDiv,
+                hasNextInDivergence: flowDiv
+                    ? isInfiniteFlowDivergence(flowDiv)
+                    : false,
+                isStateDivergence: isStateDivergence(
+                    originalIndex,
+                    modifiedIndex,
+                    stateDivergences,
+                ),
                 flowDivergence: flowDiv,
-            };
-
-            if (!flowDiv) {
-                row.frame = originalStack.frames[originalIndex++];
-                row.modifiedFrame = modifiedStack.frames[modifiedIndex++];
-            } else if (isInfiniteFlowDivergence(flowDiv)) {
-                row.frame = originalStack.frames[originalIndex++];
-                row.modifiedFrame = modifiedStack.frames[modifiedIndex++];
-                row.hasNextInDivergence = true;
-            } else {
-                const lengthDiff = getLengthDifference(flowDiv);
-
-                switch (true) {
-                    // Both sides are same size
-                    case lengthDiff === 0:
-                        row.frame = originalStack.frames[originalIndex++];
-                        row.modifiedFrame = modifiedStack.frames[modifiedIndex++];
-                        break;
-
-                    // Original side is longer
-                    case lengthDiff > 0:
-                        row.frame = originalStack.frames[originalIndex++];
-                        row.modifiedFrame =
-                            modifiedIndex - flowDiv.modifiedPosition.start <=
-                                flowDiv.modifiedPosition.stop - flowDiv.modifiedPosition.start
-                                ? modifiedStack.frames[modifiedIndex++]
-                                : null;
-                        break;
-
-                    // Modified side is longer
-                    case lengthDiff < 0:
-                        row.frame =
-                            originalIndex - flowDiv.originalPosition.start <=
-                                flowDiv.originalPosition.stop - flowDiv.originalPosition.start
-                                ? originalStack.frames[originalIndex++]
-                                : null;
-                        row.modifiedFrame = modifiedStack.frames[modifiedIndex++];
-                        break;
-                }
-            }
-
-            rows.push(row);
+            });
         }
 
         return rows;
