@@ -87,7 +87,6 @@ const DivergenceTree = React.memo(() => {
      * @returns A list of TreeRow elements.
      */
     const buildRows = (): TreeRow[] => {
-        console.log(modifiedStack);
         const rows: TreeRow[] = [];
         let originalIndex = 0;
         let modifiedIndex = 0;
