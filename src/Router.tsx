@@ -6,6 +6,7 @@ import NotepadLayout from "./layout/notepad/NotepadLayout";
 import ExitLayout from "./layout/exit/ExitLayout";
 import QueryLayout from "./layout/query/QueryLayout";
 import SettingsLayout from "./layout/settings/SettingsLayout";
+import TreeLayout from "./layout/tree/TreeLayout";
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
           <Route path="notepad" element={<NotepadLayout />} />
           <Route path="settings" element={<SettingsLayout />} />
           <Route path="exit" element={<ExitLayout />} />
+          <Route path="tree" element={<TreeLayout />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

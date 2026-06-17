@@ -1,8 +1,6 @@
 import type { BeforeMount } from "@monaco-editor/react";
 import type { editor } from "monaco-editor";
 
-export const MONACO_THEME_NAME = "D3-theme";
-
 export const MONACO_LIGHT_THEME = {
   base: "vs",
   inherit: true,

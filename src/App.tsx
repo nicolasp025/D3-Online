@@ -6,6 +6,7 @@ import Router from "./Router";
 import { ConsentProvider } from "./contexts/ExperimentContext";
 import { NotepadProvider } from "./contexts/NotepadContext";
 import { SettingsProvider } from "./contexts/SettingsContext";
+import { DivergenceTreeProvider } from "./contexts/DivergenceTreeContext";
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
           <NotepadProvider>
             <DivergenceProvider>
               <SettingsProvider>
-                <Router />
+                <DivergenceTreeProvider>
+                  <Router />
+                </DivergenceTreeProvider>
               </SettingsProvider>
             </DivergenceProvider>
           </NotepadProvider>

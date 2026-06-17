@@ -1,201 +1,123 @@
-import type { D3Divergence } from "./models/divergence";
+import type { D3FlowDivergence, D3StateDivergence } from "./models/divergence";
 import type { D3CallStack } from "./models/stack";
 
 export const originalStack: D3CallStack = {
   id: 1,
-  frames: [
-    {
-      id: 1,
-      sourceCode: "console.log('test')",
-      displayName: "Log 'test'",
-    },
-    {
-      id: 2,
-      sourceCode: "console.log('bonjour')",
-      displayName: "Log",
-    },
-    { id: 3, sourceCode: "console.log(42)", displayName: "Log 42" },
-    {
-      id: 4,
-      sourceCode: "document.addEventListener('click',() => {console.log('click')});",
-      displayName: "Add event listener",
-    },
-    {
-      id: 5,
-      sourceCode: "console.log(document.getElementById('test-element'))",
-      displayName: "Log test-element",
-    },
-    {
-      id: 6,
-      sourceCode: "console.log('bonjour')",
-      displayName: "Log",
-    },
-    { id: 7, sourceCode: "console.log(42)", displayName: "Log 42" },
-    {
-      id: 8,
-      sourceCode: "document.addEventListener('click',() => {console.log('click')});",
-      displayName: "Add event listener",
-    },
-    {
-      id: 9,
-      sourceCode: "console.log(document.getElementById('test-element'))",
-      displayName: "Log test-element",
-    },
-  ],
+  frames: Array.from({ length: 105 }, (_, index) => {
+    const frameNum = index;
+    const codeSnippets = [
+      `const value${frameNum} = ${frameNum};`,
+      `console.log('Original frame ${frameNum}');`,
+      `const result = Math.pow(${frameNum}, 2);`,
+      `if (${frameNum} % 2 === 0) { return true; }`,
+      `const arr = Array.from({ length: ${frameNum} });`,
+      `fetch('/api/data/${frameNum}').then(r => r.json());`,
+      `document.querySelector('#elem-${frameNum}').addEventListener('click', () => {});`,
+      `localStorage.setItem('key${frameNum}', 'value${frameNum}');`,
+      `const obj = { id: ${frameNum}, name: 'Item ${frameNum}' };`,
+      `setTimeout(() => { console.log('Timeout ${frameNum}'); }, ${frameNum * 100});`,
+    ];
+
+    return {
+      id: frameNum,
+      sourceCode: codeSnippets[frameNum % codeSnippets.length],
+      displayName: `Original Frame ${frameNum}`,
+      position: index,
+    };
+  }),
 };
 
 export const modifiedStack: D3CallStack = {
   id: 1,
-  frames: [
-    {
-      id: 10,
-      sourceCode: "console.log('bonjour')",
-      displayName: "Log 'bonjour'",
-    },
-    {
-      id: 11,
-      sourceCode: "console.log('test')",
-      displayName: "Log 'test'",
-    },
-    { id: 12, sourceCode: "console.log(42)", displayName: "Log 42" },
-    {
-      id: 13,
-      sourceCode: "document.addEventListener('click',() => {console.log('click')});",
-      displayName: "Add event listener",
-    },
-    {
-      id: 14,
-      sourceCode: "console.log(document.getElementById('a-test-element'))",
-      displayName: "Log a-test-element",
-    },
-    {
-      id: 15,
-      sourceCode: "console.log('test')",
-      displayName: "Log 'test'",
-    },
-    { id: 16, sourceCode: "console.log(42)", displayName: "Log 42" },
-  ],
+  frames: Array.from({ length: 100 }, (_, index) => {
+    const frameNum = index;
+    const codeSnippets = [
+      `const value${frameNum} = ${frameNum};`,
+      `console.log('Modified frame ${frameNum}');`,
+      `const result = Math.pow(${frameNum}, 2);`,
+      `if (${frameNum} % 2 === 0) { return true; }`,
+      `const arr = Array.from({ length: ${frameNum} });`,
+      `fetch('/api/data/${frameNum}').then(r => r.json());`,
+      `document.querySelector('#elem-${frameNum}').addEventListener('click', () => {});`,
+      `localStorage.setItem('key${frameNum}', 'value${frameNum}');`,
+      `const obj = { id: ${frameNum}, name: 'Item ${frameNum}' };`,
+      `setTimeout(() => { console.log('Timeout ${frameNum}'); }, ${frameNum * 100});`,
+    ];
+
+    return {
+      id: frameNum,
+      sourceCode: codeSnippets[frameNum % codeSnippets.length],
+      displayName: `Modified Frame ${frameNum}`,
+      position: index,
+    };
+  }),
 };
 
-export const fakeDivergences: D3Divergence[] = [
+export const fakeStateDivergences: D3StateDivergence[] = [
   {
     id: 1,
-    displayName: "[Message] <-> Divergence on Flow : reference execution send #sugar modified send #sugar1",
-    originalPosition: {
-      start: 0,
-      stop: 2,
-    },
-    modifiedPosition: {
-      start: 0,
-      stop: 3,
-    },
+    displayName: "[Assignment] #count: 10, 20",
+    originalPosition: 1,
+    modifiedPosition: 1,
+    context: "count increment",
   },
   {
     id: 2,
-    displayName:
-      "[Assignment] #sugar: a Dictionary('className'->'UndefinedObje..., a Dictionary('className'->'SmallInteger'...",
-    originalPosition: 0,
-    modifiedPosition: 0,
-    context: "here is some context",
+    displayName: "[Assignment] #count: 10, 20",
+    originalPosition: 9,
+    modifiedPosition: 9,
+    context: "count increment",
   },
   {
     id: 3,
-    displayName: "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
-    originalPosition: {
-      start: 5,
-      stop: 6,
-    },
-    modifiedPosition: {
-      start: 5,
-      stop: 7,
-    },
+    displayName: "[Assignment] #count: 10, 20",
+    originalPosition: 27,
+    modifiedPosition: 24,
+    context: "count increment",
+  },
+];
+
+export const fakeFlowDivergences: D3FlowDivergence[] = [
+  {
+    id: 1,
+    displayName: "Flow Divergence 1",
+    originalPosition: { start: 1, stop: 5 },
+    modifiedPosition: { start: 1, stop: 5 },
+  },
+  {
+    id: 2,
+    displayName: "Flow Divergence 2",
+    originalPosition: { start: 7, stop: 8 },
+    modifiedPosition: { start: 7, stop: 8 },
+  },
+  {
+    id: 3,
+    displayName: "Flow Divergence 3",
+    originalPosition: { start: 10, stop: 12 },
+    modifiedPosition: { start: 10, stop: 15 },
   },
   {
     id: 4,
-    displayName:
-      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
-    originalPosition: 0,
-    modifiedPosition: 0,
-    context: "here is some context",
+    displayName: "Flow Divergence 4",
+    originalPosition: { start: 17, stop: 22 },
+    modifiedPosition: { start: 17, stop: 19 },
   },
   {
     id: 5,
-    displayName: "[Message] <-> Divergence on Flow : reference execution stop #log modified send #print",
-    originalPosition: {
-      start: 5,
-      stop: 6,
-    },
-    modifiedPosition: {
-      start: 5,
-      stop: 7,
-    },
+    displayName: "Flow Divergence 5",
+    originalPosition: { start: 24, stop: 25 },
+    modifiedPosition: { start: 24, stop: 24 },
   },
   {
     id: 6,
-    displayName:
-      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
-    originalPosition: 1,
-    modifiedPosition: 1,
-    context: "here is some context",
+    displayName: "Flow Divergence 6",
+    originalPosition: { start: 27, stop: 27 },
+    modifiedPosition: { start: 27, stop: 28 },
   },
   {
     id: 7,
-    displayName: "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
-    originalPosition: {
-      start: 5,
-      stop: 6,
-    },
-    modifiedPosition: {
-      start: 5,
-      stop: 7,
-    },
-  },
-  {
-    id: 8,
-    displayName:
-      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
-    originalPosition: 2,
-    modifiedPosition: 2,
-    context: "here is some context",
-  },
-  {
-    id: 9,
-    displayName: "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
-    originalPosition: {
-      start: 5,
-      stop: 6,
-    },
-    modifiedPosition: {
-      start: 5,
-      stop: 7,
-    },
-  },
-  {
-    id: 10,
-    displayName:
-      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
-    originalPosition: 3,
-    modifiedPosition: 3,
-    context: "here is some context",
-  },
-  {
-    id: 11,
-    displayName: "[Message] <-> Divergence on Flow : reference execution send #log modified send #print",
-    originalPosition: {
-      start: 5,
-      stop: 6,
-    },
-    modifiedPosition: {
-      start: 5,
-      stop: 7,
-    },
-  },
-  {
-    id: 12,
-    displayName:
-      "[Assignment] #sugar: a Dictionary('className'->'SmallInteger'..., a Dictionary('className'->'UndefinedObje...",
-    originalPosition: 4,
-    modifiedPosition: 4,
-    context: "here is some context",
+    displayName: "Flow Divergence 7",
+    originalPosition: { start: 30, stop: null },
+    modifiedPosition: { start: 30, stop: null },
   },
 ];

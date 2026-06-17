@@ -1,0 +1,18 @@
+.scroll-top-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+
+  svg {
+    width: 28px;
+    height: 28px;
+    margin-right: 0;
+  }
+}

@@ -3,8 +3,8 @@ import { modifiedStack, originalStack } from "../fakedata";
 import type { D3CallStack } from "../models/stack";
 
 type StacksContextType = {
-  originalStack: D3CallStack | null;
-  modifiedStack: D3CallStack | null;
+  originalStack: D3CallStack;
+  modifiedStack: D3CallStack;
   originalPosition: number;
   setOriginalPosition: (newPosition: number) => void;
   modifiedPosition: number;
