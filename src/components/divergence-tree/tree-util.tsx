@@ -13,6 +13,9 @@ import type {
  * @returns                 A number.
  */
 export const getLengthDifference = (flowDiv: D3FlowDivergence) => {
+    if (!flowDiv.originalPosition.stop || !flowDiv.modifiedPosition.stop) {
+        throw new Error("Could not determine infinite divergence length.");
+    }
     const originalLength =
         flowDiv.originalPosition.stop - flowDiv.originalPosition.start;
     const modifiedLength =
@@ -26,7 +29,10 @@ export const getLengthDifference = (flowDiv: D3FlowDivergence) => {
  * @returns                 True if the flow divergence is infinite (does not converge).
  */
 export const isInfiniteFlowDivergence = (flowDiv: D3FlowDivergence) => {
-    return !flowDiv.originalPosition.stop || !flowDiv.modifiedPosition.stop;
+    return (
+        flowDiv.originalPosition.stop == null ||
+        flowDiv.modifiedPosition.stop == null
+    );
 };
 
 /**
@@ -42,7 +48,7 @@ export const getFlowDiv = (
 ): D3FlowDivergence | null => {
     return (
         flowDivergences.find((div) => {
-            if (isInfiniteFlowDivergence(div)) {
+            if (!div.originalPosition.stop || !div.modifiedPosition.stop) {
                 return (
                     div.originalPosition.start <= originalPosition &&
                     div.modifiedPosition.start <= modifiedPosition

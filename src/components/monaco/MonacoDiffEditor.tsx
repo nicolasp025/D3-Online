@@ -3,13 +3,13 @@ import { useSettings } from "../../contexts/SettingsContext";
 import { defineMonacoTheme, MONACO_OPTIONS } from "../../config/monaco";
 
 interface MonacoDiffEditorProps {
-    original: string | null;
-    modified: string | null;
+    original: string | undefined;
+    modified: string | undefined;
 }
 
 const MonacoDiffEditor: React.FC<MonacoDiffEditorProps> = ({
-    original,
-    modified,
+    original = "",
+    modified = "",
 }) => {
     const { darkMode } = useSettings();
 
@@ -20,8 +20,8 @@ const MonacoDiffEditor: React.FC<MonacoDiffEditorProps> = ({
             language="python"
             options={MONACO_OPTIONS}
             beforeMount={defineMonacoTheme}
-            original={original ?? ""}
-            modified={modified ?? ""}
+            original={original}
+            modified={modified}
         />
     );
 };

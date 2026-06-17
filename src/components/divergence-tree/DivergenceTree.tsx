@@ -40,16 +40,7 @@ const DivergenceTree = React.memo(() => {
         nextOriginalIndex: number;
         nextModifiedIndex: number;
     } => {
-        if (!flowDiv) {
-            return {
-                frame: originalStack.frames[originalIndex],
-                modifiedFrame: modifiedStack.frames[modifiedIndex],
-                nextOriginalIndex: originalIndex + 1,
-                nextModifiedIndex: modifiedIndex + 1,
-            };
-        }
-
-        if (isInfiniteFlowDivergence(flowDiv)) {
+        if (!flowDiv || !flowDiv.originalPosition.stop || !flowDiv.modifiedPosition.stop) {
             return {
                 frame: originalStack.frames[originalIndex],
                 modifiedFrame: modifiedStack.frames[modifiedIndex],

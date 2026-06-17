@@ -13,5 +13,5 @@ export const startDebug = async (url1: string, url2: string, userId: string) => 
   if (!response || !response.ok) {
     throw new Error("invalid data fetch");
   }
-  const result = await response.json();
+  /*const result = await response.json();*/
 };

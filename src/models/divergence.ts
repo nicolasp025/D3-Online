@@ -1,5 +1,7 @@
 import type { D3CallStack } from "./stack";
 
+export type D3Divergence = D3StateDivergence | D3FlowDivergence;
+
 type D3AbstractDivergence = {
   id: number;
   displayName: string;

@@ -3,7 +3,7 @@ import { createContext, useContext, useRef, useState } from "react";
 type DivergenceTreeContextType = {
   selectedRow: number | null;
   setSelectedRow: (newValue: number | null) => void;
-  selectedRef: React.RefObject<HTMLDivElement>;
+  selectedRef: React.RefObject<HTMLDivElement | null>;
 };
 
 const DivergenceTreeContext = createContext<DivergenceTreeContextType | null>(
