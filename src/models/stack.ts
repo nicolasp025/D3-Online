@@ -5,7 +5,6 @@
 
   export type D3StackFrame = {
     id: number;
-    position: number;
     displayName: string;
     sourceCode: string;
   };

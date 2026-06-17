@@ -63,3 +63,7 @@ const SomeComponent = () => {
     );
 }
 ```
+
+# API Documentation
+
+See [API documentation](./api-documentation.md) for further details.

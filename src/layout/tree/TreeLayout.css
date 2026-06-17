@@ -30,6 +30,7 @@
     padding: 12px;
     gap: 8px;
     margin: 0;
+    animation: fadeInUp 0.2s ease-in-out;
 
     .legend-item {
       display: flex;

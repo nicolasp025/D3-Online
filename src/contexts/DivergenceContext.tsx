@@ -13,10 +13,8 @@ type DivergenceContextType = {
   stateDivergences: D3StateDivergence[];
   setStateDivergences: (divergences: D3StateDivergence[]) => void;
 
-  selectedDivergence: D3Divergence | null;
+  selectedDivergence: D3FlowDivergence | null;
   setSelectedDivergence: (d: D3Divergence) => void;
-
-  isFlowDivergence: (d: D3Divergence) => boolean;
 };
 
 const DivergenceContext = createContext<DivergenceContextType | null>(null);
