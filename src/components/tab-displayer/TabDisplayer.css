@@ -1,0 +1,31 @@
+.tab-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+
+  .tab-items {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-bottom: solid 1px var(--color-table-separator);
+    transition: border-color 0.3s ease;
+
+    .tab-item {
+      padding: 6px 12px;
+      cursor: pointer;
+
+      &.selected {
+        border-bottom: solid 2px var(--color-font);
+      }
+    }
+  }
+
+  .tab-content {
+    display: flex;
+    width: 100%;
+    height: max-content;
+    overflow-y: scroll;
+    padding: 8px;
+  }
+}

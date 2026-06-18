@@ -55,26 +55,41 @@ export const modifiedStack: D3CallStack = {
 
 export const fakeStateDivergences: D3StateDivergence[] = [
   {
-    id: 1,
-    displayName: "[Assignment] #count: 10, 20",
+    id: 8,
+    displayName: "State div 1",
     originalPosition: 1,
     modifiedPosition: 1,
     context: "count increment",
   },
   {
-    id: 2,
-    displayName: "[Assignment] #count: 10, 20",
+    id: 9,
+    displayName: "State div 2",
     originalPosition: 9,
     modifiedPosition: 9,
     context: "count increment",
   },
   {
-    id: 3,
-    displayName: "[Assignment] #count: 10, 20",
+    id: 10,
+    displayName: "State div 3",
     originalPosition: 27,
     modifiedPosition: 24,
     context: "count increment",
   },
+  {
+    id: 11,
+    displayName: "State div 4",
+    originalPosition: 30,
+    modifiedPosition: 30,
+    context: "count increment",
+  },
+  {
+    id: 12,
+    displayName: "State div 5",
+    originalPosition: 35,
+    modifiedPosition: 35,
+    context: "count increment",
+  },
+
 ];
 
 export const fakeFlowDivergences: D3FlowDivergence[] = [

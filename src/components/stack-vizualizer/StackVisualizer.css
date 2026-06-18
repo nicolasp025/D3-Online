@@ -15,6 +15,7 @@
   flex: initial;
   height: initial;
   flex-shrink: 0;
+  flex-direction: row;
 
   button {
     position: relative;

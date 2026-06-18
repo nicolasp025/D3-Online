@@ -1,6 +1,8 @@
 .divergence-table-container {
+  display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 
   h1 {
     padding: 8px;
@@ -10,7 +12,6 @@
 
 .divergence-table {
   padding: 0 8px;
-  overflow-y: scroll;
 
   .divergence-wrapper {
     display: flex;

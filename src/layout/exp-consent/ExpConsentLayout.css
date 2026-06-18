@@ -8,7 +8,6 @@
 
 .exp-consent {
   flex: initial;
-  flex-direction: column;
   max-height: 80vh;
   max-width: 70vw;
   overflow-y: scroll;
