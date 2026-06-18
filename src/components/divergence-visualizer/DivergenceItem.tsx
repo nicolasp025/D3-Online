@@ -1,17 +1,19 @@
 import type { D3Divergence, D3StateDivergence } from "../../models/divergence";
 import ExpandArrowIcon from "../../assets/icons/arrow_drop_down.svg?react";
 import { forwardRef, useState } from "react";
+import { useDivergence } from "../../contexts/DivergenceContext";
 
 interface DivergenceItemProps {
   divergence: D3Divergence;
-  isSelected: boolean;
-  setSelectedDivergence: (d: D3Divergence | null) => void;
 }
 
 const DivergenceItem = forwardRef<HTMLDivElement, DivergenceItemProps>(
-  ({ divergence, isSelected, setSelectedDivergence }, ref) => {
+  ({ divergence }, ref) => {
     const isStateDivergence = "context" in divergence;
     const [isExpanded, setExpanded] = useState(false);
+
+    const { selectedDivergence, setSelectedDivergence } = useDivergence();
+    const isSelected = divergence == selectedDivergence;
 
     return (
       <div

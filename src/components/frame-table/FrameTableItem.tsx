@@ -1,7 +1,10 @@
 import { forwardRef } from "react";
 import { useDivergence } from "../../contexts/DivergenceContext";
 import { useStacks } from "../../contexts/StacksContext";
-import type { DivergencePosition, D3FlowDivergence } from "../../models/divergence";
+import type {
+  DivergencePosition,
+  D3FlowDivergence,
+} from "../../models/divergence";
 import type { D3StackFrame } from "../../models/stack";
 
 interface FrameTableItemProps {
@@ -14,8 +17,10 @@ interface FrameTableItemProps {
 
 const FrameTableItem = forwardRef<HTMLDivElement, FrameTableItemProps>(
   ({ frame, prefixColor, getDivergencePosition, selected, index }, ref) => {
-    const { selectedDivergence, isFlowDivergence } = useDivergence();
+    const { isFlowDivergence } = useDivergence();
     const { updateTablesPositions } = useStacks();
+
+    const { selectedDivergence } = useDivergence();
 
     /**
      * Return true if the specified frame should have a color indicator as divergence prefix:
@@ -32,7 +37,10 @@ const FrameTableItem = forwardRef<HTMLDivElement, FrameTableItemProps>(
       const position = getDivergencePosition(selectedDivergence as D3FlowDivergence);
       if (isFlowDivergence(selectedDivergence)) {
         const divergencePosition = position as DivergencePosition;
-        return divergencePosition.start <= index && (divergencePosition.stop ? index <= divergencePosition.stop : true);
+        return (
+          divergencePosition.start <= index &&
+          (divergencePosition.stop ? index <= divergencePosition.stop : true)
+        );
       } else {
         return position == index;
       }
@@ -41,8 +49,17 @@ const FrameTableItem = forwardRef<HTMLDivElement, FrameTableItemProps>(
     const hasPrefix = hasDivergencePrefix();
 
     return (
-      <div ref={ref} className="frame-table-item-wrapper" onClick={() => updateTablesPositions(index)}>
-        {hasPrefix && <div className="frame-prefix" style={{ backgroundColor: prefixColor }} />}
+      <div
+        ref={ref}
+        className="frame-table-item-wrapper"
+        onClick={() => updateTablesPositions(index)}
+      >
+        {hasPrefix && (
+          <div
+            className="frame-prefix"
+            style={{ backgroundColor: prefixColor }}
+          />
+        )}
         <div className={"frame-table-item" + (selected ? " selected" : "")}>
           <span>{index}</span>
           <span>{frame.displayName}</span>

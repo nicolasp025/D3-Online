@@ -1,4 +1,3 @@
-import type { D3CallStack } from "../../models/stack";
 import FrameTable from "../frame-table/FrameTable";
 import "./StackVisualizer.css";
 import ArrowBackIcon from "../../assets/icons/arrow_back.svg?react";
@@ -10,21 +9,12 @@ import { useStacks } from "../../contexts/StacksContext";
 import { ResizableContainer } from "../resizable-container/ResizableContainer";
 import MonacoDiffEditor from "../monaco/MonacoDiffEditor";
 
-interface StackVisualizerProps {
-  originalStack: D3CallStack;
-  originalPosition: number;
-
-  modifiedStack: D3CallStack;
-  modifiedPosition: number;
-}
-
-const StackVisualizer: React.FC<StackVisualizerProps> = ({
-  originalStack,
-  originalPosition,
-  modifiedStack,
-  modifiedPosition
-}) => {
+const StackVisualizer = () => {
   const {
+    originalStack,
+    originalPosition,
+    modifiedStack,
+    modifiedPosition,
     updateTablesPositions,
     increaseOriginalPosition,
     increaseModifiedPosition,
@@ -105,8 +95,8 @@ const StackVisualizer: React.FC<StackVisualizerProps> = ({
       <ResizableContainer>
         <div className="stack-editor container">
           <MonacoDiffEditor
-            original={originalStack.frames[originalPosition].sourceCode}
-            modified={modifiedStack.frames[modifiedPosition].sourceCode}
+            original={originalStack?.frames[originalPosition]?.sourceCode}
+            modified={modifiedStack?.frames[modifiedPosition]?.sourceCode}
           />
         </div>
       </ResizableContainer>

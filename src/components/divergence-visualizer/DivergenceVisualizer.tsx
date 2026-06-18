@@ -1,7 +1,13 @@
 import "./DivergenceVisualizer.css";
 import DivergenceItem from "./DivergenceItem";
-import { useEffect, useRef, useState } from "react";
-import type { D3Divergence } from "../../models/divergence";
+import { useCallback, useEffect, useRef } from "react";
+import type {
+  D3Divergence,
+  D3FlowDivergence,
+  D3StateDivergence,
+} from "../../models/divergence";
+import { useStacks } from "../../contexts/StacksContext";
+import { useDivergence } from "../../contexts/DivergenceContext";
 
 interface DivergenceVisualizerProps {
   divergences: D3Divergence[];
@@ -11,10 +17,36 @@ const DivergenceVisualizer: React.FC<DivergenceVisualizerProps> = ({
   divergences,
 }) => {
   const selectedRef = useRef<HTMLDivElement>(null);
-  const [selectedDivergence, setSelectedDivergence] =
-    useState<D3Divergence | null>(null);
+  const { selectedDivergence, setSelectedDivergence } = useDivergence();
+
+  const { setOriginalPosition, setModifiedPosition } = useStacks();
+
+  /**
+   * Select the specified divergence and sets the original and modified positions according to the divergence.
+   * @param d The specified divergence to select.
+   */
+  const updateSelectedDivergenceInTables = useCallback(() => {
+    if (!selectedDivergence) return;
+
+    if (!("context" in selectedDivergence)) {
+      setOriginalPosition(
+        (selectedDivergence as D3FlowDivergence).originalPosition.start,
+      );
+      setModifiedPosition(
+        (selectedDivergence as D3FlowDivergence).modifiedPosition.start,
+      );
+    } else {
+      setOriginalPosition(
+        (selectedDivergence as D3StateDivergence).originalPosition,
+      );
+      setModifiedPosition(
+        (selectedDivergence as D3StateDivergence).modifiedPosition,
+      );
+    }
+  }, [setOriginalPosition, setModifiedPosition, selectedDivergence]);
 
   useEffect(() => {
+    updateSelectedDivergenceInTables();
     selectedRef.current?.scrollIntoView({
       block: "start",
       behavior: "smooth",
@@ -54,8 +86,6 @@ const DivergenceVisualizer: React.FC<DivergenceVisualizerProps> = ({
               key={`divergence-${d.id}`}
               ref={selectedDivergence == d ? selectedRef : null}
               divergence={d}
-              isSelected={selectedDivergence == d}
-              setSelectedDivergence={setSelectedDivergence}
             />
           ))}
       </div>
