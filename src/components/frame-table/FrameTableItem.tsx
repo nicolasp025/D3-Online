@@ -34,7 +34,9 @@ const FrameTableItem = forwardRef<HTMLDivElement, FrameTableItemProps>(
       if (!selectedDivergence) {
         return false;
       }
-      const position = getDivergencePosition(selectedDivergence as D3FlowDivergence);
+      const position = getDivergencePosition(
+        selectedDivergence as D3FlowDivergence,
+      );
       if (isFlowDivergence(selectedDivergence)) {
         const divergencePosition = position as DivergencePosition;
         return (

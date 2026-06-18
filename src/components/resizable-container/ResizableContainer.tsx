@@ -5,7 +5,10 @@ interface ResizableContainerProps {
   initialHeight?: number | string;
 }
 
-export function ResizableContainer({ children, initialHeight = "29vh" }: ResizableContainerProps) {
+export function ResizableContainer({
+  children,
+  initialHeight = "29vh",
+}: ResizableContainerProps) {
   return (
     <Resizable
       className="container"
