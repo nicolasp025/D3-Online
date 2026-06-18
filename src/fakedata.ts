@@ -89,7 +89,6 @@ export const fakeStateDivergences: D3StateDivergence[] = [
     modifiedPosition: 35,
     context: "count increment",
   },
-
 ];
 
 export const fakeFlowDivergences: D3FlowDivergence[] = [

@@ -7,7 +7,11 @@ type NotepadContextType = {
 
 const NotepadContext = createContext<NotepadContextType | null>(null);
 
-export const NotepadProvider = ({ children }: { children: React.ReactNode }) => {
+export const NotepadProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [content, setContent] = useState<string>("");
 
   return (
@@ -25,6 +29,7 @@ export const NotepadProvider = ({ children }: { children: React.ReactNode }) => 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useNotepad = () => {
   const context = useContext(NotepadContext);
-  if (!context) throw new Error("useNotepad must be used within a NotepadProvider");
+  if (!context)
+    throw new Error("useNotepad must be used within a NotepadProvider");
   return context;
 };

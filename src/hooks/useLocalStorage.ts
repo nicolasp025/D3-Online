@@ -41,7 +41,7 @@ export const useLocalStorage = <T>(key: string, defaultValue: T) => {
   const removeKey = () => {
     setValue(defaultValue);
     localStorage.removeItem(key);
-  }
+  };
 
   return [value, setStoredValue, removeKey] as const;
 };

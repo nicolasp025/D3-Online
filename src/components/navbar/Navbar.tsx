@@ -10,11 +10,23 @@ import NavbarItem from "./NavbarItem";
 const Navbar = () => {
   return (
     <div className="navbar-wrapper">
-      <NavbarItem path="" icon={<DebugIcon aria-label="Debugger page icon" />} />
-      <NavbarItem path="query" icon={<QueryIcon aria-label="Query page icon" />} />
+      <NavbarItem
+        path=""
+        icon={<DebugIcon aria-label="Debugger page icon" />}
+      />
+      <NavbarItem
+        path="query"
+        icon={<QueryIcon aria-label="Query page icon" />}
+      />
       <NavbarItem path="tree" icon={<TreeIcon aria-label="Tree page icon" />} />
-      <NavbarItem path="notepad" icon={<NotepadIcon aria-label="Notepad page icon" />} />
-      <NavbarItem path="settings" icon={<SettingsIcon aria-label="Settings page icon" />} />
+      <NavbarItem
+        path="notepad"
+        icon={<NotepadIcon aria-label="Notepad page icon" />}
+      />
+      <NavbarItem
+        path="settings"
+        icon={<SettingsIcon aria-label="Settings page icon" />}
+      />
       <NavbarItem path="exit" icon={<ExitIcon aria-label="Exit page icon" />} />
     </div>
   );

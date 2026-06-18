@@ -123,6 +123,7 @@ export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
 // eslint-disable-next-line react-refresh/only-export-components
 export const useStacks = () => {
   const context = useContext(StacksContext);
-  if (!context) throw new Error("useStacks must be used within a StacksProvider");
+  if (!context)
+    throw new Error("useStacks must be used within a StacksProvider");
   return context;
 };

@@ -14,14 +14,17 @@ const ExitLayout = () => {
   const handleDisconnect = () => {
     navigate("/");
     clearAll();
-  }
+  };
 
   return (
     <div className="exit-page-wrapper">
       <div className="exit-page container">
         <h1>Exit Experiment</h1>
         <p>Do you want to leave ?</p>
-        <p>The results will be saved and the experiment will be considered complete.</p>
+        <p>
+          The results will be saved and the experiment will be considered
+          complete.
+        </p>
         <div className="exit-actions">
           <button className="exit-btn-cancel" onClick={() => navigate("/")}>
             <ArrowBack /> Back to debug

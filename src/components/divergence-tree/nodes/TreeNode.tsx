@@ -1,9 +1,9 @@
 import { TREE_CONFIG } from "../../../config/tree-config";
 
 interface TreeNodeProps {
-    isStateDiv: boolean;
-    defaultClassName?: string;
-    cx?: number;
+  isStateDiv: boolean;
+  defaultClassName?: string;
+  cx?: number;
 }
 
 /**
@@ -14,18 +14,18 @@ interface TreeNodeProps {
  * @returns The tree node with specified params.
  */
 const TreeNode: React.FC<TreeNodeProps> = ({
-    isStateDiv,
-    defaultClassName = "",
-    cx = TREE_CONFIG.LINE_X,
+  isStateDiv,
+  defaultClassName = "",
+  cx = TREE_CONFIG.LINE_X,
 }) => {
-    return (
-        <circle
-            className={isStateDiv ? "state-div" : defaultClassName}
-            cx={cx}
-            cy={TREE_CONFIG.CIRCLE_POSITION}
-            r={TREE_CONFIG.DOT_RADIUS}
-        />
-    );
+  return (
+    <circle
+      className={isStateDiv ? "state-div" : defaultClassName}
+      cx={cx}
+      cy={TREE_CONFIG.CIRCLE_POSITION}
+      r={TREE_CONFIG.DOT_RADIUS}
+    />
+  );
 };
 
 export default TreeNode;

@@ -157,7 +157,6 @@ Returns the state divergences at the specified page in the analysis results.
 | ------ | ------ | -------- | --------------------------------------- |
 | `page` | number | No       | Returns the specified page (default: 0) |
 
-
 **Response Codes**
 
 | Code  | Description                         |
