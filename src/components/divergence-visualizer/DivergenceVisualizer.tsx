@@ -8,6 +8,7 @@ import type {
 } from "../../models/divergence";
 import { useStacks } from "../../contexts/StacksContext";
 import { useDivergence } from "../../contexts/DivergenceContext";
+import ScrollWrapper from "../scroll-wrapper/ScrollWrapper";
 
 interface DivergenceVisualizerProps {
   divergences: D3Divergence[];
@@ -47,10 +48,6 @@ const DivergenceVisualizer: React.FC<DivergenceVisualizerProps> = ({
 
   useEffect(() => {
     updateSelectedDivergenceInTables();
-    selectedRef.current?.scrollIntoView({
-      block: "start",
-      behavior: "smooth",
-    });
   }, [selectedDivergence]);
 
   /**
@@ -78,18 +75,24 @@ const DivergenceVisualizer: React.FC<DivergenceVisualizerProps> = ({
   };
 
   return (
-    <div className="divergence-table-container">
-      <div className="divergence-table" tabIndex={0} onKeyDown={handleKeyDown}>
-        {divergences.length > 0 &&
-          divergences.map((d) => (
-            <DivergenceItem
-              key={`divergence-${d.id}`}
-              ref={selectedDivergence == d ? selectedRef : null}
-              divergence={d}
-            />
-          ))}
+    <ScrollWrapper dependsOn={selectedDivergence} dependenceRef={selectedRef}>
+      <div className="divergence-table-container">
+        <div
+          className="divergence-table"
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+        >
+          {divergences.length > 0 &&
+            divergences.map((d) => (
+              <DivergenceItem
+                key={`divergence-${d.id}`}
+                ref={selectedDivergence == d ? selectedRef : null}
+                divergence={d}
+              />
+            ))}
+        </div>
       </div>
-    </div>
+    </ScrollWrapper>
   );
 };
 
