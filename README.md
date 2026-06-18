@@ -8,7 +8,7 @@ This repository contains the D3-Online project that could be started using :
 
 # Workflows
 
-This repository contains a workflow that is triggered on every Pull Request on GitHub, that will try to build the project using the command `npm ci`. If the project is not able to be built, the PR would be automatically rejected.
+This repository contains a workflow that is triggered on every Pull Request on GitHub, that will try to build the project using the command `npm ci` and verify that the code is correctly formatted. If the project is not able to be built, the PR would be automatically rejected.
 
 # Project Structure
 
@@ -44,6 +44,7 @@ _(required dependencies)_
 - **Monaco**: used to provide code editors within the application.
 - **re-resizable**: used to make the UI containers resizable by the user.
 - **react-router**: used to provide different pages in the application.
+- **prettier**: (as node dependency) used to check the code format and to format all the repository content, by using respectively `npm run format:check` and `npm run format`.
 
 # Adding new icons
 
