@@ -7,7 +7,6 @@
 
 .exp-start {
   display: flex;
-  flex-direction: column;
   max-width: 500px;
   justify-content: space-between;
   gap: 16px;

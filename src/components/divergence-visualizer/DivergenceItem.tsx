@@ -7,36 +7,49 @@ interface DivergenceItemProps {
   divergence: D3Divergence;
 }
 
-const DivergenceItem = forwardRef<HTMLDivElement, DivergenceItemProps>(({ divergence }, ref) => {
-  const { selectedDivergence, setSelectedDivergence, isFlowDivergence } = useDivergence();
+const DivergenceItem = forwardRef<HTMLDivElement, DivergenceItemProps>(
+  ({ divergence }, ref) => {
+    const { selectedDivergence, setSelectedDivergence, isFlowDivergence } =
+      useDivergence();
 
-  const isExpandable = !isFlowDivergence(divergence);
-  const [isExpanded, setExpanded] = useState(false);
+    const isExpandable = !isFlowDivergence(divergence);
+    const [isExpanded, setExpanded] = useState(false);
 
-  return (
-    <div
-      ref={ref}
-      className={`divergence-wrapper`}
-      onClick={() => {
-        setSelectedDivergence(divergence);
-      }}
-    >
+    return (
       <div
-        className={`divergence-item${selectedDivergence == divergence ? " selected" : ""}${isExpandable ? " expandable" : ""}`}
-        onClick={() => setExpanded(!isExpanded)}
+        ref={ref}
+        className={`divergence-wrapper`}
+        onClick={() => {
+          setSelectedDivergence(
+            selectedDivergence == divergence ? null : divergence,
+          );
+        }}
       >
         <div
-          className={`divergence-prefix ${isFlowDivergence(divergence) ? "flow" : "state"}`}
-          title={isFlowDivergence(divergence) ? "Flow divergence" : "State divergence"}
-        />
-        {isExpandable && <ExpandArrowIcon aria-label="Expand state divergence arrow" />}
-        {divergence.displayName}
+          className={`divergence-item${selectedDivergence == divergence ? " selected" : ""}${isExpandable ? " expandable" : ""}`}
+          onClick={() => setExpanded(!isExpanded)}
+        >
+          <div
+            className={`divergence-prefix ${isFlowDivergence(divergence) ? "flow" : "state"}`}
+            title={
+              isFlowDivergence(divergence)
+                ? "Flow divergence"
+                : "State divergence"
+            }
+          />
+          {isExpandable && (
+            <ExpandArrowIcon aria-label="Expand state divergence arrow" />
+          )}
+          {divergence.displayName}
+        </div>
+        {isExpandable && selectedDivergence == divergence && (
+          <div className="divergence-context">
+            {(divergence as D3StateDivergence).context}
+          </div>
+        )}
       </div>
-      {isExpandable && selectedDivergence == divergence && (
-        <div className="divergence-context">{(divergence as D3StateDivergence).context}</div>
-      )}
-    </div>
-  );
-});
+    );
+  },
+);
 
 export default DivergenceItem;

@@ -3,11 +3,19 @@ import { useDivergence } from "../../contexts/DivergenceContext";
 import DivergenceItem from "./DivergenceItem";
 import { useCallback, useEffect, useRef } from "react";
 import { useStacks } from "../../contexts/StacksContext";
-import type { D3FlowDivergence, D3StateDivergence } from "../../models/divergence";
-import { ResizableContainer } from "../resizable-container/ResizableContainer";
+import type {
+  D3FlowDivergence,
+  D3StateDivergence,
+} from "../../models/divergence";
 
 const DivergenceVisualizer = () => {
-  const { flowDivergences, selectedDivergence, setSelectedDivergence, isFlowDivergence, stateDivergences } = useDivergence();
+  const {
+    flowDivergences,
+    selectedDivergence,
+    setSelectedDivergence,
+    isFlowDivergence,
+    stateDivergences,
+  } = useDivergence();
   const { setOriginalPosition, setModifiedPosition } = useStacks();
 
   const selectedRef = useRef<HTMLDivElement>(null);
@@ -20,13 +28,26 @@ const DivergenceVisualizer = () => {
     if (!selectedDivergence) return;
 
     if (isFlowDivergence(selectedDivergence)) {
-      setOriginalPosition((selectedDivergence as D3FlowDivergence).originalPosition.start);
-      setModifiedPosition((selectedDivergence as D3FlowDivergence).modifiedPosition.start);
+      setOriginalPosition(
+        (selectedDivergence as D3FlowDivergence).originalPosition.start,
+      );
+      setModifiedPosition(
+        (selectedDivergence as D3FlowDivergence).modifiedPosition.start,
+      );
     } else {
-      setOriginalPosition((selectedDivergence as D3StateDivergence).originalPosition);
-      setModifiedPosition((selectedDivergence as D3StateDivergence).modifiedPosition);
+      setOriginalPosition(
+        (selectedDivergence as D3StateDivergence).originalPosition,
+      );
+      setModifiedPosition(
+        (selectedDivergence as D3StateDivergence).modifiedPosition,
+      );
     }
-  }, [isFlowDivergence, setOriginalPosition, setModifiedPosition, selectedDivergence]);
+  }, [
+    isFlowDivergence,
+    setOriginalPosition,
+    setModifiedPosition,
+    selectedDivergence,
+  ]);
 
   useEffect(() => {
     updateSelectedDivergenceInTables();
@@ -43,7 +64,9 @@ const DivergenceVisualizer = () => {
   const handleKeyDown = (event: React.KeyboardEvent) => {
     event.preventDefault();
     if (selectedDivergence) {
-      const index = flowDivergences.indexOf(selectedDivergence as D3FlowDivergence /** TODO */);
+      const index = flowDivergences.indexOf(
+        selectedDivergence as D3FlowDivergence /** TODO */,
+      );
 
       switch (event.key) {
         case "ArrowUp":
@@ -61,21 +84,18 @@ const DivergenceVisualizer = () => {
   };
 
   return (
-    <ResizableContainer>
-      <div className="divergence-table-container container">
-        <h1>Divergences</h1>
-        <div className="divergence-table" tabIndex={0} onKeyDown={handleKeyDown}>
-          {stateDivergences.length > 0 &&
-            stateDivergences.map((d) => (
-              <DivergenceItem
-                key={`divergence-${d.id}`}
-                ref={d == selectedDivergence ? selectedRef : null}
-                divergence={d}
-              />
-            ))}
-        </div>
+    <div className="divergence-table-container">
+      <div className="divergence-table" tabIndex={0} onKeyDown={handleKeyDown}>
+        {stateDivergences.length > 0 &&
+          stateDivergences.map((d) => (
+            <DivergenceItem
+              key={`divergence-${d.id}`}
+              ref={d == selectedDivergence ? selectedRef : null}
+              divergence={d}
+            />
+          ))}
       </div>
-    </ResizableContainer>
+    </div>
   );
 };
 

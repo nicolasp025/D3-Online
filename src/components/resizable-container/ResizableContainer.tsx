@@ -8,6 +8,7 @@ interface ResizableContainerProps {
 export function ResizableContainer({ children, initialHeight = "29vh" }: ResizableContainerProps) {
   return (
     <Resizable
+      className="container"
       defaultSize={{ height: initialHeight }}
       enable={{
         top: false,
