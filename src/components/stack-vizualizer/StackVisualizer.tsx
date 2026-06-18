@@ -12,16 +12,19 @@ import MonacoDiffEditor from "../monaco/MonacoDiffEditor";
 
 interface StackVisualizerProps {
   originalStack: D3CallStack;
+  originalPosition: number;
+
   modifiedStack: D3CallStack;
+  modifiedPosition: number;
 }
 
 const StackVisualizer: React.FC<StackVisualizerProps> = ({
   originalStack,
+  originalPosition,
   modifiedStack,
+  modifiedPosition
 }) => {
   const {
-    originalPosition,
-    modifiedPosition,
     updateTablesPositions,
     increaseOriginalPosition,
     increaseModifiedPosition,
