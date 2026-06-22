@@ -6,8 +6,8 @@ import RestartIcon from "../../assets/icons/restart.svg?react";
 import SyncIcon from "../../assets/icons/arrows_sync.svg?react";
 import type { D3FlowDivergence } from "../../models/divergence";
 import { useStacks } from "../../contexts/StacksContext";
-import { ResizableContainer } from "../resizable-container/ResizableContainer";
 import MonacoDiffEditor from "../monaco/MonacoDiffEditor";
+import KeyboardNavigation from "../keyboard-navigation/KeyboardNavigation";
 
 const StackVisualizer = () => {
   const {
@@ -15,51 +15,41 @@ const StackVisualizer = () => {
     originalPosition,
     modifiedStack,
     modifiedPosition,
-    updateTablesPositions,
-    increaseOriginalPosition,
-    increaseModifiedPosition,
-    handleFrameMoving,
+    stepLeft,
+    stepRight,
+    stepSync,
+    stepBackSync,
+    restart,
   } = useStacks();
 
   return (
     <>
-      <div
-        className="stack-actions container"
-        tabIndex={0}
-        onKeyDown={handleFrameMoving}
-      >
-        <button onClick={increaseOriginalPosition}>
+      <div className="stack-actions container">
+        <button onClick={stepLeft}>
           <ArrowBackIcon aria-label="Step left icon" />
           Step left
         </button>
-        <button
-          onClick={() => {
-            increaseOriginalPosition();
-            increaseModifiedPosition();
-          }}
-        >
+        <button onClick={stepSync}>
           <SyncIcon aria-label="Step synchronized icon" />
           Step sync
         </button>
-        <button onClick={increaseModifiedPosition}>
+        <button onClick={stepRight}>
           <ArrowForwardIcon aria-label="Step right icon" />
           Step right
         </button>
-        <button
-          onClick={() => {
-            updateTablesPositions(0);
-          }}
-        >
+        <button onClick={restart}>
           <RestartIcon aria-label="Restart icon" />
           Restart
         </button>
       </div>
 
-      <ResizableContainer>
-        <div
-          className="stack-table container"
-          tabIndex={0}
-          onKeyDown={handleFrameMoving}
+
+      <div className="stack-table container">
+        <KeyboardNavigation
+          onArrowLeft={stepLeft}
+          onArrowRight={stepRight}
+          onArrowUp={stepBackSync}
+          onArrowDown={stepSync}
         >
           <div className="stack-header">
             <div>
@@ -89,17 +79,15 @@ const StackVisualizer = () => {
               prefixColor="var(--color-addition)"
             />
           </div>
-        </div>
-      </ResizableContainer>
+        </KeyboardNavigation>
+      </div>
 
-      <ResizableContainer>
-        <div className="stack-editor container">
-          <MonacoDiffEditor
-            original={originalStack?.frames[originalPosition]?.sourceCode}
-            modified={modifiedStack?.frames[modifiedPosition]?.sourceCode}
-          />
-        </div>
-      </ResizableContainer>
+      <div className="stack-editor container">
+        <MonacoDiffEditor
+          original={originalStack?.frames[originalPosition]?.sourceCode}
+          modified={modifiedStack?.frames[modifiedPosition]?.sourceCode}
+        />
+      </div>
     </>
   );
 };

@@ -9,6 +9,7 @@ import type {
 import { useStacks } from "../../contexts/StacksContext";
 import { useDivergence } from "../../contexts/DivergenceContext";
 import ScrollWrapper from "../scroll-wrapper/ScrollWrapper";
+import KeyboardNavigation from "../keyboard-navigation/KeyboardNavigation";
 
 interface DivergenceVisualizerProps {
   divergences: D3Divergence[];
@@ -51,47 +52,43 @@ const DivergenceVisualizer: React.FC<DivergenceVisualizerProps> = ({
   }, [selectedDivergence]);
 
   /**
-   * Handles any keyboard event in the divergence visualizer.
+   * Handles moves in the divergence visualizer.
    * @param event The keyboard event.
    */
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    event.preventDefault();
-    if (selectedDivergence != null) {
-      const index = divergences.indexOf(selectedDivergence);
-
-      switch (event.key) {
-        case "ArrowUp":
-          if (index > 0) {
-            setSelectedDivergence(divergences[index - 1]);
-          }
-          break;
-        case "ArrowDown":
-          if (index < divergences.length - 1) {
-            setSelectedDivergence(divergences[index + 1]);
-          }
-          break;
-      }
+  const onArrowUp = () => {
+    const index = divergences.indexOf(selectedDivergence);
+    if (index > 0) {
+      setSelectedDivergence(divergences[index - 1]);
     }
-  };
+  }
+
+  /**
+   * Handles moves in the divergence visualizer.
+   * @param event The keyboard event.
+   */
+  const onArrowDown = () => {
+    const index = divergences.indexOf(selectedDivergence);
+    if (index < divergences.length - 1) {
+      setSelectedDivergence(divergences[index + 1]);
+    }
+  }
 
   return (
-    <ScrollWrapper dependsOn={selectedDivergence} dependenceRef={selectedRef}>
-      <div className="divergence-table-container">
-        <div
-          className="divergence-table"
-          tabIndex={0}
-          onKeyDown={handleKeyDown}
-        >
-          {divergences.length > 0 &&
-            divergences.map((d) => (
-              <DivergenceItem
-                key={`divergence-${d.id}`}
-                ref={selectedDivergence == d ? selectedRef : null}
-                divergence={d}
-              />
-            ))}
+    <ScrollWrapper dependsOn={selectedDivergence} dependenceRef={selectedRef} type="start">
+      <KeyboardNavigation onArrowUp={onArrowUp} onArrowDown={onArrowDown}>
+        <div className="divergence-table-container">
+          <div className="divergence-table">
+            {divergences.length > 0 &&
+              divergences.map((d) => (
+                <DivergenceItem
+                  key={`divergence-${d.id}`}
+                  ref={selectedDivergence == d ? selectedRef : null}
+                  divergence={d}
+                />
+              ))}
+          </div>
         </div>
-      </div>
+      </KeyboardNavigation>
     </ScrollWrapper>
   );
 };

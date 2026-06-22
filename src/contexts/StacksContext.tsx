@@ -10,11 +10,15 @@ type StacksContextType = {
   modifiedPosition: number;
   setModifiedPosition: (newPosition: number) => void;
   updateTablesPositions: (newPosition: number) => void;
+  stepLeft: () => void;
+  stepRight: () => void;
+  stepSync: () => void;
+  stepBackSync: () => void;
+  restart: () => void;
   increaseOriginalPosition: () => void;
   increaseModifiedPosition: () => void;
   decreaseOriginalPosition: () => void;
   decreaseModifiedPosition: () => void;
-  handleFrameMoving: (e: React.KeyboardEvent) => void;
 };
 
 const StacksContext = createContext<StacksContextType | null>(null);
@@ -68,35 +72,26 @@ export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  /**
-   * Increases or decreases the table position when any arrow is pressed.
-   * @param event The keyboard event.
-   */
-  const handleFrameMoving = (event: React.KeyboardEvent) => {
-    event.preventDefault();
-    switch (event.key) {
-      case "ArrowUp":
-        if (originalPosition > modifiedPosition) {
-          decreaseOriginalPosition();
-        } else if (modifiedPosition > originalPosition) {
-          decreaseModifiedPosition();
-        } else {
-          decreaseOriginalPosition();
-          decreaseModifiedPosition();
-        }
-        break;
-      case "ArrowDown":
-        increaseOriginalPosition();
-        increaseModifiedPosition();
-        break;
-      case "ArrowRight":
-        increaseModifiedPosition();
-        break;
-      case "ArrowLeft":
-        increaseOriginalPosition();
-        break;
+  const stepLeft = () => increaseOriginalPosition();
+  const stepRight = () => increaseModifiedPosition();
+
+  const stepSync = () => {
+    increaseOriginalPosition();
+    increaseModifiedPosition();
+  };
+
+  const stepBackSync = () => {
+    if (originalPosition > modifiedPosition) {
+      decreaseOriginalPosition();
+    } else if (modifiedPosition > originalPosition) {
+      decreaseModifiedPosition();
+    } else {
+      decreaseOriginalPosition();
+      decreaseModifiedPosition();
     }
   };
+
+  const restart = () => updateTablesPositions(0);
 
   return (
     <StacksContext.Provider
@@ -112,7 +107,11 @@ export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
         increaseModifiedPosition,
         decreaseOriginalPosition,
         decreaseModifiedPosition,
-        handleFrameMoving,
+        stepLeft,
+        stepRight,
+        stepSync,
+        stepBackSync,
+        restart,
       }}
     >
       {children}

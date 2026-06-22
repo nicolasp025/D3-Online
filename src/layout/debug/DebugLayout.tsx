@@ -2,7 +2,6 @@ import DivergenceVisualizer from "../../components/divergence-visualizer/Diverge
 import StackVisualizer from "../../components/stack-vizualizer/StackVisualizer";
 import "./DebugLayout.css";
 import { TabDisplayer } from "../../components/tab-displayer/TabDisplayer";
-import { ResizableContainer } from "../../components/resizable-container/ResizableContainer";
 import { useDivergence } from "../../contexts/DivergenceContext";
 import { useMemo } from "react";
 
@@ -27,10 +26,10 @@ const DebugLayout = () => {
 
   return (
     <>
-      <ResizableContainer>
+      <div className="container">
         <h1>Divergences</h1>
         <TabDisplayer tabs={tabs} />
-      </ResizableContainer>
+      </div>
       <StackVisualizer />
     </>
   );
