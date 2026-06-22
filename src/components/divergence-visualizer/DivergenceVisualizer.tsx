@@ -6,10 +6,10 @@ import type {
   D3FlowDivergence,
   D3StateDivergence,
 } from "../../models/divergence";
-import { useStacks } from "../../contexts/StacksContext";
-import { useDivergence } from "../../contexts/DivergenceContext";
 import ScrollWrapper from "../scroll-wrapper/ScrollWrapper";
 import KeyboardNavigation from "../keyboard-navigation/KeyboardNavigation";
+import { useDivergence } from "../../hooks/useDivergence";
+import { useStacks } from "../../hooks/useStacks";
 
 interface DivergenceVisualizerProps {
   divergences: D3Divergence[];
@@ -56,9 +56,11 @@ const DivergenceVisualizer: React.FC<DivergenceVisualizerProps> = ({
    * @param event The keyboard event.
    */
   const onArrowUp = () => {
-    const index = divergences.indexOf(selectedDivergence);
-    if (index > 0) {
-      setSelectedDivergence(divergences[index - 1]);
+    if (selectedDivergence != null) {
+      const index = divergences.indexOf(selectedDivergence);
+      if (index > 0) {
+        setSelectedDivergence(divergences[index - 1]);
+      }
     }
   }
 
@@ -67,9 +69,11 @@ const DivergenceVisualizer: React.FC<DivergenceVisualizerProps> = ({
    * @param event The keyboard event.
    */
   const onArrowDown = () => {
-    const index = divergences.indexOf(selectedDivergence);
-    if (index < divergences.length - 1) {
-      setSelectedDivergence(divergences[index + 1]);
+    if (selectedDivergence != null) {
+      const index = divergences.indexOf(selectedDivergence);
+      if (index < divergences.length - 1) {
+        setSelectedDivergence(divergences[index + 1]);
+      }
     }
   }
 

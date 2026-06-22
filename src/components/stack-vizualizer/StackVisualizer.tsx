@@ -5,9 +5,9 @@ import ArrowForwardIcon from "../../assets/icons/arrow_forward.svg?react";
 import RestartIcon from "../../assets/icons/restart.svg?react";
 import SyncIcon from "../../assets/icons/arrows_sync.svg?react";
 import type { D3FlowDivergence } from "../../models/divergence";
-import { useStacks } from "../../contexts/StacksContext";
 import MonacoDiffEditor from "../monaco/MonacoDiffEditor";
 import KeyboardNavigation from "../keyboard-navigation/KeyboardNavigation";
+import { useStacks } from "../../hooks/useStacks";
 
 const StackVisualizer = () => {
   const {

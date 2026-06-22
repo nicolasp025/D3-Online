@@ -2,8 +2,8 @@ import DivergenceVisualizer from "../../components/divergence-visualizer/Diverge
 import StackVisualizer from "../../components/stack-vizualizer/StackVisualizer";
 import "./DebugLayout.css";
 import { TabDisplayer } from "../../components/tab-displayer/TabDisplayer";
-import { useDivergence } from "../../contexts/DivergenceContext";
 import { useMemo } from "react";
+import { useDivergence } from "../../hooks/useDivergence";
 
 const DebugLayout = () => {
   const { flowDivergences, stateDivergences } = useDivergence();

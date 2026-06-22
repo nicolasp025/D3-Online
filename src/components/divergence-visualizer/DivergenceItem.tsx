@@ -1,7 +1,7 @@
 import type { D3Divergence, D3StateDivergence } from "../../models/divergence";
 import ExpandArrowIcon from "../../assets/icons/arrow_drop_down.svg?react";
 import { forwardRef, useState } from "react";
-import { useDivergence } from "../../contexts/DivergenceContext";
+import { useDivergence } from "../../hooks/useDivergence";
 
 interface DivergenceItemProps {
   divergence: D3Divergence;

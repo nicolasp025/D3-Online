@@ -1,7 +1,5 @@
 import "./DivergenceTree.css";
 import { useMemo, useRef } from "react";
-import { useDivergence } from "../../contexts/DivergenceContext";
-import { useStacks } from "../../contexts/StacksContext";
 import { TREE_CONFIG } from "../../config/tree-config";
 import React from "react";
 import {
@@ -10,12 +8,14 @@ import {
   isInfiniteFlowDivergence,
   isStateDivergence,
 } from "./tree-util";
-import { useDivergenceTree } from "../../contexts/DivergenceTreeContext";
 import DivergenceTreeRow from "./DivergenceTreeRow";
 import type { TreeRow } from "../../models/tree";
 import type { D3FlowDivergence } from "../../models/divergence";
 import type { D3StackFrame } from "../../models/stack";
 import ScrollWrapper from "../scroll-wrapper/ScrollWrapper";
+import { useDivergence } from "../../hooks/useDivergence";
+import { useDivergenceTree } from "../../hooks/useDivergenceTree";
+import { useStacks } from "../../hooks/useStacks";
 
 const DivergenceTree = React.memo(() => {
   const { flowDivergences, stateDivergences } = useDivergence();

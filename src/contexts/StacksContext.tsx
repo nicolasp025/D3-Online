@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import { modifiedStack, originalStack } from "../fakedata";
 import type { D3CallStack } from "../models/stack";
 
@@ -21,7 +21,7 @@ type StacksContextType = {
   decreaseModifiedPosition: () => void;
 };
 
-const StacksContext = createContext<StacksContextType | null>(null);
+export const StacksContext = createContext<StacksContextType | null>(null);
 
 export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
   const [originalPosition, setOriginalPosition] = useState(0);
@@ -117,12 +117,4 @@ export const StacksProvider = ({ children }: { children: React.ReactNode }) => {
       {children}
     </StacksContext.Provider>
   );
-};
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useStacks = () => {
-  const context = useContext(StacksContext);
-  if (!context)
-    throw new Error("useStacks must be used within a StacksProvider");
-  return context;
 };

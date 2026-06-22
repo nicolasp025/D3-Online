@@ -1,4 +1,3 @@
-import { useDivergenceTree } from "../../contexts/DivergenceTreeContext";
 import EndDivergenceDiagonal from "./edges/EndDivergenceDiagonal";
 import NodeRelation from "./edges/NodeRelation";
 import StartDivergenceDiagonal from "./edges/StartDivergenceDiagonal";
@@ -6,6 +5,7 @@ import DivergenceNode from "./nodes/DivergenceNode";
 import TreeNode from "./nodes/TreeNode";
 import MonacoDiffEditor from "../monaco/MonacoDiffEditor";
 import type { TreeRow } from "../../models/tree";
+import { useDivergenceTree } from "../../hooks/useDivergenceTree";
 
 interface DivergenceTreeRowProps {
   row: TreeRow;

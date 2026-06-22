@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./ExpConsentLayout.css";
-import { useExperimentContext } from "../../contexts/ExperimentContext";
+import { useExperimentContext } from "../../hooks/useExperimentContext";
 
 const ExpConsentLayout = () => {
   const [acceptConditions, setAcceptConditions] = useState<boolean>(false);

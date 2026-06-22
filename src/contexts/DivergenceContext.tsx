@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import type {
   D3Divergence,
   D3FlowDivergence,
@@ -19,7 +19,9 @@ type DivergenceContextType = {
   isFlowDivergence: (divergence: D3Divergence) => boolean;
 };
 
-const DivergenceContext = createContext<DivergenceContextType | null>(null);
+export const DivergenceContext = createContext<DivergenceContextType | null>(
+  null,
+);
 
 export const DivergenceProvider = ({
   children,
@@ -57,12 +59,4 @@ export const DivergenceProvider = ({
       {children}
     </DivergenceContext.Provider>
   );
-};
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useDivergence = () => {
-  const context = useContext(DivergenceContext);
-  if (!context)
-    throw new Error("useDivergence must be used within a DivergenceProvider");
-  return context;
 };

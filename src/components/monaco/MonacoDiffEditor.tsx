@@ -1,6 +1,6 @@
 import { DiffEditor } from "@monaco-editor/react";
-import { useSettings } from "../../contexts/SettingsContext";
 import { defineMonacoTheme, MONACO_OPTIONS } from "../../config/monaco";
+import { useSettings } from "../../hooks/useSettings";
 
 interface MonacoDiffEditorProps {
   original: string | undefined;

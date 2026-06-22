@@ -1,5 +1,5 @@
+import { useNotepad } from "../../hooks/useNotepad";
 import "./NotepadLayout.css";
-import { useNotepad } from "../../contexts/NotepadContext";
 
 const NotepadLayout = () => {
   const { content, setContent } = useNotepad();
