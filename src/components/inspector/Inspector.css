@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 480px;
   min-height: 480px;
+  max-height: 640px;
   overflow-y: scroll;
   box-sizing: border-box;
 
@@ -15,7 +16,7 @@
 
   .inspector-columns {
     display: grid;
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 140px 1fr;
     width: 100%;
     gap: 8px;
     font-weight: 500;
@@ -31,7 +32,7 @@
 
   .inspector-row {
     display: grid;
-    grid-template-columns: 100px minmax(0, 1fr);
+    grid-template-columns: 140px minmax(0, 1fr);
     width: 100%;
     gap: 8px;
     overflow-wrap: anywhere;
@@ -42,6 +43,7 @@
 
     > * {
       display: flex;
+      justify-content: space-between;
       padding: 8px;
       align-items: center;
       -webkit-box-orient: vertical;

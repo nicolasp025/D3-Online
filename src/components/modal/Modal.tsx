@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./Modal.css";
 
 interface ModalProps {
@@ -12,13 +12,27 @@ const Modal: React.FC<ModalProps> = ({
     isOpen = true,
     onClose = () => { },
 }) => {
-    const modalRef = useRef(null);
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        modalRef.current?.focus();
+    }, []);
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key == "Escape") onClose();
+    };
 
     return (
         <>
             {isOpen && (
-                <div className="modal-overlay" ref={modalRef} onClick={onClose}>
-                    <div className="modal" onClick={(e) => e.stopPropagation()}>
+                <div className="modal-overlay" onClick={onClose}>
+                    <div
+                        className="modal"
+                        onClick={(e) => e.stopPropagation()}
+                        ref={modalRef}
+                        tabIndex={0}
+                        onKeyDown={handleKeyDown}
+                    >
                         {children}
                     </div>
                 </div>
