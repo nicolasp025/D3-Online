@@ -1,7 +1,5 @@
 import "./DivergenceTree.css";
-import { useEffect, useMemo, useRef } from "react";
-import { useDivergence } from "../../contexts/DivergenceContext";
-import { useStacks } from "../../contexts/StacksContext";
+import { useMemo, useRef } from "react";
 import { TREE_CONFIG } from "../../config/tree-config";
 import React from "react";
 import {
@@ -10,11 +8,14 @@ import {
   isInfiniteFlowDivergence,
   isStateDivergence,
 } from "./tree-util";
-import { useDivergenceTree } from "../../contexts/DivergenceTreeContext";
 import DivergenceTreeRow from "./DivergenceTreeRow";
 import type { TreeRow } from "../../models/tree";
 import type { D3FlowDivergence } from "../../models/divergence";
 import type { D3StackFrame } from "../../models/stack";
+import ScrollWrapper from "../scroll-wrapper/ScrollWrapper";
+import { useDivergence } from "../../hooks/useDivergence";
+import { useDivergenceTree } from "../../hooks/useDivergenceTree";
+import { useStacks } from "../../hooks/useStacks";
 
 const DivergenceTree = React.memo(() => {
   const { flowDivergences, stateDivergences } = useDivergence();
@@ -124,13 +125,6 @@ const DivergenceTree = React.memo(() => {
     return rows;
   };
 
-  useEffect(() => {
-    selectedRef.current?.scrollIntoView({
-      block: "center",
-      behavior: "smooth",
-    });
-  }, [selectedRow]);
-
   /**
    * Handles arrow press in the tree.
    * @param event The keyboard event.
@@ -156,29 +150,31 @@ const DivergenceTree = React.memo(() => {
   );
 
   return (
-    <div className="tree-wrapper" tabIndex={0} onKeyDown={handleKeyDown}>
-      <div className="tree-row">
-        <div className="tree-row-content">
-          <div className="tree-row-label">
-            <span>Position</span>
-            <span>Divergence</span>
+    <ScrollWrapper dependsOn={selectedRow} dependenceRef={selectedRef}>
+      <div className="tree-wrapper" tabIndex={0} onKeyDown={handleKeyDown}>
+        <div className="tree-row">
+          <div className="tree-row-content">
+            <div className="tree-row-label">
+              <span>Position</span>
+              <span>Divergence</span>
+            </div>
           </div>
         </div>
-      </div>
-      <svg>
-        <line
-          x1={TREE_CONFIG.LINE_X}
-          y1={TREE_CONFIG.CIRCLE_POSITION}
-          x2={TREE_CONFIG.LINE_X}
-          y2={"100%"}
-          strokeWidth={TREE_CONFIG.LINE_WIDTH}
-        />
-      </svg>
+        <svg>
+          <line
+            x1={TREE_CONFIG.LINE_X}
+            y1={TREE_CONFIG.CIRCLE_POSITION}
+            x2={TREE_CONFIG.LINE_X}
+            y2={"100%"}
+            strokeWidth={TREE_CONFIG.LINE_WIDTH}
+          />
+        </svg>
 
-      {rows.map((row, index) => (
-        <DivergenceTreeRow key={`tree-row-${index}`} row={row} />
-      ))}
-    </div>
+        {rows.map((row, index) => (
+          <DivergenceTreeRow key={`tree-row-${index}`} row={row} />
+        ))}
+      </div>
+    </ScrollWrapper>
   );
 });
 

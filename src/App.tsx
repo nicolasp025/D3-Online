@@ -7,6 +7,8 @@ import { ConsentProvider } from "./contexts/ExperimentContext";
 import { NotepadProvider } from "./contexts/NotepadContext";
 import { SettingsProvider } from "./contexts/SettingsContext";
 import { DivergenceTreeProvider } from "./contexts/DivergenceTreeContext";
+import { InspectorProvider } from "./contexts/InspectorContext";
+import { QueryProvider } from "./contexts/QueryContext";
 
 function App() {
   return (
@@ -17,7 +19,11 @@ function App() {
             <DivergenceProvider>
               <SettingsProvider>
                 <DivergenceTreeProvider>
-                  <Router />
+                  <InspectorProvider>
+                    <QueryProvider>
+                      <Router />
+                    </QueryProvider>
+                  </InspectorProvider>
                 </DivergenceTreeProvider>
               </SettingsProvider>
             </DivergenceProvider>

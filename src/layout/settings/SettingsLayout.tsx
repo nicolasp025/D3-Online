@@ -1,6 +1,6 @@
 import "./SettingsLayout.css";
 import Toggle from "../../components/toggle/Toggle";
-import { useSettings } from "../../contexts/SettingsContext";
+import { useSettings } from "../../hooks/useSettings";
 
 const SettingsLayout = () => {
   const { darkMode, setDarkMode } = useSettings();

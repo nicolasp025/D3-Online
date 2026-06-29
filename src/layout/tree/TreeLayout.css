@@ -60,6 +60,7 @@
     align-items: center;
 
     > button {
+      color: var(--color-font);
       padding: 4px;
       margin: 8px;
 

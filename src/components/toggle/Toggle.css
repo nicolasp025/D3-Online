@@ -16,7 +16,7 @@
 }
 
 .toggle.active {
-  background-color: var(--color-addition);
+  background-color: var(--color-primary);
 }
 
 .toggle-thumb {

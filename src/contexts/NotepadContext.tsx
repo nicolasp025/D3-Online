@@ -1,11 +1,11 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
 type NotepadContextType = {
   content: string;
   setContent: (newValue: string) => void;
 };
 
-const NotepadContext = createContext<NotepadContextType | null>(null);
+export const NotepadContext = createContext<NotepadContextType | null>(null);
 
 export const NotepadProvider = ({
   children,
@@ -24,12 +24,4 @@ export const NotepadProvider = ({
       {children}
     </NotepadContext.Provider>
   );
-};
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useNotepad = () => {
-  const context = useContext(NotepadContext);
-  if (!context)
-    throw new Error("useNotepad must be used within a NotepadProvider");
-  return context;
 };

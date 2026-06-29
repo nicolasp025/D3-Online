@@ -1,4 +1,4 @@
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, useRef, useState } from "react";
 
 type DivergenceTreeContextType = {
   selectedRow: number | null;
@@ -6,9 +6,8 @@ type DivergenceTreeContextType = {
   selectedRef: React.RefObject<HTMLDivElement | null>;
 };
 
-const DivergenceTreeContext = createContext<DivergenceTreeContextType | null>(
-  null,
-);
+export const DivergenceTreeContext =
+  createContext<DivergenceTreeContextType | null>(null);
 
 export const DivergenceTreeProvider = ({
   children,
@@ -29,14 +28,4 @@ export const DivergenceTreeProvider = ({
       {children}
     </DivergenceTreeContext.Provider>
   );
-};
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useDivergenceTree = () => {
-  const context = useContext(DivergenceTreeContext);
-  if (!context)
-    throw new Error(
-      "useDivergenceTree must be used within a DivergenceTreeProvider",
-    );
-  return context;
 };

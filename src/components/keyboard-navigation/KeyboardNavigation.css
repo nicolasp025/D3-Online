@@ -1,0 +1,6 @@
+.keyboard-navigation {
+  display: flex;
+  flex-direction: inherit;
+  width: inherit;
+  height: inherit;
+}

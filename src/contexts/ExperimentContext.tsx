@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 type ExperimentContextType = {
@@ -13,7 +13,9 @@ type ExperimentContextType = {
   clearAll: () => void;
 };
 
-const ExperimentContext = createContext<ExperimentContextType | null>(null);
+export const ExperimentContext = createContext<ExperimentContextType | null>(
+  null,
+);
 
 export const ConsentProvider = ({
   children,
@@ -64,14 +66,4 @@ export const ConsentProvider = ({
       {children}
     </ExperimentContext.Provider>
   );
-};
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useExperimentContext = () => {
-  const context = useContext(ExperimentContext);
-  if (!context)
-    throw new Error(
-      "useExperimentContext must be used within a ExperimentContextProvider",
-    );
-  return context;
 };

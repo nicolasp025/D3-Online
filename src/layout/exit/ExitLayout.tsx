@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import ArrowBack from "../../assets/icons/arrow_back.svg?react";
 import Exit from "../../assets/icons/logout.svg?react";
 import "./ExitLayout.css";
-import { useExperimentContext } from "../../contexts/ExperimentContext";
+import { useExperimentContext } from "../../hooks/useExperimentContext";
 
 const ExitLayout = () => {
   const navigate = useNavigate();

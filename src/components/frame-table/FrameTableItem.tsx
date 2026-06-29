@@ -1,11 +1,11 @@
 import { forwardRef } from "react";
-import { useDivergence } from "../../contexts/DivergenceContext";
-import { useStacks } from "../../contexts/StacksContext";
 import type {
   DivergencePosition,
   D3FlowDivergence,
 } from "../../models/divergence";
 import type { D3StackFrame } from "../../models/stack";
+import { useDivergence } from "../../hooks/useDivergence";
+import { useStacks } from "../../hooks/useStacks";
 
 interface FrameTableItemProps {
   frame: D3StackFrame;
@@ -17,10 +17,8 @@ interface FrameTableItemProps {
 
 const FrameTableItem = forwardRef<HTMLDivElement, FrameTableItemProps>(
   ({ frame, prefixColor, getDivergencePosition, selected, index }, ref) => {
-    const { isFlowDivergence } = useDivergence();
+    const { isFlowDivergence, selectedDivergence } = useDivergence();
     const { updateTablesPositions } = useStacks();
-
-    const { selectedDivergence } = useDivergence();
 
     /**
      * Return true if the specified frame should have a color indicator as divergence prefix:

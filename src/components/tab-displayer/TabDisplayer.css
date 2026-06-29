@@ -7,22 +7,45 @@
   .tab-items {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    padding-bottom: 8px;
     width: 100%;
     border-bottom: solid 1px var(--color-table-separator);
     transition: border-color 0.3s ease;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 
     .tab-item {
+      display: flex;
+      align-items: center;
+      height: 100%;
       padding: 6px 12px;
       cursor: pointer;
+      flex-shrink: 0;
 
       &.selected {
-        border-bottom: solid 2px var(--color-font);
+        border-bottom: solid 3px var(--color-font);
+      }
+    }
+
+    button {
+      margin-left: 8px;
+      padding: 8px 12px;
+      user-select: none;
+      border-color: transparent;
+
+      &:hover {
+        border-color: var(--color-font);
+        transition: border-color 350ms ease;
       }
     }
   }
 
   .tab-content {
     display: flex;
+    box-sizing: border-box;
     width: 100%;
     height: max-content;
     overflow-y: scroll;

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import ExpConsentLayout from "../../layout/exp-consent/ExpConsentLayout";
-import { useExperimentContext } from "../../contexts/ExperimentContext";
 import ExpStartLayout from "../../layout/exp-start/ExpStartLayout";
+import { useExperimentContext } from "../../hooks/useExperimentContext";
 
 const PrivateRoute = () => {
   const { consent, url1, url2, userID } = useExperimentContext();

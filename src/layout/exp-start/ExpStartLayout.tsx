@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "./ExpStartLayout.css";
-import { useExperimentContext } from "../../contexts/ExperimentContext";
 import BackArrow from "../../assets/icons/arrow_back.svg?react";
 import DebugIcon from "../../assets/icons/bug.svg?react";
 import CheckIcon from "../../assets/icons/check.svg?react";
 import ErrorIcon from "../../assets/icons/error.svg?react";
+import { useExperimentContext } from "../../hooks/useExperimentContext";
 
 const ExpStartLayout = () => {
   const [url1Input, setUrl1Input] = useState<string>("");

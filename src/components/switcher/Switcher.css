@@ -1,0 +1,38 @@
+.switcher-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 48px;
+  border: solid 1px var(--color-font);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+
+  .switcher-indicator {
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    border-radius: 8px;
+    background-color: var(--color-primary);
+    transition:
+      left 150ms ease,
+      width 150ms ease;
+    pointer-events: none;
+  }
+
+  .switcher-items {
+    display: flex;
+    flex-direction: row;
+    padding: 0 8px;
+    gap: 8px;
+
+    .switcher-item {
+      display: flex;
+      padding: 12px;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+  }
+}
