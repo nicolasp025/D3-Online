@@ -5,6 +5,8 @@ import DebugIcon from "../../assets/icons/bug.svg?react";
 import CheckIcon from "../../assets/icons/check.svg?react";
 import ErrorIcon from "../../assets/icons/error.svg?react";
 import { useExperimentContext } from "../../hooks/useExperimentContext";
+import { Spinner } from "../../components/spinner/Spinner";
+import { startDebug } from "../../services/api";
 
 const ExpStartLayout = () => {
   const [url1Input, setUrl1Input] = useState<string>("");
@@ -12,18 +14,23 @@ const ExpStartLayout = () => {
   const [userIDInput, setUserIDInput] = useState<string>("");
 
   const { setUrl1, setUrl2, setUserID, clearAll } = useExperimentContext();
+  const [fetching, setFetching] = useState<boolean>(false);
 
-  const handleStartDebug = (e: React.SyntheticEvent) => {
+  const handleStartDebug = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (
-      isValidUrl(url1Input) &&
-      isValidUrl(url2Input) &&
-      isValidID(userIDInput)
-    ) {
-      setUrl1(url1Input);
-      setUrl2(url2Input);
-      setUserID(userIDInput);
-    }
+      !isValidUrl(url1Input) ||
+      !isValidUrl(url2Input) ||
+      !isValidID(userIDInput)
+    )
+      return;
+
+    setFetching(true);
+    await startDebug(url1Input, url2Input, userIDInput);
+    setFetching(false);
+    setUrl1(url1Input);
+    setUrl2(url2Input);
+    setUserID(userIDInput);
   };
 
   const isValidUrl = (url: string) => {
@@ -36,6 +43,14 @@ const ExpStartLayout = () => {
   const isValidID = (id: string) => {
     return id.trim().length > 0;
   };
+
+  if (fetching) {
+    return (
+      <div className="exp-start-wrapper">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className="exp-start-wrapper">
