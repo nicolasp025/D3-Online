@@ -34,11 +34,18 @@
       margin-left: 8px;
       padding: 8px 12px;
       user-select: none;
+      border-color: transparent;
+
+      &:hover {
+        border-color: var(--color-font);
+        transition: border-color 350ms ease;
+      }
     }
   }
 
   .tab-content {
     display: flex;
+    box-sizing: border-box;
     width: 100%;
     height: max-content;
     overflow-y: scroll;
