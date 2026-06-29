@@ -7,7 +7,7 @@ export type D3ModifiedMethod = {
 export type D3Variable = {
   name: string;
   value: D3Object;
-}
+};
 
 export type D3Object = {
   id: number;

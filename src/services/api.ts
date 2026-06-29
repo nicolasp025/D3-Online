@@ -26,6 +26,6 @@ export const startDebug = async (
   if (!response || !response.ok) {
     throw new Error("invalid data fetch");
   }
-  const result : D3DebugResponse = await response.json();
-  console.log(result)
+  const result: D3DebugResponse = await response.json();
+  console.log(result);
 };

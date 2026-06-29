@@ -43,7 +43,6 @@ const StackVisualizer = () => {
         </button>
       </div>
 
-
       <div className="stack-table container">
         <KeyboardNavigation
           onArrowLeft={stepLeft}

@@ -1,4 +1,3 @@
 export const API_CONFIG = {
-
   url: "http://localhost:5558",
 };

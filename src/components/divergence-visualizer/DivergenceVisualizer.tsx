@@ -62,7 +62,7 @@ const DivergenceVisualizer: React.FC<DivergenceVisualizerProps> = ({
         setSelectedDivergence(divergences[index - 1]);
       }
     }
-  }
+  };
 
   /**
    * Handles moves in the divergence visualizer.
@@ -75,10 +75,14 @@ const DivergenceVisualizer: React.FC<DivergenceVisualizerProps> = ({
         setSelectedDivergence(divergences[index + 1]);
       }
     }
-  }
+  };
 
   return (
-    <ScrollWrapper dependsOn={selectedDivergence} dependenceRef={selectedRef} type="start">
+    <ScrollWrapper
+      dependsOn={selectedDivergence}
+      dependenceRef={selectedRef}
+      type="start"
+    >
       <KeyboardNavigation onArrowUp={onArrowUp} onArrowDown={onArrowDown}>
         <div className="divergence-table-container">
           <div className="divergence-table">

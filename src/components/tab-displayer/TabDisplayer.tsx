@@ -37,7 +37,11 @@ export const TabDisplayer: React.FC<TabDisplayerProps> = ({
             {tab.title}
           </div>
         ))}
-        {onAddTab && <button className="outlined" onClick={onAddTab}>+</button>}
+        {onAddTab && (
+          <button className="outlined" onClick={onAddTab}>
+            +
+          </button>
+        )}
       </div>
       <div className="tab-content">{selectedTab.content}</div>
     </div>
