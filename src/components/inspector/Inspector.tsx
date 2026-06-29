@@ -14,10 +14,10 @@ const Inspector: React.FC<InspectorProps> = ({
 }) => {
     const { openInspectorOn } = useInspector();
 
-    const getTypeString = (obj: any) => {
-        if (obj == undefined || obj == null) return obj;
-        if (Array.isArray(obj)) return "an Array.";
-        if (typeof obj == "object") return `a ${obj.constructor.name}`;
+    const getObjectType = (obj: any) => {
+        if (obj === null) return "null";
+        if (obj === undefined) return "undefined";
+        if (Array.isArray(obj)) return "Array";
         return typeof obj;
     };
 
@@ -44,31 +44,31 @@ const Inspector: React.FC<InspectorProps> = ({
 
     return (
         <>
-            {forObject && (
-                <Modal isOpen={true} onClose={onClose}>
-                    <div className="inspector">
-                        <div className="inspector-header">
-                            Inspecting {getTypeString(forObject)}.
-                            <div className="inspector-columns">
-                                <span>Attribute</span>
-                                <span>Value</span>
-                            </div>
-                        </div>
-                        <div className="inspector-rows">
-                            {forObject != null &&
-                                Object.entries(forObject).map((entry: any) => (
-                                    <div className="inspector-row" key={entry}>
-                                        <span>
-                                            {entry[0].toString()}
-                                            {openInspectorButton(entry[1])}
-                                        </span>
-                                        <span>{formatObjectValue(entry[1])}</span>
-                                    </div>
-                                ))}
+            <Modal isOpen={true} onClose={onClose}>
+                <div className="inspector">
+                    <div className="inspector-header">
+                        Inspecting an object of type {getObjectType(forObject)}.
+                        <div className="inspector-columns">
+                            <span>Attribute</span>
+                            <span>Value</span>
+                            <span>Type</span>
                         </div>
                     </div>
-                </Modal>
-            )}
+                    <div className="inspector-rows">
+                        {forObject != null &&
+                            Object.entries(forObject).map((entry: any) => (
+                                <div className="inspector-row" key={entry}>
+                                    <span>
+                                        {entry[0].toString()}
+                                        {openInspectorButton(entry[1])}
+                                    </span>
+                                    <span>{formatObjectValue(entry[1])}</span>
+                                    <span>{getObjectType(entry[1])}</span>
+                                </div>
+                            ))}
+                    </div>
+                </div>
+            </Modal>
         </>
     );
 };

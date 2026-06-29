@@ -7,6 +7,7 @@ const QueryLayout = () => {
   const { openInspectorOn } = useInspector();
 
   const complex = new D3ExecutionPath({ name: "test" }, 0, 5);
+
   return <button onClick={() => openInspectorOn(originalStack)}>test</button>;
 };
 

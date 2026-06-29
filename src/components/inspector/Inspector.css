@@ -1,7 +1,7 @@
 .inspector {
   display: flex;
   flex-direction: column;
-  width: 480px;
+  width: 800px;
   min-height: 480px;
   max-height: 640px;
   overflow-y: scroll;
@@ -16,7 +16,7 @@
 
   .inspector-columns {
     display: grid;
-    grid-template-columns: 140px 1fr;
+    grid-template-columns: 160px 1fr 160px;
     width: 100%;
     gap: 8px;
     font-weight: 500;
@@ -32,7 +32,7 @@
 
   .inspector-row {
     display: grid;
-    grid-template-columns: 140px minmax(0, 1fr);
+    grid-template-columns: 160px minmax(0, 1fr) 160px;
     width: 100%;
     gap: 8px;
     overflow-wrap: anywhere;
