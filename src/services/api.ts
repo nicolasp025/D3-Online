@@ -1,7 +1,7 @@
 import type { D3FlowDivergence, D3StateDivergence } from "../models/divergence";
 import type { D3CallStack } from "../models/stack";
 
-type D3DebugResponse = {
+export type D3DebugResponse = {
   metadata: null;
   flowDivergences: D3FlowDivergence[];
   stateDivergences: D3StateDivergence[];
@@ -14,7 +14,7 @@ export const startDebug = async (
   url2: string,
   userId: string,
 ) => {
-  const response = await fetch("/api/experiment", {
+  const response = await fetch("/api/test", {
     method: "POST",
     body: JSON.stringify({
       userId: userId,
@@ -26,6 +26,5 @@ export const startDebug = async (
   if (!response || !response.ok) {
     throw new Error("invalid data fetch");
   }
-  const result: D3DebugResponse = await response.json();
-  console.log(result);
+  // const result: D3DebugResponse = await response.json();
 };
