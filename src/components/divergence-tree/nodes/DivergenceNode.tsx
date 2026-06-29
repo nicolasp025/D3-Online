@@ -3,6 +3,7 @@ import TreeNode from "./TreeNode";
 
 interface DivergenceNodeProps {
   isStateDiv: boolean;
+  isSelected: boolean;
 }
 
 /**
@@ -10,11 +11,12 @@ interface DivergenceNodeProps {
  * @param isStateDiv True if the divergence node is also a state divergence.
  * @returns A jsx element.
  */
-const DivergenceNode: React.FC<DivergenceNodeProps> = ({ isStateDiv }) => {
+const DivergenceNode: React.FC<DivergenceNodeProps> = ({ isStateDiv, isSelected }) => {
   return (
     <TreeNode
       isStateDiv={isStateDiv}
       defaultClassName="flow-div"
+      isSelected={isSelected}
       cx={TREE_CONFIG.LINE_X + TREE_CONFIG.SPACE_BETWEEN}
     />
   );

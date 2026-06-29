@@ -11,6 +11,10 @@
     &.flow-div {
       fill: var(--color-flow-divergence);
     }
+
+    &.selected {
+      fill: red;
+    }
   }
 
   .legend {

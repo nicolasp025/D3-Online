@@ -1,5 +1,5 @@
 import type { D3FlowDivergence, D3StateDivergence } from "./models/divergence";
-import type { D3CallStack } from "./models/stack";
+import type { D3CallStack, D3StackFrame } from "./models/stack";
 
 export const originalStack: D3CallStack = {
   id: 1,
@@ -45,7 +45,7 @@ export const modifiedStack: D3CallStack = {
     ];
 
     return {
-      id: frameNum,
+      id: frameNum + 200,
       sourceCode: codeSnippets[frameNum % codeSnippets.length],
       displayName: `Modified Frame ${frameNum}`,
       position: index,
@@ -134,4 +134,18 @@ export const fakeFlowDivergences: D3FlowDivergence[] = [
     originalPosition: { start: 30, stop: null },
     modifiedPosition: { start: 30, stop: null },
   },
+];
+
+export const fakeSelectedFrames: D3StackFrame[] = [
+  {id : 0, displayName: "", sourceCode: ""},
+   {id : 201, displayName: "", sourceCode: ""},
+    {id : 202, displayName: "", sourceCode: ""},
+     {id : 203, displayName: "", sourceCode: ""},
+      {id : 204, displayName: "", sourceCode: ""},
+       {id : 205, displayName: "", sourceCode: ""},
+        {id : 6, displayName: "", sourceCode: ""},
+         {id : 7, displayName: "", sourceCode: ""},
+          {id : 8, displayName: "", sourceCode: ""},
+           {id : 9, displayName: "", sourceCode: ""},
+            {id : 210, displayName: "", sourceCode: ""},
 ];

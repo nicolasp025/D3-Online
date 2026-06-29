@@ -9,4 +9,6 @@ export type TreeRow = {
   hasNextInDivergence: boolean;
   isStateDivergence: boolean;
   flowDivergence: D3FlowDivergence | null;
+  isOriginalSelected: boolean;
+  isDivergenceSelected: boolean;
 };

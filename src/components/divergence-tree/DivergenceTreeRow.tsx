@@ -26,6 +26,8 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({ row }) => {
     hasNextInDivergence,
     isStateDivergence,
     flowDivergence,
+    isOriginalSelected,
+    isDivergenceSelected,
   } = row;
 
   const getRowFormattedLabel = () => {
@@ -53,7 +55,10 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({ row }) => {
           hasNext={hasNextInDivergence}
         />
         {modifiedFrame != null && (
-          <DivergenceNode isStateDiv={isStateDivergence} />
+          <DivergenceNode
+            isStateDiv={isStateDivergence}
+            isSelected={isDivergenceSelected}
+          />
         )}
       </>
     );
@@ -73,7 +78,12 @@ const DivergenceTreeRow: React.FC<DivergenceTreeRowProps> = ({ row }) => {
       className={selectedRow === index ? "tree-row selected" : "tree-row"}
     >
       <svg className="tree-svg-wrapper" onClick={handleClickOnRow}>
-        {frame != null && <TreeNode isStateDiv={isStateDivergence} />}
+        {frame != null && (
+          <TreeNode
+            isStateDiv={isStateDivergence}
+            isSelected={isOriginalSelected}
+          />
+        )}
         {flowDivergence != null && buildRowSvg()}
       </svg>
 
