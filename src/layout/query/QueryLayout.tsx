@@ -1,17 +1,14 @@
 import { TabDisplayer } from "../../components/tab-displayer/TabDisplayer";
-import { useInspector } from "../../hooks/useInspector";
 import "../../models/queries/index";
 import "./QueryLayout.css";
 import { useQuery } from "../../hooks/useQuery";
 import Switcher from "../../components/switcher/Switcher";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const QueryLayout = () => {
-  const { openInspectorOn } = useInspector();
-
   const { queries, addQuery } = useQuery();
 
-  const [selectedItem, setSelectedItem] = useState<string>("testtest3");
+  const [_selectedItem, setSelectedItem] = useState<string>("testtest3");
 
   return (
     <div className="query-layout">
