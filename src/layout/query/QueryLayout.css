@@ -1,0 +1,13 @@
+.query-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  .query-container {
+    padding-inline: 16px;
+    max-width: 800px;
+    height: 500px;
+  }
+}

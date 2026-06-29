@@ -10,9 +10,13 @@ export type TabItem = {
 
 interface TabDisplayerProps {
   tabs: TabItem[];
+  onAddTab?: () => void;
 }
 
-export const TabDisplayer: React.FC<TabDisplayerProps> = ({ tabs }) => {
+export const TabDisplayer: React.FC<TabDisplayerProps> = ({
+  tabs,
+  onAddTab,
+}) => {
   const [selectedTab, setSelectedTab] = useState<TabItem>(tabs[0]);
 
   if (tabs.length == 0) return <></>;
@@ -22,9 +26,9 @@ export const TabDisplayer: React.FC<TabDisplayerProps> = ({ tabs }) => {
       <div className="tab-items">
         {tabs.map((tab: TabItem) => (
           <div
-            key={`tab-${tab.title}`}
+            key={`tab-${tab.id}`}
             className={
-              tab.title === selectedTab.title ? "tab-item selected" : "tab-item"
+              tab.id === selectedTab.id ? "tab-item selected" : "tab-item"
             }
             onClick={() => {
               setSelectedTab(tab);
@@ -33,6 +37,7 @@ export const TabDisplayer: React.FC<TabDisplayerProps> = ({ tabs }) => {
             {tab.title}
           </div>
         ))}
+        {onAddTab && <button className="outlined" onClick={onAddTab}>+</button>}
       </div>
       <div className="tab-content">{selectedTab.content}</div>
     </div>

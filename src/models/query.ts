@@ -4,6 +4,7 @@ export abstract class D3Query {
   static queries: QueryClass[] = [];
 
   abstract path: string;
+  name: string = "New Query";
   abstract description: string;
 
   abstract parameters: any;
@@ -15,10 +16,17 @@ export abstract class D3Query {
     D3Query.queries.push(cls);
   }
 
-  send() {
+  async send() {
     // Send request to back
     this.done = true;
   }
+}
+
+export class D3EmptyQuery extends D3Query {
+  path: string = "";
+  description = "Empty query";
+  parameters = null;
+  result = null;
 }
 
 export abstract class D3SourceQuery extends D3Query {
